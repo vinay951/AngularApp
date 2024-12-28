@@ -1,0 +1,58 @@
+<div class="profile-container" *ngIf="!anotherComponent">
+    <h2>Change PAssword With Email and OTP</h2>
+  
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          [readOnly]="readonlyValue"
+        />
+      </div>
+  
+      <button type="submit" class="btn btn-primary" *ngIf="!isPasswordChangeVisible" [disabled]="profileForm.invalid">
+        Verify And Get Otp
+      </button>
+    </form>
+  
+    <hr />
+  
+    <div *ngIf="isPasswordChangeVisible">
+      <form [formGroup]="profileForm" (ngSubmit)="changePassword()">
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input
+            type="password"
+            id="newPassword"
+            formControlName="newPassword"
+            class="form-control"
+            [minlength]="8"
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            class="form-control"
+          />
+        </div>
+  
+        <button type="submit" class="btn btn-success">
+          Change Password
+        </button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>
+  <div *ngIf="anotherComponent">
+    <app-otp [isOtp]="anotherComponent" [emailFromForgot]="this.profileForm.value.email" (successMessage)="receiveMessage($event)"></app-otp>
+  </div>

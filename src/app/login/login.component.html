@@ -1,0 +1,18 @@
+<div class="login-form">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label for="username">Username:</label>
+      <input type="text" id="username" formControlName="username" required />
+  
+      <label for="password">Password:</label>
+      <input type="password" id="password" formControlName="password" required />
+  
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+  
+    <p>Don't have an account? <a href="/register">Create one</a></p>
+    <p>Forgot Password? <a href="/forgot">Forgot</a></p>
+  </div>
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>

@@ -1,0 +1,17 @@
+<div class="navbar">
+    <div class="logo">
+      <a href="/home">My App</a>
+    </div>
+    <ul class="menu">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="javascript:void(0);" (click)="delete()">Delete My Account</a></li>
+      <li><a href="javascript:void(0);" (click)="logout()" (mouseover)="showTooltip=true" (mouseleave)="showTooltip=false">Logout</a></li>
+    </ul>
+    <div *ngIf="showTooltip" class="tooltip">
+        {{ username }}
+      </div>
+  </div>
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>

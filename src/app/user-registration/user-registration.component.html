@@ -1,0 +1,52 @@
+<div class="registration-form">
+    <h2>User Registration</h2>
+  
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="firstName">First Name</label>
+        <input id="firstName" formControlName="firstName" type="text" required />
+        <div *ngIf="registrationForm.get('firstName')?.touched && registrationForm.get('firstName')?.invalid">
+          <small class="error">First Name is required.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="lastName">Last Name</label>
+        <input id="lastName" formControlName="lastName" type="text" required />
+        <div *ngIf="registrationForm.get('lastName')?.touched && registrationForm.get('lastName')?.invalid">
+          <small class="error">Last Name is required.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" required />
+        <div *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+          <small class="error">Valid Email is required.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="password">Password</label>
+        <input id="password" formControlName="password" type="password" required />
+        <div *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
+          <small class="error">Password is required.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="confirmPassword">Re-enter Password</label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password" required />
+        <div *ngIf="registrationForm.hasError('passwordMismatch') && registrationForm.get('confirmPassword')?.touched">
+          <small class="error">Passwords do not match.</small>
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+    </form>
+  </div>
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>
+
+  

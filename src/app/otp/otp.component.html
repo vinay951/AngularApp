@@ -1,0 +1,42 @@
+<div class="otp-container">
+    <h2>OTP Authentication</h2>
+  
+    <!-- Email Input Form to Request OTP -->
+    <div *ngIf="!otpSent">
+      <form [formGroup]="otpForm" (ngSubmit)="sendOtp()">
+        <div>
+          <label for="email">Email</label>
+          <input
+            id="email"
+            formControlName="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <button type="submit" [disabled]="otpForm.get('email')?.invalid">Send OTP</button>
+      </form>
+    </div>
+  
+    <!-- OTP Input Form to Verify OTP -->
+    <div *ngIf="otpSent">
+      <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
+        <div>
+          <label for="otp">Enter OTP</label>
+          <input
+            id="otp"
+            formControlName="otp"
+            type="text"
+            placeholder="Enter the OTP sent to your email"
+            required
+          />
+        </div>
+        <button type="submit">Verify OTP</button>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>
+  
+  

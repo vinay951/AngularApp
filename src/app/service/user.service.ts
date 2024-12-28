@@ -1,0 +1,40 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';  // You may need to install this module
+import { Observable } from 'rxjs';
+import { Login, User } from '../model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+
+  private apiUrl = 'http://localhost:8080';  // Replace with your actual API
+
+  constructor(private http: HttpClient) { }
+
+  // Method to login
+  login(login:Login): Observable<any> {
+    return this.http.post(`${this.apiUrl}/userLogin`,login
+    );
+  }
+
+  // Method to register a new user
+  register(user:User): Observable<any> {
+    return this.http.post(`${this.apiUrl}/createUser`, user);
+  }
+
+  getUserProfile(email:any): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getUserDetails/`+email);
+  }
+  updateUserProfile(user:User): Observable<any>{
+    return this.http.patch(`${this.apiUrl}/userPatch`,user);
+  }
+  changePassword(login:Login): Observable<any>{
+    return this.http.patch(`${this.apiUrl}/changePassword`,login);
+  }
+  deleteUser(email: string): Observable<any> {
+    // Calling the Spring Boot backend to send the OTP
+    return this.http.delete(this.apiUrl+'/delete/'+email);
+  }
+  
+}
