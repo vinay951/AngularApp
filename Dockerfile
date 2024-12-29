@@ -1,5 +1,7 @@
 # Stage 0: compile angular frontend
 FROM node:18 AS build
+RUN npm install
+RUN ng build
 USER root
 WORKDIR /app
 
@@ -7,8 +9,6 @@ COPY . .
 
 # RUN npm ci --no-audit
 # RUN npm run build-qagcp
-RUN npm install
-RUN ng build
 RUN echo "after npm run build"
 RUN cp ./nginx.conf ./dist
 RUN ls -l ./dist
