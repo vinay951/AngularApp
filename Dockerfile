@@ -22,9 +22,11 @@ FROM nginx:alpine
 # Copy the built Angular app from the previous stage
 COPY --from=build /app/dist/angular-app /usr/share/nginx/html
 
-# Expose the port that the app will be available on
-EXPOSE 80
+# Expose port 8080 (required by Google Cloud Run)
+EXPOSE 8080
+
+# Update Nginx to listen on port 8080
+RUN sed -i 's/80/8080/' /etc/nginx/nginx.conf
 
 # Start Nginx to serve the app
 CMD ["nginx", "-g", "daemon off;"]
-
