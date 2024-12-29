@@ -23,10 +23,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist/angular-app /usr/share/nginx/html
 
 # Expose port 8080 (required by Google Cloud Run)
-EXPOSE 8080
-
-# Update Nginx to listen on port 8080
-RUN sed -i 's/80/8080/' /etc/nginx/nginx.conf
+EXPOSE 4200
 
 # Start Nginx to serve the app
 CMD ["nginx", "-g", "daemon off;"]
