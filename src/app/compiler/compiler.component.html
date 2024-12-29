@@ -1,0 +1,20 @@
+<div class="compiler-container">
+    <h1>Online Compiler</h1>
+    <div class="compiler-form">
+      <textarea [(ngModel)]="userCode" placeholder="Enter your code here"></textarea>
+      <select [(ngModel)]="selectedLanguage">
+        <option value="python">Python</option>
+        <option value="cpp">C++</option>
+        <option value="java">Java</option>
+        <!-- Add more languages here -->
+      </select>
+      <button (click)="executeCode()">Run Code</button>
+    </div>
+  
+    <div class="output">
+      <pre>{{ output }}</pre>
+    </div>
+  </div>
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>

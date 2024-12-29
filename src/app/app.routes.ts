@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { authGuard } from './auth.guard';
 import { OtpComponent } from './otp/otp.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { CompilerComponent } from './compiler/compiler.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },   // Route for login page
@@ -13,6 +14,7 @@ export const routes: Routes = [
     { path: 'forgot', component: ForgotComponent }, // Route for register page
     { path: 'profile', component: ProfileComponent,canActivate:[authGuard]},
     { path: 'home', component: HomeComponent,canActivate:[authGuard]},
+    { path: 'compiler', component: CompilerComponent,canActivate:[authGuard]},
     { path: 'otp', component: OtpComponent},
     { path: '', redirectTo: '/login', pathMatch: 'full' }  // Default route, redirects to login
 ];

@@ -26,7 +26,6 @@ export class HeaderComponent implements OnInit{
     this.router.navigateByUrl('/login');
   }
   delete(){
-    
     if(window.confirm('Are you sure you want to proceed?')) {
       this.isDataLoading = true;
       this.userService.deleteUser(localStorage.getItem("user")??"").subscribe({
