@@ -23,7 +23,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy the built Angular app from the build stage
-COPY --from=build /app/dist/angular-app /usr/share/nginx/html
+COPY --from=build /app/dist/angular-app/browser /usr/share/nginx/html
 
 # Expose port 8080 (required by Google Cloud Run)
 EXPOSE 8080
