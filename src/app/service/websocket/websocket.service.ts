@@ -20,7 +20,7 @@ export class WebsocketService {
 
   constructor() { }
   connect(username:string){
-    const socket = new SockJS('http://localhost:8080/ws');  // Initialize the SockJS WebSocket connection to the server
+    const socket = new SockJS('https://backend-1055536593121.us-central1.run.app/wss');  // Initialize the SockJS WebSocket connection to the server
 
     // Configure the STOMP client with connection details
     this.stompClient = new Client({
