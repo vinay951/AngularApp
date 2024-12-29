@@ -13,16 +13,24 @@ import { CompileService } from '../service/compile.service';
 })
 export class CompilerComponent {
 
-  userCode: string = '';
-  selectedLanguage: string = 'python';
-  output: string = '';
+  code: string = '';  // Variable to hold user input code
+  selectedLanguage: string = 'java';  // Default language is Java
+  output: string = '';  // Variable to hold output or error
+
+  defaultCode: { [key: string]: string } = {
+    java: `public class TempCode {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}`,
+    python: `print("Hello, World!")`,
+    cpp: `#include <iostream>\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}`
+  };
   isDataLoading = false;
 
-  constructor(private codeExecutionService: CompileService) {}
+  constructor(private codeExecutionService: CompileService) {
+    this.code = this.defaultCode[this.selectedLanguage];
+  }
 
   executeCode() {
     this.isDataLoading = true;
-    this.codeExecutionService.executeCode(this.userCode,this.selectedLanguage).subscribe(
+    this.codeExecutionService.executeCode(this.code,this.selectedLanguage).subscribe(
       (response:any) => {
         this.output = response.output;
         this.isDataLoading = false;
@@ -32,6 +40,10 @@ export class CompilerComponent {
         this.output = error.error.message;
       }
     );    
+  }
+  changeLanguage(language: string) {
+    this.selectedLanguage = language;
+    this.code = this.defaultCode[language];  // Reset to default code for the selected language
   }
 
 }

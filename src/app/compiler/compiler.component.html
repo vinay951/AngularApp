@@ -1,20 +1,27 @@
-<div class="compiler-container">
+<div style="text-align:center; margin-top: 50px;">
     <h1>Online Compiler</h1>
-    <div class="compiler-form">
-      <textarea [(ngModel)]="userCode" placeholder="Enter your code here"></textarea>
-      <select [(ngModel)]="selectedLanguage">
-        <option value="python">Python</option>
-        <option value="cpp">C++</option>
-        <option value="java">Java</option>
-        <!-- Add more languages here -->
-      </select>
-      <button (click)="executeCode()">Run Code</button>
-    </div>
-  
-    <div class="output">
-      <pre>{{ output }}</pre>
-    </div>
+    
+    <!-- Dropdown to select language -->
+    <select [(ngModel)]="selectedLanguage" (change)="changeLanguage(selectedLanguage)">
+      <option value="java">Java</option>
+      <option value="python">Python</option>
+      <option value="cpp">C++</option>
+    </select><br/><br/>
+    
+    <!-- Textarea to input code -->
+    <textarea [(ngModel)]="code" rows="10" cols="50" placeholder="Enter your code here..."></textarea><br/><br/>
+    
+    <!-- Button to execute code -->
+    <button (click)="executeCode()">Execute</button><br/><br/>
+    
+    <!-- Output area -->
+    <h3>Output:</h3>
+    <pre style="white-space: pre-wrap; word-wrap: break-word; text-align: left; margin-top: 10px; padding: 15px; background-color: #333; color: white; border-radius: 8px; width: 80%; margin: 0 auto;">
+      {{ output }}
+    </pre>
   </div>
+  
+  
   <div *ngIf="isDataLoading">
     <app-loading [isLoading]="isDataLoading"></app-loading>
   </div>
