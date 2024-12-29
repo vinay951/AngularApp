@@ -1,32 +1,30 @@
-# Stage 1: Build the Angular app
+# Step 1: Build the Angular app
 FROM node:18 AS build
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Install Angular CLI
+RUN npm install -g @angular/cli
 
-# Install dependencies
+# Copy package.json and package-lock.json and install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy all the source files into the container
+# Copy the Angular source code
 COPY . .
 
-# Build the Angular app
-RUN npm run build
+# Build the Angular app for production
+RUN ng build --configuration production
 
-# Stage 2: Serve the Angular app using Nginx
+# Step 2: Serve the Angular app using Nginx
 FROM nginx:alpine
 
-# Copy the built Angular app from the build stage to Nginx's default folder
+# Copy the built Angular app from the previous stage
 COPY --from=build /app/dist/angular-app /usr/share/nginx/html
 
-# Copy the custom Nginx config to make it listen on port 8080
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expose port 8080 (the port Cloud Run expects)
-EXPOSE 4200
+# Expose the port that the app will be available on
+EXPOSE 80
 
 # Start Nginx to serve the app
-CMD ["nginx", "-g", "daemon on;"]
+CMD ["nginx", "-g", "daemon off;"]
+
