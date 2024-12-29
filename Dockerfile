@@ -26,7 +26,7 @@ COPY --from=build /app/dist/angular-app /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 8080 (the port Cloud Run expects)
-EXPOSE 8080
+EXPOSE 80
 
 # Start Nginx to serve the app
 CMD ["nginx", "-g", "daemon off;"]
