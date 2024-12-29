@@ -23,7 +23,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist/angular-app /usr/share/nginx/html
 
 # Expose port 80
-EXPOSE 80
+EXPOSE 8080
 
 # Start Nginx to serve the app
 CMD ["nginx", "-g", "daemon off;"]
