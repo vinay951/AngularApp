@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
   }
 
   connect(){
-    console.log('Attempting to connect to WebSocket at http://localhost:8080/ws with username:', this.username);
+    console.log('Attempting to connect to WebSocket at https://backend-1055536593121.us-central1.run.app/ws with username:', this.username);
     this.websocketService.connect(this.username);
   }
   send(){
