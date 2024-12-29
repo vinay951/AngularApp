@@ -1,29 +1,39 @@
-# Step 1: Build the Angular app
+# Stage 0: compile angular frontend
 FROM node:18 AS build
-
+USER root
 WORKDIR /app
 
-# Install Angular CLI
-RUN npm install -g @angular/cli
-
-# Copy package.json and package-lock.json and install dependencies
-COPY package.json package-lock.json ./
-RUN npm install
-
-# Copy the Angular source code
 COPY . .
 
-# Build the Angular app for production
-RUN ng build --configuration production
+# RUN npm ci --no-audit
+# RUN npm run build-qagcp
+RUN npm install
+RUN ng build
+RUN echo "after npm run build"
+RUN cp ./nginx.conf ./dist
+RUN ls -l ./dist
+RUN echo "after npm run build"
+ENV PORT 8080
+ENV HOST 0.0.0.0
+RUN echo "after nginx.conf copy cmd"
 
-# Step 2: Serve the Angular app using Nginx
+# Stage 1: serve app with nginx server
 FROM nginx:alpine
+RUN echo "after nginx build"
+COPY --from=build /app/dist  /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+USER root
 
-# Copy the built Angular app from the previous stage
-COPY --from=build /app/dist/angular-app /usr/share/nginx/html
+RUN chown -R root:root /usr/share/nginx/html/index.html
+RUN chmod -R 755 /usr/share/nginx/html
+RUN ls -al /usr
+RUN chmod o+x /usr
+RUN chmod o+x /usr/share
+RUN chmod o+x /usr/share/nginx
+RUN chmod o+x /usr/share/nginx/html
 
-# Expose port 8080 (required by Google Cloud Run)
-EXPOSE 4200
+RUN ls -l /usr/share/nginx/html
 
-# Start Nginx to serve the app
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
