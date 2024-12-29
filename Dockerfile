@@ -1,6 +1,3 @@
-
-dockerfile
-Copy code
 # Step 1: Build the Angular app
 FROM node:18 AS build
 
