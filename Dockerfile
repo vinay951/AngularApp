@@ -1,13 +1,20 @@
-# Stage 0: compile angular frontend
+# Step 1: Build the Angular app
 FROM node:18 AS build
-USER root
+
 WORKDIR /app
 
+# Install Angular CLI
+RUN npm install -g @angular/cli
+
+# Copy package.json and package-lock.json and install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
+
+# Copy the Angular source code
 COPY . .
+
+# Build the Angular app for production
 RUN ng build
-# RUN npm ci --no-audit
-# RUN npm run build-qagcp
 RUN echo "after npm run build"
 RUN cp ./nginx.conf ./dist
 RUN ls -l ./dist
@@ -16,8 +23,10 @@ ENV PORT 8080
 ENV HOST 0.0.0.0
 RUN echo "after nginx.conf copy cmd"
 
-# Stage 1: serve app with nginx server
+# Step 2: Serve the Angular app using Nginx
 FROM nginx:alpine
+
+# Copy the built Angular app from the previous stage
 RUN echo "after nginx build"
 COPY --from=build /app/dist  /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -34,5 +43,9 @@ RUN chmod o+x /usr/share/nginx/html
 
 RUN ls -l /usr/share/nginx/html
 
+# Expose port 8080 (required by Google Cloud Run)
 EXPOSE 8080
+
+
+# Start Nginx to serve the app
 CMD ["nginx", "-g", "daemon off;"]
