@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class OtpService {
   
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://backend-1055536593121.us-central1.run.app';
   constructor(private http: HttpClient) {}
 
   // Request to send OTP to the user (backend API)
