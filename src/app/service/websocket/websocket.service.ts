@@ -25,7 +25,9 @@ export class WebsocketService {
     // Configure the STOMP client with connection details
     this.stompClient = new Client({
       webSocketFactory: () => socket,  // Use SockJS as the WebSocket factory
-      reconnectDelay: 5000,  // Reconnect delay if connection is lost
+      reconnectDelay: 300000,  // Reconnection delay in ms (5 seconds)
+      heartbeatIncoming: 40000,  // Heartbeat interval from the server to client (ms)
+      heartbeatOutgoing: 40000,   // Reconnect delay if connection is lost
       debug: (str) => console.log(str)  // Log STOMP debug messages for troubleshooting
     });
 
@@ -34,7 +36,7 @@ export class WebsocketService {
       console.log('Connected to WebSocket server');
       this.connectionSubject.next(true);  // Notify that the connection is successful
 
-      // Subscribe to the '/topic/public' topic to receive public messages
+      // Subscribe to the '/topic/public topic to receive public messages
       this.stompClient?.subscribe('/topic/public', (message: Message) => {
         this.messageSubject.next(JSON.parse(message.body));  // Pass the message to subscribers
       });
