@@ -101,10 +101,12 @@ button.accent {
 
 /* Username page styling */
 #username-page {
-  position: absolute;
-  height: 100%;
-  padding: 20%;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 120px; /* Adds space to ensure it's below the fixed navbar */
+  min-height: 100vh; /* Make sure the container takes the full height of the screen */
 }
 
 /* Username page container styling */
