@@ -25,7 +25,7 @@ export class WebsocketService {
     // Configure the STOMP client with connection details
     this.stompClient = new Client({
       webSocketFactory: () => socket,  // Use SockJS as the WebSocket factory
-      reconnectDelay: 1500,  // Delay of 5 seconds before attempting to reconnect if connection is lost
+      reconnectDelay: 500,  // Delay of 5 seconds before attempting to reconnect if connection is lost
       heartbeatIncoming: 300000,  // 5 minutes heartbeat interval from the server to the client (300000ms)
       heartbeatOutgoing: 300000,   // Reconnect delay if connection is lost
       debug: (str) => console.log(str)  // Log STOMP debug messages for troubleshooting

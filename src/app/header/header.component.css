@@ -1,171 +1,182 @@
-/* home.component.css */
-
 /* General styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f7fc;
-    color: #333;
-  }
-  
-  /* Navigation Bar */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7fc;
+  color: #333;
+}
+
+/* Navigation Bar */
+.navbar {
+  background-color: #4CAF50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar .logo a {
+  font-size: 24px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar .menu {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar .menu li {
+  margin-left: 20px;
+}
+
+.navbar .menu li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.navbar .menu li a:hover {
+  color: #dfe9e7;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 10;
+  display: inline-block;
+  top: 30px;  /* Positioning of tooltip box */
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+/* Show the tooltip on hover */
+.navbar .menu li:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Home container styles */
+.home-container {
+  max-width: 800px;
+  margin: 50px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.home-container h1 {
+  text-align: center;
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.home-container p {
+  font-size: 18px;
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.quick-links {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.quick-links h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.quick-links ul li {
+  margin-bottom: 10px;
+}
+
+.quick-links ul li a {
+  font-size: 18px;
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.quick-links ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  /* Navbar */
   .navbar {
-    background-color: #4CAF50;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
   }
-  
-  .navbar .logo a {
-    font-size: 24px;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
+
+  /* Navbar items */
   .navbar .menu {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    padding-left: 0;
   }
-  
+
   .navbar .menu li {
-    margin-left: 20px;
+    margin-left: 0;
+    margin-top: 10px;
+    text-align: left;
+    width: 100%;
   }
-  
-  .navbar .menu li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar .menu li a:hover {
-    color: #dfe9e7;
-  }
-  
-  /* Home container styles */
+
+  /* Home container */
   .home-container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .home-container h1 {
-    text-align: center;
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .home-container p {
-    font-size: 18px;
-    text-align: center;
-    color: #666;
-    margin-bottom: 30px;
-  }
-  
-  .quick-links {
-    background-color: #f9f9f9;
+    width: 90%;
     padding: 20px;
-    border-radius: 8px;
   }
-  
+
+  .home-container h1 {
+    font-size: 28px;
+  }
+
   .quick-links h3 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 20px;
   }
-  
-  .quick-links ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .quick-links ul li {
-    margin-bottom: 10px;
-  }
-  
+
   .quick-links ul li a {
-    font-size: 18px;
-    color: #4CAF50;
-    text-decoration: none;
+    font-size: 16px;
   }
-  
-  .quick-links ul li a:hover {
-    text-decoration: underline;
+
+  /* Tooltip */
+  .navbar .menu li a {
+    position: relative;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 600px) {
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .navbar .menu {
-      flex-direction: column;
-      margin-top: 10px;
-    }
-  
-    .navbar .menu li {
-      margin-left: 0;
-      margin-top: 10px;
-    }
-  
-    .home-container {
-      padding: 20px;
-      width: 90%;
-    }
-  
-    .home-container h1 {
-      font-size: 28px;
-    }
-  
-    .quick-links h3 {
-      font-size: 20px;
-    }
-  
-    .quick-links ul li a {
-      font-size: 16px;
-    }
-  }
-  /* Style for the hoverable username */
+}
+
+/* Style for the hoverable username */
 .username {
-    cursor: pointer;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  /* Tooltip container */
-  .tooltip {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 14px;
-    z-index: 10;
-    display: inline-block;
-    top: 30px;  /* Positioning of tooltip box (can be adjusted) */
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s, visibility 0.2s;
-  }
-  
-  /* Make the tooltip visible when hovered */
-  .hover-container:hover .tooltip {
-    opacity: 1;
-    visibility: visible;
-  }
-  
+  cursor: pointer;
+  font-weight: bold;
+  color: #007bff;
+}
