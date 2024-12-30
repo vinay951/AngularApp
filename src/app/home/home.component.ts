@@ -5,10 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../service/user.service';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-home',
-  imports: [ReactiveFormsModule,CommonModule,FormsModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, LoadingComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -18,6 +19,8 @@ export class HomeComponent implements OnInit {
   messages: any[] = [];  // Stores all the chat messages
   isConnected = false;  // Tracks whether the user is connected to the WebSocket
   connectingMessage = 'Connecting...';
+  isDataLoading = false;
+
   constructor( private router: Router,
     private websocketService:WebsocketService,
     private toastr:ToastrService,
@@ -59,8 +62,10 @@ export class HomeComponent implements OnInit {
   }
   send(){
     if (this.message) {
+      this.isDataLoading = true;
       this.websocketService.sendMessage(this.username, this.message);  // Send the message via WebSocket service
       this.message = '';  // Clear the message input after sending
+      this.isDataLoading = false;
     }
   }
   getAvatarColor(sender:string):string{
@@ -76,12 +81,15 @@ export class HomeComponent implements OnInit {
     return colors[Math.abs(hash % colors.length)];
   }
   getUserName(){
+    this.isDataLoading = true;
     this.userService.getUserProfile(localStorage.getItem("user")).subscribe(
       (data:any) => {
         this.username = data.firstName;
+        this.isDataLoading = false;
       },
       (error:any) => {
         console.error('Error loading user data', error);
+        this.isDataLoading = false;
       }
     );
   }
