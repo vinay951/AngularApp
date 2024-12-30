@@ -101,9 +101,10 @@ button.accent {
 
 /* Username page styling */
 #username-page {
+  position: absolute;
+  height: 100%;
+  padding: 20%;
   text-align: center;
-  margin-top: 10%; /* Push the username form 100px down from the header */
-  padding: 20px;
 }
 
 /* Username page container styling */
