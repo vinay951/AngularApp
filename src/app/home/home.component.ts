@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   isConnected = false;  // Tracks whether the user is connected to the WebSocket
   connectingMessage = 'Connecting...';
   isDataLoading = false;
+  onlineUsers:number = 0;
 
   constructor( private router: Router,
     private websocketService:WebsocketService,
@@ -51,6 +52,9 @@ export class HomeComponent implements OnInit {
         this.connectingMessage = '';  // Clear the connecting message once connected
         console.log('WebSocket connection established');
       }
+    });
+    this.websocketService.onlineUsers$.subscribe((count) => {
+      this.onlineUsers = count;  // Update the active user count
     });
   }
   logout(){

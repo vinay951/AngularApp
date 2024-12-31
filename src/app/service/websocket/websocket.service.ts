@@ -15,10 +15,14 @@ export class WebsocketService {
   // Subject to manage the stream of incoming messages
   private messageSubject = new BehaviorSubject<any>(null);
   public messages$ = this.messageSubject.asObservable();  // Observable for components to subscribe to messages
+  private onlineUsersSubject = new BehaviorSubject<number>(0);  // Holds the count of active users
+
 
   // Subject to track the connection status (connected/disconnected)
   private connectionSubject = new BehaviorSubject<boolean>(false);
   public connectionStatus$ = this.connectionSubject.asObservable();  // Observable for components to track connection status
+
+  public onlineUsers$ = this.onlineUsersSubject.asObservable();
 
   constructor() { 
   }
@@ -43,6 +47,10 @@ export class WebsocketService {
       // Subscribe to the '/topic/public topic to receive public messages
       this.stompClient?.subscribe('/topic/public', (message: Message) => {
         this.messageSubject.next(JSON.parse(message.body));  // Pass the message to subscribers
+      });
+      this.stompClient?.subscribe('/topic/onlineUsers', (message: Message) => {
+        const onlineUsers = JSON.parse(message.body);
+        this.onlineUsersSubject.next(onlineUsers);  // Update the online users list
       });
 
       // Send a "JOIN" message to notify the server that a user has joined
