@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../service/user.service';
 import { LoadingComponent } from "../loading/loading.component";
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -49,8 +50,8 @@ export class HomeComponent implements OnInit {
         console.log('WebSocket connection established');
       }
     });
-    setTimeout(() => {
-      if (this.isConnected && (this.username != null || this.username != undefined) && this.router.url === '/home') {
+    interval(1000).subscribe(() => {
+			if (this.isConnected && (this.username != null || this.username != undefined) && this.router.url === '/home') {
         console.log('The connection is established. Proceeding with the action...');
         this.connect();
         // Execute the logic if the condition is true
@@ -58,8 +59,7 @@ export class HomeComponent implements OnInit {
         console.log('The connection is not established. Action skipped.');
         // Execute alternative logic if the condition is false
       }
-    }, 3000);
-
+		});
   }
   logout(){
     localStorage.clear();

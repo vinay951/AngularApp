@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client, Message } from '@stomp/stompjs';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, interval } from 'rxjs';
 import SockJS from 'sockjs-client';
 
 @Injectable({
@@ -23,6 +23,9 @@ export class WebsocketService {
     this.handleTabVisibility();
   }
   connect(username:string){
+    if (this.stompClient && this.stompClient.connected) {
+      return;
+    }
     this.user =username;
     const socket = new SockJS('https://backend-1055536593121.us-central1.run.app/ws');  // Initialize the SockJS WebSocket connection to the server
 
@@ -78,8 +81,6 @@ export class WebsocketService {
       // Log an error if the WebSocket connection is not active
       console.error('WebSocket is not connected. Unable to send message.');
     }
-
-
   }
 
   disconnect(){
