@@ -49,6 +49,16 @@ export class HomeComponent implements OnInit {
         console.log('WebSocket connection established');
       }
     });
+    setTimeout(() => {
+      if (this.isConnected && (this.username != null || this.username != undefined) && this.router.url === '/home') {
+        console.log('The connection is established. Proceeding with the action...');
+        this.connect();
+        // Execute the logic if the condition is true
+      } else {
+        console.log('The connection is not established. Action skipped.');
+        // Execute alternative logic if the condition is false
+      }
+    }, 3000);
 
   }
   logout(){
@@ -93,5 +103,5 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-  
+
 }
