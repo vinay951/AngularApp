@@ -18,7 +18,9 @@ export class WebsocketService {
   private connectionSubject = new BehaviorSubject<boolean>(false);
   public connectionStatus$ = this.connectionSubject.asObservable();  // Observable for components to track connection status
 
-  constructor() { }
+  constructor() { 
+    this.handleTabVisibility();
+  }
   connect(username:string){
     const socket = new SockJS('https://backend-1055536593121.us-central1.run.app/ws');  // Initialize the SockJS WebSocket connection to the server
 
@@ -83,5 +85,18 @@ export class WebsocketService {
       this.stompClient.deactivate();
     }
     
+  }
+
+  private handleTabVisibility() {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && this.stompClient && !this.stompClient.connected) {
+        console.log('Tab re-focused, reconnecting WebSocket...');
+        // Reconnect WebSocket when the tab becomes visible again
+        if (this.connectionSubject.value === false) {
+          // Reconnect only if it's not already connected
+          this.stompClient?.activate();
+        }
+      }
+    });
   }
 }
