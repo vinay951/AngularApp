@@ -9,6 +9,7 @@ import SockJS from 'sockjs-client';
 export class WebsocketService {
 
   stompClient: Client | null = null;  // STOMP client instance to handle WebSocket connection
+  user = "";
 
   // Subject to manage the stream of incoming messages
   private messageSubject = new BehaviorSubject<any>(null);
@@ -22,6 +23,7 @@ export class WebsocketService {
     this.handleTabVisibility();
   }
   connect(username:string){
+    this.user =username;
     const socket = new SockJS('https://backend-1055536593121.us-central1.run.app/ws');  // Initialize the SockJS WebSocket connection to the server
 
     // Configure the STOMP client with connection details
@@ -89,12 +91,13 @@ export class WebsocketService {
 
   private handleTabVisibility() {
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && this.stompClient && !this.stompClient.connected) {
-        console.log('Tab re-focused, reconnecting WebSocket...');
-        // Reconnect WebSocket when the tab becomes visible again
-        if (this.connectionSubject.value === false) {
-          // Reconnect only if it's not already connected
-          this.stompClient?.activate();
+      // Check if the tab is visible
+      if (document.visibilityState === 'visible') {
+        // Only try to reconnect if the WebSocket is not connected
+        if (this.stompClient && !this.stompClient.connected && this.connectionSubject.value === false) {
+          console.log('Tab re-focused, reconnecting WebSocket...');
+          // Reconnect WebSocket
+          this.connect(this.user); // Call your `connect` method to re-establish the WebSocket connection
         }
       }
     });
