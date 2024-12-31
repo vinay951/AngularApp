@@ -22,8 +22,9 @@ export class WebsocketService {
 
   constructor() { 
   }
-  connect(username:string){
-    const socket = new SockJS('https://backend-1055536593121.us-central1.run.app/ws');  // Initialize the SockJS WebSocket connection to the server
+  connect(username:string):Promise<void>{
+    return new Promise((resolve, reject) => {
+      const socket = new SockJS('https://backend-1055536593121.us-central1.run.app/ws');  // Initialize the SockJS WebSocket connection to the server
 
     // Configure the STOMP client with connection details
     this.stompClient = new Client({
@@ -49,15 +50,17 @@ export class WebsocketService {
         destination: '/app/chat.addUser',  // Server endpoint for adding users
         body: JSON.stringify({ sender: username, type: 'JOIN' })  // Send username and join event
       });
-      this.sendPendingMessages();
+      resolve();
     };
     // Handle errors reported by the STOMP broker
     this.stompClient.onStompError = (frame) => {
       console.error('Broker reported error: ' + frame.headers['message']);  // Log the error message
       console.error('Additional details: ' + frame.body);  // Log additional error details
       this.connectionSubject.next(false);
+      reject("not connected");
     };
     this.stompClient?.activate();
+    });
   }
 
   sendMessage(username:string,content:string): Promise<void>{
@@ -80,8 +83,16 @@ export class WebsocketService {
         console.error('WebSocket is not connected. Unable to send message.');
         console.error('WebSocket is not connected. Queuing message...');
         this.messageQueue.push(chatMessage);  // Queue the message
-        this.connect(username);  // Attempt to reconnect
-        resolve();
+        // Attempt to reconnect and send queued messages once the connection is established
+        this.connect(username).then(() => {
+          // Once connected, process the queue and send the message
+          this.sendPendingMessages();
+          resolve();  // Resolve once the message is successfully queued and sent
+        }).catch((error) => {
+          // In case of reconnection failure, reject the promise
+          console.error('Reconnection failed:', error);
+          reject(error);
+        });
       }
     });
   }
