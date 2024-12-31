@@ -61,15 +61,23 @@ export class HomeComponent implements OnInit {
   }
   send(){
     this.isDataLoading = true;
-    setTimeout(() => {
-      if (this.message) {
-        this.websocketService.sendMessage(this.username, this.message);  // Send the message via WebSocket service
-        this.message = '';  // Clear the message input after sending
-        this.isDataLoading = false;
-      } else{
-        this.isDataLoading = false;
-      }
-    }, 0);
+    this.isDataLoading = true;  // Show the loading spinner
+
+    if (this.message) {
+      this.websocketService.sendMessage(this.username, this.message)
+        .then(() => {
+          // Message sent successfully
+          this.message = '';  // Clear the message input
+          this.isDataLoading = false;  // Hide the loading spinner
+        })
+        .catch((error) => {
+          // Handle errors (e.g., WebSocket disconnected)
+          console.error(error);
+          this.isDataLoading = false;  // Hide the loading spinner
+        });
+    } else {
+      this.isDataLoading = false;  // Hide the loading spinner if no message is entered
+    }
   }
   getAvatarColor(sender:string):string{
 

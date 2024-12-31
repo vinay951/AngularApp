@@ -60,27 +60,30 @@ export class WebsocketService {
     this.stompClient?.activate();
   }
 
-  sendMessage(username:string,content:string){
-    const chatMessage = { sender: username, content: content, type: 'CHAT' };
-
-    if (this.stompClient && this.stompClient.connected) {
-      // Create a chat message object
-
-      // Log the message being sent and the sender
-      console.log(`Message sent by ${username}: ${content}`);
-
-      // Publish (send) the message to the '/app/chat.sendMessage' destination
-      this.stompClient.publish({
-        destination: '/app/chat.sendMessage',
-        body: JSON.stringify(chatMessage)  // Convert the message to JSON and send
-      });
-    } else {
-      // Log an error if the WebSocket connection is not active
-      console.error('WebSocket is not connected. Unable to send message.');
-      console.error('WebSocket is not connected. Queuing message...');
-      this.messageQueue.push(chatMessage);  // Queue the message
-      this.connect(username);  // Attempt to reconnect
-    }
+  sendMessage(username:string,content:string): Promise<void>{
+    return new Promise((resolve, reject) => {
+      const chatMessage = { sender: username, content: content, type: 'CHAT' };
+      if (this.stompClient && this.stompClient.connected) {
+        // Create a chat message object
+  
+        // Log the message being sent and the sender
+        console.log(`Message sent by ${username}: ${content}`);
+  
+        // Publish (send) the message to the '/app/chat.sendMessage' destination
+        this.stompClient.publish({
+          destination: '/app/chat.sendMessage',
+          body: JSON.stringify(chatMessage)  // Convert the message to JSON and send
+        });
+        resolve();
+      } else {
+        // Log an error if the WebSocket connection is not active
+        console.error('WebSocket is not connected. Unable to send message.');
+        console.error('WebSocket is not connected. Queuing message...');
+        this.messageQueue.push(chatMessage);  // Queue the message
+        this.connect(username);  // Attempt to reconnect
+        resolve();
+      }
+    });
   }
 
   disconnect(){
