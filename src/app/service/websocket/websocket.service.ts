@@ -80,6 +80,7 @@ export class WebsocketService {
     } else {
       // Log an error if the WebSocket connection is not active
       console.error('WebSocket is not connected. Unable to send message.');
+      this.connect(this.user);
     }
   }
 
