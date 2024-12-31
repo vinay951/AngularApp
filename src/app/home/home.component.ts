@@ -30,7 +30,8 @@ export class HomeComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.getUserName()
+    this.getUserName();
+    this.loadMessages();
     this.websocketService.messages$.subscribe(message => {
       if (message) {
         // Log and add the received message to the array of messages
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit {
           this.toastr.info(`Message received from ${message.sender}: ${message.content}`);
         }
         this.messages.push(message);
+        this.saveMessages();
       }
     });
 
@@ -54,6 +56,17 @@ export class HomeComponent implements OnInit {
   logout(){
     localStorage.clear();
     this.router.navigateByUrl('/login');
+  }
+  loadMessages(): void {
+    // Fetch previous messages from local storage
+    const storedMessages = localStorage.getItem('chatMessages');
+    if (storedMessages) {
+      this.messages = JSON.parse(storedMessages);  // Parse and load messages into the array
+    }
+  }
+  saveMessages(): void {
+    // Save the current chat messages to local storage
+    localStorage.setItem('chatMessages', JSON.stringify(this.messages));
   }
 
   connect(){
