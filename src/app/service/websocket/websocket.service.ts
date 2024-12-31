@@ -8,8 +8,9 @@ import SockJS from 'sockjs-client';
 })
 export class WebsocketService {
 
+  private messageQueue: any[] = []; 
+
   stompClient: Client | null = null;  // STOMP client instance to handle WebSocket connection
-  user = "";
 
   // Subject to manage the stream of incoming messages
   private messageSubject = new BehaviorSubject<any>(null);
@@ -20,13 +21,8 @@ export class WebsocketService {
   public connectionStatus$ = this.connectionSubject.asObservable();  // Observable for components to track connection status
 
   constructor() { 
-    this.handleTabVisibility();
   }
   connect(username:string){
-    if (this.stompClient && this.stompClient.connected) {
-      return;
-    }
-    this.user =username;
     const socket = new SockJS('https://backend-1055536593121.us-central1.run.app/ws');  // Initialize the SockJS WebSocket connection to the server
 
     // Configure the STOMP client with connection details
@@ -54,20 +50,21 @@ export class WebsocketService {
         body: JSON.stringify({ sender: username, type: 'JOIN' })  // Send username and join event
       });
     };
-
+    this.sendPendingMessages();
     // Handle errors reported by the STOMP broker
     this.stompClient.onStompError = (frame) => {
       console.error('Broker reported error: ' + frame.headers['message']);  // Log the error message
       console.error('Additional details: ' + frame.body);  // Log additional error details
+      this.connectionSubject.next(false);
     };
     this.stompClient?.activate();
   }
 
   sendMessage(username:string,content:string){
+    const chatMessage = { sender: username, content: content, type: 'CHAT' };
 
     if (this.stompClient && this.stompClient.connected) {
       // Create a chat message object
-      const chatMessage = { sender: username, content: content, type: 'CHAT' };
 
       // Log the message being sent and the sender
       console.log(`Message sent by ${username}: ${content}`);
@@ -80,7 +77,9 @@ export class WebsocketService {
     } else {
       // Log an error if the WebSocket connection is not active
       console.error('WebSocket is not connected. Unable to send message.');
-      this.connect(this.user);
+      console.error('WebSocket is not connected. Queuing message...');
+      this.messageQueue.push(chatMessage);  // Queue the message
+      this.connect(username);  // Attempt to reconnect
     }
   }
 
@@ -90,18 +89,18 @@ export class WebsocketService {
     }
     
   }
-
-  private handleTabVisibility() {
-    document.addEventListener('visibilitychange', () => {
-      // Check if the tab is visible
-      if (document.visibilityState === 'visible') {
-        // Only try to reconnect if the WebSocket is not connected
-        if (this.stompClient && !this.stompClient.connected && this.connectionSubject.value === false) {
-          console.log('Tab re-focused, reconnecting WebSocket...');
-          // Reconnect WebSocket
-          this.connect(this.user); // Call your `connect` method to re-establish the WebSocket connection
-        }
+  // Send all pending messages once the WebSocket is connected
+  private sendPendingMessages(): void {
+    while (this.messageQueue.length > 0) {
+      const message = this.messageQueue.shift();  // Get the next message
+      if (this.stompClient && this.stompClient.connected) {
+        // Send the message if WebSocket is connected
+        this.stompClient.publish({
+          destination: '/app/chat.sendMessage',
+          body: JSON.stringify(message)
+        });
+        console.log(`Sent queued message: ${message.content}`);
       }
-    });
+    }
   }
 }

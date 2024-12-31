@@ -50,16 +50,6 @@ export class HomeComponent implements OnInit {
         console.log('WebSocket connection established');
       }
     });
-    interval(1000).subscribe(() => {
-			if (this.isConnected && (this.username != null || this.username != undefined) && this.router.url === '/home') {
-        console.log('The connection is established. Proceeding with the action...');
-        this.connect();
-        // Execute the logic if the condition is true
-      } else {
-        console.log('The connection is not established. Action skipped.');
-        // Execute alternative logic if the condition is false
-      }
-		});
   }
   logout(){
     localStorage.clear();
@@ -67,19 +57,19 @@ export class HomeComponent implements OnInit {
   }
 
   connect(){
-    console.log('Attempting to connect to WebSocket at https://backend-1055536593121.us-central1.run.app/ws with username:', this.username);
     this.websocketService.connect(this.username);
   }
   send(){
     this.isDataLoading = true;
-    if (this.message) {
-      this.isDataLoading = true;
-      this.websocketService.sendMessage(this.username, this.message);  // Send the message via WebSocket service
-      this.message = '';  // Clear the message input after sending
-      this.isDataLoading = false;
-    } else{
-      this.isDataLoading = false;
-    }
+    setTimeout(() => {
+      if (this.message) {
+        this.websocketService.sendMessage(this.username, this.message);  // Send the message via WebSocket service
+        this.message = '';  // Clear the message input after sending
+        this.isDataLoading = false;
+      } else{
+        this.isDataLoading = false;
+      }
+    }, 0);
   }
   getAvatarColor(sender:string):string{
 
