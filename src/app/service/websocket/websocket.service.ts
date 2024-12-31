@@ -56,6 +56,7 @@ export class WebsocketService {
     this.stompClient.onStompError = (frame) => {
       console.error('Broker reported error: ' + frame.headers['message']);  // Log the error message
       console.error('Additional details: ' + frame.body);  // Log additional error details
+      setTimeout(() => this.connect(this.user), 3000);
     };
     this.stompClient?.activate();
   }
