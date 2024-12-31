@@ -49,8 +49,8 @@ export class WebsocketService {
         destination: '/app/chat.addUser',  // Server endpoint for adding users
         body: JSON.stringify({ sender: username, type: 'JOIN' })  // Send username and join event
       });
+      this.sendPendingMessages();
     };
-    this.sendPendingMessages();
     // Handle errors reported by the STOMP broker
     this.stompClient.onStompError = (frame) => {
       console.error('Broker reported error: ' + frame.headers['message']);  // Log the error message
@@ -91,16 +91,21 @@ export class WebsocketService {
   }
   // Send all pending messages once the WebSocket is connected
   private sendPendingMessages(): void {
-    while (this.messageQueue.length > 0) {
-      const message = this.messageQueue.shift();  // Get the next message
-      if (this.stompClient && this.stompClient.connected) {
-        // Send the message if WebSocket is connected
-        this.stompClient.publish({
-          destination: '/app/chat.sendMessage',
-          body: JSON.stringify(message)
-        });
-        console.log(`Sent queued message: ${message.content}`);
+    if (this.stompClient && this.stompClient.connected) {
+      console.log('Sending pending messages...');
+      while (this.messageQueue.length > 0) {
+        const message = this.messageQueue.shift();  // Get the next message
+        if (message) {
+          // Send the message if WebSocket is connected
+          this.stompClient.publish({
+            destination: '/app/chat.sendMessage',
+            body: JSON.stringify(message)
+          });
+          console.log(`Sent queued message: ${message.content}`);
+        }
       }
+    } else {
+      console.log('WebSocket is not yet connected. Retrying...');
     }
   }
 }
