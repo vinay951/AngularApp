@@ -57,7 +57,13 @@ export class HomeComponent implements OnInit {
   }
 
   connect(){
-    this.websocketService.connect(this.username);
+    this.isDataLoading = true;
+    this.websocketService.connect(this.username).then(()=>{
+      this.isDataLoading = false;
+    }).catch((error)=>{
+      console.log(error);
+      this.isDataLoading = false;
+    });
   }
   send(){
     this.isDataLoading = true; // Show the loading spinner
