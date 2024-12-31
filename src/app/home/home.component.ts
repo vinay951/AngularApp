@@ -60,8 +60,7 @@ export class HomeComponent implements OnInit {
     this.websocketService.connect(this.username);
   }
   send(){
-    this.isDataLoading = true;
-    this.isDataLoading = true;  // Show the loading spinner
+    this.isDataLoading = true; // Show the loading spinner
 
     if (this.message) {
       this.websocketService.sendMessage(this.username, this.message)

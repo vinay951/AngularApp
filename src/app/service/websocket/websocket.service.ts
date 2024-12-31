@@ -86,7 +86,11 @@ export class WebsocketService {
         // Attempt to reconnect and send queued messages once the connection is established
         this.connect(username).then(() => {
           // Once connected, process the queue and send the message
-          this.sendPendingMessages();
+          this.sendPendingMessages().then(()=>{
+            resolve();
+          }).catch((error)=>{
+            reject(error);
+          });
           resolve();  // Resolve once the message is successfully queued and sent
         }).catch((error) => {
           // In case of reconnection failure, reject the promise
@@ -104,22 +108,26 @@ export class WebsocketService {
     
   }
   // Send all pending messages once the WebSocket is connected
-  private sendPendingMessages(): void {
-    if (this.stompClient && this.stompClient.connected) {
-      console.log('Sending pending messages...');
-      while (this.messageQueue.length > 0) {
-        const message = this.messageQueue.shift();  // Get the next message
-        if (message) {
-          // Send the message if WebSocket is connected
-          this.stompClient.publish({
-            destination: '/app/chat.sendMessage',
-            body: JSON.stringify(message)
-          });
-          console.log(`Sent queued message: ${message.content}`);
+  private sendPendingMessages(): Promise<void> {
+    return new Promise((resolve,reject)=>{
+      if (this.stompClient && this.stompClient.connected) {
+        console.log('Sending pending messages...');
+        while (this.messageQueue.length > 0) {
+          const message = this.messageQueue.shift();  // Get the next message
+          if (message) {
+            // Send the message if WebSocket is connected
+            this.stompClient.publish({
+              destination: '/app/chat.sendMessage',
+              body: JSON.stringify(message)
+            });
+            console.log(`Sent queued message: ${message.content}`);
+          }
         }
+        resolve();
+      } else {
+        console.log('WebSocket is not yet connected. Retrying...');
+        reject('WebSocket is not yet connected. Retrying...');
       }
-    } else {
-      console.log('WebSocket is not yet connected. Retrying...');
-    }
+    });
   }
 }
