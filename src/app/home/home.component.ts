@@ -71,10 +71,13 @@ export class HomeComponent implements OnInit {
     this.websocketService.connect(this.username);
   }
   send(){
+    this.isDataLoading = true;
     if (this.message) {
       this.isDataLoading = true;
       this.websocketService.sendMessage(this.username, this.message);  // Send the message via WebSocket service
       this.message = '';  // Clear the message input after sending
+      this.isDataLoading = false;
+    } else{
       this.isDataLoading = false;
     }
   }
