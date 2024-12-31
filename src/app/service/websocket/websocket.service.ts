@@ -73,11 +73,15 @@ export class WebsocketService {
         console.log(`Message sent by ${username}: ${content}`);
   
         // Publish (send) the message to the '/app/chat.sendMessage' destination
-        this.stompClient.publish({
-          destination: '/app/chat.sendMessage',
-          body: JSON.stringify(chatMessage)  // Convert the message to JSON and send
-        });
-        resolve();
+        try{
+          this.stompClient.publish({
+            destination: '/app/chat.sendMessage',
+            body: JSON.stringify(chatMessage)  // Convert the message to JSON and send
+          });
+          resolve();
+        } catch(error){
+          reject(error);
+        }
       } else {
         // Log an error if the WebSocket connection is not active
         console.error('WebSocket is not connected. Unable to send message.');
