@@ -27,7 +27,20 @@
   <div class="chat-container">
     <!-- Chatroom header with title -->
     <div class="chat-header">
-      <h2>World Chat, Online User Count: {{onlineUsers}}</h2>
+      <h2>
+        World Chat, Online User Count: 
+        <span 
+          class="online-count"
+          (mouseover)="showOnlineUsers(true)"
+          (mouseleave)="showOnlineUsers(false)">
+          {{ onlineUsers}}
+        </span>
+      </h2>
+      <div *ngIf="isOnlineUsersVisible" class="online-users-list">
+        <ul>
+          <li *ngFor="let user of activeOnlineUsers">{{ user }}</li>
+        </ul>
+      </div>
     </div>
 
     <!-- If a connection message exists, show it (e.g., "Connecting...") -->

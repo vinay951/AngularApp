@@ -16,6 +16,7 @@ export class WebsocketService {
   private messageSubject = new BehaviorSubject<any>(null);
   public messages$ = this.messageSubject.asObservable();  // Observable for components to subscribe to messages
   private onlineUsersSubject = new BehaviorSubject<number>(0);  // Holds the count of active users
+  private activeOnlineUsersSubject = new BehaviorSubject<string[]>([]);
 
 
   // Subject to track the connection status (connected/disconnected)
@@ -24,11 +25,13 @@ export class WebsocketService {
 
   public onlineUsers$ = this.onlineUsersSubject.asObservable();
 
+  public activeOnlineUsers$ = this.activeOnlineUsersSubject.asObservable();
+
   constructor() { 
   }
   connect(username:string):Promise<void>{
     return new Promise((resolve, reject) => {
-      const socket = new SockJS('https://backend-1055536593121.us-central1.run.app/ws');  // Initialize the SockJS WebSocket connection to the server
+      const socket = new SockJS('http://localhost:8080/ws');  // Initialize the SockJS WebSocket connection to the server
 
     // Configure the STOMP client with connection details
     this.stompClient = new Client({
@@ -51,6 +54,10 @@ export class WebsocketService {
       this.stompClient?.subscribe('/topic/onlineUsers', (message: Message) => {
         const onlineUsers = JSON.parse(message.body);
         this.onlineUsersSubject.next(onlineUsers);  // Update the online users list
+      });
+      this.stompClient?.subscribe('/topic/activeOnlineUsers', (message: Message) => {
+        const activateOnlineUsers = JSON.parse(message.body);
+        this.activeOnlineUsersSubject.next(activateOnlineUsers);  // Update the online users list
       });
 
       // Send a "JOIN" message to notify the server that a user has joined

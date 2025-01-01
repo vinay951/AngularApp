@@ -383,3 +383,64 @@ button.accent {
       font-size: 1.1em;
   }
 }
+/* chat.component.css */
+
+/* Basic styling for the chat container */
+.chat-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+/* Chat header styling */
+.chat-header {
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  position: relative; /* Added to position the dropdown relative to the header */
+}
+
+/* Style for the online users count, making it appear interactive */
+.online-count {
+  cursor: pointer;
+  color: #007BFF;
+  font-weight: bold;
+  display: inline-block; /* Make it behave like an inline element */
+  padding: 5px;
+}
+
+/* The list of online users (appears below the "Online User Count") */
+.online-users-list {
+  position: absolute; /* Positioning it directly below the "Online User Count" */
+  top: 100%; /* 100% means directly below the element it’s positioned */
+  left: 0; /* Align it to the left */
+  margin-top: 5px; /* Small gap between the count and the dropdown */
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  max-width: 200px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Ensure it appears above other elements */
+}
+
+/* Style for each list item */
+.online-users-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.online-users-list li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.online-users-list li:last-child {
+  border-bottom: none;
+}
+
+/* Add hover effect to each user in the list */
+.online-users-list li:hover {
+  background-color: #e0f7fa;
+}

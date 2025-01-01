@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
   connectingMessage = 'Connecting...';
   isDataLoading = false;
   onlineUsers:number = 0;
+  activeOnlineUsers: string[] = [];
+  isOnlineUsersVisible = false;
 
   constructor( private router: Router,
     private websocketService:WebsocketService,
@@ -55,6 +57,10 @@ export class HomeComponent implements OnInit {
     });
     this.websocketService.onlineUsers$.subscribe((count) => {
       this.onlineUsers = count;  // Update the active user count
+    });
+
+    this.websocketService.activeOnlineUsers$.subscribe((count) => {
+      this.activeOnlineUsers = count;  // Update the active user
     });
   }
   logout(){
@@ -126,5 +132,8 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
+  showOnlineUsers(show: boolean): void {
+    console.log("ssss",this.activeOnlineUsers);
+    this.isOnlineUsersVisible = show;
+  }
 }
