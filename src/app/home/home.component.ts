@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../service/user.service';
 import { LoadingComponent } from "../loading/loading.component";
 import { interval } from 'rxjs';
+import { IdleDetectionService } from '../service/idle/idle-detection.service';
 
 @Component({
   selector: 'app-home',
@@ -28,11 +29,13 @@ export class HomeComponent implements OnInit {
   constructor( private router: Router,
     private websocketService:WebsocketService,
     private toastr:ToastrService,
-    private userService:UserService
+    private userService:UserService,
+    private idleService:IdleDetectionService
   ){
 
   }
   ngOnInit(): void {
+    this.idleService.strartTracking();
     this.getUserName();
     this.loadMessages();
     this.websocketService.messages$.subscribe(message => {
