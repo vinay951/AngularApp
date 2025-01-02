@@ -123,20 +123,14 @@ export class HomeComponent implements OnInit {
     return colors[Math.abs(hash % colors.length)];
   }
   getUserName(){
-    this.isDataLoading = true;
-    this.userService.getUserProfile(localStorage.getItem("user")).subscribe(
-      (data:any) => {
-        this.username = data.firstName;
-        this.isDataLoading = false;
-      },
-      (error:any) => {
-        console.error('Error loading user data', error);
-        this.isDataLoading = false;
-      }
-    );
+    this.removeDomain(localStorage.getItem("user")??"");
   }
   showOnlineUsers(show: boolean): void {
     console.log("ssss",this.activeOnlineUsers);
     this.isOnlineUsersVisible = show;
+  }
+  removeDomain(email: string): string {
+    const atIndex = email.indexOf('@');
+    return atIndex !== -1 ? email.substring(0, atIndex) : email;
   }
 }
