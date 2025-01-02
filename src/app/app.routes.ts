@@ -8,9 +8,10 @@ import { OtpComponent } from './otp/otp.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { CompilerComponent } from './compiler/compiler.component';
 import { ChatComponent } from './chat/chat.component';
+import { loginGuard } from './login.guard';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },   // Route for login page
+    { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
     { path: 'register', component: UserRegistrationComponent },
     { path: 'forgot', component: ForgotComponent }, // Route for register page
     { path: 'profile', component: ProfileComponent,canActivate:[authGuard]},
@@ -18,5 +19,5 @@ export const routes: Routes = [
     { path: 'compiler', component: CompilerComponent,canActivate:[authGuard]},
     { path: 'chatgpt', component: ChatComponent,canActivate:[authGuard]},
     { path: 'otp', component: OtpComponent},
-    { path: '', redirectTo: '/login', pathMatch: 'full' }  // Default route, redirects to login
+    { path: '**', redirectTo: '/login'}  // Default route, redirects to login
 ];
