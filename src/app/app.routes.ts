@@ -19,5 +19,5 @@ export const routes: Routes = [
     { path: 'compiler', component: CompilerComponent,canActivate:[authGuard]},
     { path: 'chatgpt', component: ChatComponent,canActivate:[authGuard]},
     { path: 'otp', component: OtpComponent},
-    { path: '**', redirectTo: '/login'}  // Default route, redirects to login
+    { path: '**', redirectTo: '/home'}  // Default route, redirects to login
 ];
