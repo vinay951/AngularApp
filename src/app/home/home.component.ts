@@ -123,7 +123,7 @@ export class HomeComponent implements OnInit {
     return colors[Math.abs(hash % colors.length)];
   }
   getUserName(){
-    this.removeDomain(localStorage.getItem("user")??"");
+    this.username = this.removeDomain(localStorage.getItem("user")??"");
   }
   showOnlineUsers(show: boolean): void {
     console.log("ssss",this.activeOnlineUsers);
