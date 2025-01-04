@@ -3,16 +3,18 @@ import { ReportService } from '../service/report/report.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-test-reports',
-  imports: [CommonModule,ReactiveFormsModule,FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, LoadingComponent],
   templateUrl: './test-reports.component.html',
   styleUrl: './test-reports.component.css'
 })
 export class TestReportsComponent implements OnInit {
 
   reports: any[] = [];
+  isDataLoading = false;
 
   constructor(private reportService: ReportService,private sanitizer: DomSanitizer) { }
 
@@ -21,6 +23,7 @@ export class TestReportsComponent implements OnInit {
   }
 
   fetchTop5Reports(): void {
+    this.isDataLoading = true;
     this.reportService.getTop5Reports().subscribe(
       (data) => {
         this.reports = data.map(report => {
@@ -28,10 +31,11 @@ export class TestReportsComponent implements OnInit {
           report.content = this.cleanHtmlContent(report.content);
           return report;
         });
-        console.log(this.reports.length)
+        this.isDataLoading = false;
       },
       (error) => {
         console.error('Error fetching reports:', error);
+        this.isDataLoading = false;
       }
     );
   }
