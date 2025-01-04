@@ -2,6 +2,7 @@
     <h2>Top 5 HTML Reports</h2>
     <div *ngFor="let report of reports">
       <h3>{{ report.fileName }}</h3>
+      <h3>Ran By: {{report.email}}</h3>
       <!-- Render cleaned HTML content with innerHTML -->
         <div [innerHTML]="getSafeHtml(report.content)">
         </div>
