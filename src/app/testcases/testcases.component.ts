@@ -10,8 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class TestcasesComponent {
   links = [
-    { name: 'Profile Test Case', url: 'https://selenium-testing-1055536593121.us-central1.run.app/test/testCase/'+localStorage.getItem("user") },
-    { name: '# Test Case', url: '#' },
+    { name: 'Profile Test Case', url: 'https://selenium-testing-1055536593121.us-central1.run.app/test/profile/'+localStorage.getItem("user") },
+    { name: 'Chat Test Case', url: 'https://selenium-testing-1055536593121.us-central1.run.app/test/chat/'+localStorage.getItem("user") },
     { name: '# Test Case', url: '#' },
     { name: '# Test Case', url: '#' },
     { name: '# Test Case', url: '#' },
