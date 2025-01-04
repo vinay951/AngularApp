@@ -9,6 +9,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { CompilerComponent } from './compiler/compiler.component';
 import { ChatComponent } from './chat/chat.component';
 import { loginGuard } from './login.guard';
+import { TestcasesComponent } from './testcases/testcases.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
@@ -18,6 +19,7 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent,canActivate:[authGuard]},
     { path: 'compiler', component: CompilerComponent,canActivate:[authGuard]},
     { path: 'chatgpt', component: ChatComponent,canActivate:[authGuard]},
+    {path:'test',component:TestcasesComponent,canActivate:[authGuard]},
     { path: 'otp', component: OtpComponent},
     { path: '**', redirectTo: '/home'}  // Default route, redirects to login
 ];
