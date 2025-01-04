@@ -35,4 +35,7 @@
     outline: none;
     border-bottom: 2px solid #007bff;
   }
+  h1{
+    align-items: center;
+  }
   

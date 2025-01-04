@@ -10,11 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class TestcasesComponent {
   links = [
-    { name: 'Home', url: 'https://www.example.com/home' },
-    { name: 'About Us', url: 'https://www.example.com/about' },
-    { name: 'Services', url: 'https://www.example.com/services' },
-    { name: 'Contact', url: 'https://www.example.com/contact' },
-    { name: 'Blog', url: 'https://www.example.com/blog' },
+    { name: 'Profile Test Case', url: 'https://www.example.com/home' },
+    { name: '# Test Case', url: '#' },
+    { name: '# Test Case', url: '#' },
+    { name: '# Test Case', url: '#' },
+    { name: '# Test Case', url: '#' },
   ];
 
 }
