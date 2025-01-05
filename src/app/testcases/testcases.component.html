@@ -1,9 +1,20 @@
-<h1> Running Test Cases (test cases takes several minutes according to that test)</h1>
-<div class="link-list">
-    <ul>
-      <li *ngFor="let link of links">
-        <a [href]="link.url" target="_blank">{{ link.name }} (will run in browser like api)</a>
-      </li>
-    </ul>
-  </div>
+<div class="test-case-wrapper">
+  <h2 class="title">Test Cases</h2>
   
+  <!-- Loop through each test case -->
+  <div *ngFor="let testCase of testCases" class="test-case-cell">
+    <div class="test-case-header">
+      <!-- Test case name -->
+      <span class="test-case-name">{{ testCase.name }}</span>
+    </div>
+
+    <div class="test-case-footer">
+      <!-- Run button with loading spinner -->
+      <button class="run-button" (click)="onRunButtonClick(testCase)" [disabled]="testCase.isLoading">
+        <!-- Show loading spinner while test case is running -->
+        <span *ngIf="testCase.isLoading" class="loading-spinner"></span>
+        <span *ngIf="!testCase.isLoading">Run</span>
+      </button>
+    </div>
+  </div>
+</div>
