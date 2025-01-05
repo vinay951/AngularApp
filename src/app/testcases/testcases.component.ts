@@ -42,7 +42,7 @@ export class TestcasesComponent implements OnInit {
     );
   }
   onRunButtonClick(testCase: TestCase): void {
-    
+    this.setTrue(testCase);
     // Simulate API call or run the test case
     if(testCase.id === 1){
       this.apiService.runTestProfile(localStorage.getItem("user")??"",testCase).subscribe(
@@ -75,5 +75,12 @@ export class TestcasesComponent implements OnInit {
       // testCase.isLoading = false;
       this.toastr.info("TEST CASE NOT FOUND");
     }
+  }
+  setTrue(testCase:TestCase){
+    this.testCases.forEach((element,i) => {
+      if(element.id === testCase.id){
+        this.testCases[i].isLoading = true;
+      } 
+    });
   }
 }
