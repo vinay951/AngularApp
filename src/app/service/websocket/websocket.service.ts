@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client, Message } from '@stomp/stompjs';
-import { BehaviorSubject, interval } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import SockJS from 'sockjs-client';
 
 @Injectable({

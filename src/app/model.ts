@@ -32,3 +32,8 @@ export class Login {
       this.password = password;
     }
 }
+export interface TestCase {
+  id: number;
+  name: string;
+  isLoading: boolean;
+}
