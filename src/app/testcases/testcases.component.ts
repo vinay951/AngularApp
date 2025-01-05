@@ -6,11 +6,12 @@ import { TestCasesService } from '../service/run/test-cases.service';
 import {ToastrService } from 'ngx-toastr';
 import { TestCase } from '../model';
 import { Subscription } from 'rxjs';
+import { LoadingComponent } from "../loading/loading.component";
 
 
 @Component({
   selector: 'app-testcases',
-  imports: [CommonModule,ReactiveFormsModule,FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, LoadingComponent],
   templateUrl: './testcases.component.html',
   styleUrl: './testcases.component.css',
   animations:[]
@@ -21,35 +22,38 @@ export class TestcasesComponent implements OnInit {
   }
 
   testCases: TestCase[] = [];
+  isDataLoading = false;
 
 
   ngOnInit(): void {
     // Initialize multiple test cases
-    this.apiService.testCases$.subscribe(
-      (testCases) => {
-        console.log('Test cases received:', testCases);
-        this.testCases = testCases;
+    this.getAllTestCases();
+  }
+  getAllTestCases(){
+    this.isDataLoading = true;
+    this.apiService.getAllTestCases().subscribe(
+      (response:any) => {
+        this.isDataLoading = false;
+        this.testCases = response;
       },
-      (error) => {
-        console.error('Error subscribing to test cases:', error);
+      (error:any) => {
+        this.isDataLoading = false;
       }
     );
   }
-
   onRunButtonClick(testCase: TestCase): void {
-    // Start loading spinner for the specific test case
-    this.setTrueForTestCases(testCase);
+    
     // Simulate API call or run the test case
     if(testCase.id === 1){
-      this.apiService.runTestProfile(localStorage.getItem("user")??"").subscribe(
+      this.apiService.runTestProfile(localStorage.getItem("user")??"",testCase).subscribe(
         (response:any) => {
           console.log(`${testCase.name} completed successfully`, response);
-          this.setFalseForTestCases(testCase);
+          this.getAllTestCases();
           this.toastr.info(`${testCase.name} completed successfully`)
         },
         (error:any) => {
           console.error(`${testCase.name} failed`, error);
-          this.setFalseForTestCases(testCase);
+          this.getAllTestCases();
           this.toastr.info(`${testCase.name} completed successfully`)
         }
         
@@ -58,31 +62,18 @@ export class TestcasesComponent implements OnInit {
       this.apiService.runTestChat(localStorage.getItem("user")??"").subscribe(
         (response) => {
           console.log(`${testCase.name} completed successfully`, response);
-          this.setFalseForTestCases(testCase);
+          this.getAllTestCases();
+          this.toastr.info(`${testCase.name} completed successfully`)
         },
         (error) => {
           console.error(`${testCase.name} failed`, error);
-          this.setFalseForTestCases(testCase);
+          this.getAllTestCases();
+          this.toastr.info(`${testCase.name} completed successfully`)
         }
       );
     }else{
       // testCase.isLoading = false;
       this.toastr.info("TEST CASE NOT FOUND");
-      this.setFalseForTestCases(testCase);
     }
-  }
-  setTrueForTestCases(testCase:TestCase){
-    this.testCases.forEach((element,i) => {
-      if(element.id === testCase.id){
-        this.apiService.setLoadingState(element.id,true);
-      } 
-    });
-  } 
-  setFalseForTestCases(testCase:TestCase){
-    this.testCases.forEach((element,i) => {
-      if(element.id === testCase.id){
-        this.apiService.setLoadingState(element.id,false);
-      }
-    });
   }
 }
