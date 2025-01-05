@@ -10,11 +10,12 @@
 
     <div class="test-case-footer">
       <!-- Run button with loading spinner -->
-      <button class="run-button" (click)="onRunButtonClick(testCase)" [disabled]="testCase.isLoading">
+      <button class="run-button" (click)="onRunButtonClick(testCase)" [disabled]="testCase.loading">
         <!-- Show loading spinner while test case is running -->
-        <span *ngIf="testCase.isLoading" class="loading-spinner"></span>
-        <span *ngIf="!testCase.isLoading">Run</span>
+        <span *ngIf="testCase.loading" class="loading-spinner"></span>
+        <span *ngIf="!testCase.loading">Run</span>
       </button>
+      <button class="run-button" (click)="loadingForMuchTime(testCase)">STOP</button>
     </div>
   </div>
 </div>

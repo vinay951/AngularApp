@@ -35,5 +35,5 @@ export class Login {
 export interface TestCase {
   id: number;
   name: string;
-  isLoading: boolean;
+  loading: boolean;
 }

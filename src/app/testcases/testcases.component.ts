@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { TestCasesService } from '../service/run/test-cases.service';
 import {ToastrService } from 'ngx-toastr';
 import { TestCase } from '../model';
-import { Subscription } from 'rxjs';
 import { LoadingComponent } from "../loading/loading.component";
+import { interval, take } from 'rxjs';
 
 
 @Component({
@@ -24,10 +23,25 @@ export class TestcasesComponent implements OnInit {
   testCases: TestCase[] = [];
   isDataLoading = false;
 
-
   ngOnInit(): void {
     // Initialize multiple test cases
     this.getAllTestCases();
+    interval(10000).pipe(take(5)).subscribe(() => {
+       // Method called every second
+       this.getAllTestCasesWithoutLoad();
+    });
+  }
+  getAllTestCasesWithoutLoad(){
+    
+    this.apiService.getAllTestCases().subscribe(
+      (response:any) => {
+        
+        this.testCases = response;
+      },
+      (error:any) => {
+        
+      }
+    );
   }
   getAllTestCases(){
     this.isDataLoading = true;
@@ -43,9 +57,10 @@ export class TestcasesComponent implements OnInit {
   }
   onRunButtonClick(testCase: TestCase): void {
     this.setTrue(testCase);
+    this.setTestCases(testCase);
     // Simulate API call or run the test case
     if(testCase.id === 1){
-      this.apiService.runTestProfile(localStorage.getItem("user")??"",testCase).subscribe(
+      this.apiService.runTestProfile(localStorage.getItem("user")??"").subscribe(
         (response:any) => {
           console.log(`${testCase.name} completed successfully`, response);
           this.getAllTestCases();
@@ -76,11 +91,35 @@ export class TestcasesComponent implements OnInit {
       this.toastr.info("TEST CASE NOT FOUND");
     }
   }
+  loadingForMuchTime(test:TestCase){
+    this.isDataLoading = true;
+    this.apiService.stopTest(test).subscribe(
+      (response) => {
+        this.getAllTestCases();
+        this.isDataLoading = false;
+      },
+      (error) => {
+        this.getAllTestCases();
+        this.isDataLoading = false;
+      }
+    );
+
+  }
   setTrue(testCase:TestCase){
     this.testCases.forEach((element,i) => {
       if(element.id === testCase.id){
-        this.testCases[i].isLoading = true;
+        this.testCases[i].loading = true;
       } 
     });
+  }
+  setTestCases(test:TestCase){
+    this.apiService.setTestCases(test).subscribe(
+      (response) => {
+        
+      },
+      (error) => {
+       
+      }
+    );
   }
 }

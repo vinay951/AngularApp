@@ -14,8 +14,7 @@ export class TestCasesService {
   constructor(private http:HttpClient) {
   }
 
-  runTestProfile(email:string,test:TestCase){
-    this.setTestCases(test);
+  runTestProfile(email:string){
     return this.http.get<any[]>(this.apiUrl+"/test/profile/"+email);
   }
   runTestChat(email:string){
@@ -27,7 +26,12 @@ export class TestCasesService {
   }
 
   setTestCases(test:TestCase){
-    test.isLoading = true;
+    test.loading = true;
     return this.http.post<any[]>(this.apiUrlSpring+"/editTestCase",test);
+  }
+
+  stopTest(test:TestCase){
+    test.loading = false;
+    return this.http.post<any[]>(this.apiUrlSpring+"/stop",test);
   }
 }
