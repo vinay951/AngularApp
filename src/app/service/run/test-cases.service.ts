@@ -34,4 +34,7 @@ export class TestCasesService {
     test.loading = false;
     return this.http.post<any[]>(this.apiUrlSpring+"/stop",test);
   }
+  runTestOnlineCompiler(email:string){
+    return this.http.get<any[]>(this.apiUrl+"/test/onlineCompiler/"+email);
+  }
 }

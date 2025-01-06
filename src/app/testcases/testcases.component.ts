@@ -86,7 +86,21 @@ export class TestcasesComponent implements OnInit {
           this.toastr.info(`${testCase.name} completed successfully`)
         }
       );
-    }else{
+    }else if(testCase.id === 3){
+      this.apiService.runTestOnlineCompiler(localStorage.getItem("user")??"").subscribe(
+        (response) => {
+          console.log(`${testCase.name} completed successfully`, response);
+          this.getAllTestCases();
+          this.toastr.info(`${testCase.name} completed successfully`)
+        },
+        (error) => {
+          console.error(`${testCase.name} failed`, error);
+          this.getAllTestCases();
+          this.toastr.info(`${testCase.name} completed successfully`)
+        }
+      );
+    }
+    else{
       // testCase.isLoading = false;
       this.toastr.info("TEST CASE NOT FOUND");
     }
