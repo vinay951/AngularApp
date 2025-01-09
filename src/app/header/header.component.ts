@@ -48,5 +48,21 @@ export class HeaderComponent implements OnInit{
       });
     }
   }
+  startingWithUser():boolean{
+    const user = localStorage.getItem("user")??"";
+    if (user.startsWith('User-')) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  register(){
+    localStorage.clear();
+    this.router.navigate(['/register']); 
+  }
+  login(){
+    localStorage.clear();
+    this.router.navigate(['/login']); 
+  }
 
 }

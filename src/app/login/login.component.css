@@ -21,7 +21,14 @@ body {
     font-size: 24px;
     margin-bottom: 20px;
   }
-  
+  .top-right-link {
+    position: absolute;
+    top: 10px;     /* Adjust the top position */
+    right: 10px;   /* Adjust the right position */
+    text-decoration: none;  /* Optional: to remove underline */
+    padding: 10px;  /* Optional: styling */
+    border-radius: 5px;  /* Optional: styling */
+  }
   form {
     display: flex;
     flex-direction: column;

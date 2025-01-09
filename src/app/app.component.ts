@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
   title = 'angularApp';
   checkmethod():boolean{
-    if(this.router.url==='/login' || this.router.url==='/register' ||  this.router.url==='/otp' || this.router.url==='/forgot'){
+    if(this.router.url==='/login' || this.router.url==='/register' ||  this.router.url==='/otp' || this.router.url==='/forgot' || this.router.url==='/accessDenied'){
       return false;
     } return true;
   }

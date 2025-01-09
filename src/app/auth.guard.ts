@@ -6,14 +6,12 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   // Check if authToken exists in localStorage
   if (localStorage.getItem('user')) {
-    // If token exists, allow navigation
-    // if(state.url === '/test'){
-    //   if(localStorage.getItem('user') === 'reddyvinaykumar497@gmail.com'){
-    //     return true;
-    //   } else{
-    //     return false;
-    //   }
-    // }
+    if(state.url === '/test' || state.url === '/profile'){
+      if(localStorage.getItem('user')?.startsWith("User-")){
+        router.navigate(['/accessDenied']);
+        return false;
+      }
+    }
     return true;
   } else {
     // If token doesn't exist, redirect to login page
