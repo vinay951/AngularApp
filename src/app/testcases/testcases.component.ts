@@ -6,11 +6,12 @@ import {ToastrService } from 'ngx-toastr';
 import { TestCase } from '../model';
 import { LoadingComponent } from "../loading/loading.component";
 import { interval, take } from 'rxjs';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @Component({
   selector: 'app-testcases',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, LoadingComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, LoadingComponent,DragDropModule],
   templateUrl: './testcases.component.html',
   styleUrl: './testcases.component.css',
   animations:[]
@@ -135,5 +136,75 @@ export class TestcasesComponent implements OnInit {
        
       }
     );
+  }
+ // Handle the drop event for reordering test cases
+ onDrop(event: CdkDragDrop<TestCase[]>) {
+  const draggedTestCase = event.item.data;
+  console.log(event.container.element.nativeElement);
+  if (draggedTestCase) {
+    const previousIndex = this.testCases.findIndex(
+      (testCase) => testCase === draggedTestCase
+    );
+    const currentIndex = event.currentIndex;
+
+    // Move the item to the new position
+    const movedTestCase = this.testCases[previousIndex];
+    this.testCases.splice(previousIndex, 1);
+    this.testCases.splice(currentIndex, 0, movedTestCase);
+  } else {
+    console.error('Dragged item data is null or undefined');
+  }
+}
+
+// Handle the drop event in the delete area (deletion logic)
+onDeleteDrop(event: CdkDragDrop<TestCase[]>) {
+  // Log the event to check its structure
+  console.log('onDeleteDrop called', event);
+
+  const draggedTestCase = event.item.data;  // Get the dragged test case
+  if (draggedTestCase) {
+    const isDropInDeleteArea = event.container.id === 'deleteArea';  // Check if drop happened in delete area
+
+    if (isDropInDeleteArea) {
+      const confirmed = window.confirm(`Are you sure you want to delete ${draggedTestCase.name}?`);
+      if (confirmed) {
+        this.deleteTestCase(draggedTestCase);  // Call the deletion method
+      }
+    } else {
+      console.log('Dropped outside the delete area, no deletion');
+    }
+  } else {
+    console.error('Dragged item data is null or undefined');
+  }
+}
+
+
+  // API call for the dropped test case
+  deleteTestCase(testCase: TestCase) {
+    console.log(testCase);
+    this.isDataLoading = true;
+    this.apiService.dropTestCase(testCase.name).subscribe(
+      (response:any) => {
+        if(response.responseMessage === 'Success'){
+          this.toastr.success("Test Case Deleted");
+        }else{
+          this.toastr.success("you Can't delete this Test Case")
+        }
+        this.isDataLoading = false;
+      },
+      (error) => {
+        this.toastr.error("Error Occured While Deleting")
+        this.isDataLoading = false;
+      }
+    );
+  }
+  onDragStarted(testCase: any) {
+    // Logic when drag starts (e.g., add a class or style)
+    console.log('Drag started for', testCase.name);
+  }
+  
+  onDragEnded(testCase: any) {
+    // Logic when drag ends (e.g., remove any extra classes or reset state)
+    console.log('Drag ended for', testCase.name);
   }
 }

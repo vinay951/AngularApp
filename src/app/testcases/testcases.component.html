@@ -1,24 +1,40 @@
 <div class="test-case-wrapper">
   <h2 class="title">Test Cases</h2>
-  
-  <!-- Loop through each test case -->
-  <div *ngFor="let testCase of testCases" class="test-case-cell">
-    <div class="test-case-header">
-      <!-- Test case name -->
-      <span class="test-case-name">{{ testCase.name }}</span>
-    </div>
 
-    <div class="test-case-footer">
-      <!-- Run button with loading spinner -->
-      <button class="run-button" (click)="onRunButtonClick(testCase)" [disabled]="testCase.loading">
-        <!-- Show loading spinner while test case is running -->
-        <span *ngIf="testCase.loading" class="loading-spinner"></span>
-        <span *ngIf="!testCase.loading">Run</span>
-      </button>
-      <button class="run-button" (click)="loadingForMuchTime(testCase)">STOP</button>
+  <!-- Test Case List -->
+  <div cdkDropList 
+       [cdkDropListData]="testCases"
+       (cdkDropListDropped)="onDrop($event)"
+       class="test-case-list">
+
+    <div *ngFor="let testCase of testCases" 
+         class="test-case-cell"
+         cdkDrag 
+         [cdkDragData]="testCase"
+         (cdkDragStarted)="onDragStarted(testCase)"
+         (cdkDragEnded)="onDragEnded(testCase)">
+      <div class="test-case-header">
+        <span class="test-case-name">{{ testCase?.name }}</span>
+      </div>
+
+      <div class="test-case-footer">
+        <button class="run-button" (click)="onRunButtonClick(testCase)" [disabled]="testCase?.loading">
+          <span *ngIf="testCase?.loading" class="loading-spinner"></span>
+          <span *ngIf="!testCase?.loading">Run</span>
+        </button>
+        <button class="run-button" (click)="loadingForMuchTime(testCase)">STOP</button>
+      </div>
     </div>
   </div>
 </div>
+<div cdkDropList 
+      id="deleteArea"
+      (cdkDropListDropped)="onDeleteDrop($event)"
+      class="delete-area">
+  <span>Drop Here to Delete</span>
+</div>
+
+
 <div *ngIf="isDataLoading">
   <app-loading [isLoading]="isDataLoading"></app-loading>
 </div>

@@ -127,3 +127,51 @@
     height: auto;
   }
 }
+.test-case-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  /* Ensures the delete area stays at the bottom */
+}
+
+.test-case-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  flex-grow: 1;  /* Ensures the test cases take up available space */
+}
+
+.test-case-cell {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  cursor: move;
+  background-color: white;
+}
+
+.test-case-cell.cdk-drag-preview {
+  border: 2px dashed #000;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.test-case-cell.cdk-drag-placeholder {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Style the delete area */
+.delete-area {
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+  border: 2px dashed red;
+  background-color: rgba(255, 0, 0, 0.1);
+  cursor: pointer;
+  color: red;
+  flex-shrink: 0;  /* Ensures the delete area doesn't shrink */
+}
+
+.delete-area:hover {
+  background-color: rgba(255, 0, 0, 0.2);
+}
