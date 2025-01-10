@@ -140,7 +140,6 @@ export class TestcasesComponent implements OnInit {
  // Handle the drop event for reordering test cases
  onDrop(event: CdkDragDrop<TestCase[]>) {
   const draggedTestCase = event.item.data;
-  console.log(event.container.element.nativeElement);
   if (draggedTestCase) {
     const previousIndex = this.testCases.findIndex(
       (testCase) => testCase === draggedTestCase
@@ -163,7 +162,7 @@ onDeleteDrop(event: CdkDragDrop<TestCase[]>) {
 
   const draggedTestCase = event.item.data;  // Get the dragged test case
   if (draggedTestCase) {
-    const isDropInDeleteArea = event.container.id === 'deleteArea';  // Check if drop happened in delete area
+    const isDropInDeleteArea = true;  // Check if drop happened in delete area
 
     if (isDropInDeleteArea) {
       const confirmed = window.confirm(`Are you sure you want to delete ${draggedTestCase.name}?`);
@@ -181,9 +180,8 @@ onDeleteDrop(event: CdkDragDrop<TestCase[]>) {
 
   // API call for the dropped test case
   deleteTestCase(testCase: TestCase) {
-    console.log(testCase);
     this.isDataLoading = true;
-    this.apiService.dropTestCase(testCase.name).subscribe(
+    this.apiService.dropTestCase(testCase).subscribe(
       (response:any) => {
         if(response.responseMessage === 'Success'){
           this.toastr.success("Test Case Deleted");

@@ -1,11 +1,11 @@
 <div class="test-case-wrapper">
   <h2 class="title">Test Cases</h2>
-
+ <div cdkScrollable class="scroll-container">
   <!-- Test Case List -->
   <div cdkDropList 
        [cdkDropListData]="testCases"
        (cdkDropListDropped)="onDrop($event)"
-       class="test-case-list">
+       class="test-case-list" [cdkDropListConnectedTo]="['deleteArea']" >
 
     <div *ngFor="let testCase of testCases" 
          class="test-case-cell"
@@ -24,14 +24,15 @@
         </button>
         <button class="run-button" (click)="loadingForMuchTime(testCase)">STOP</button>
       </div>
+      
     </div>
-  </div>
-</div>
-<div cdkDropList 
+    <div cdkDropList 
       id="deleteArea"
       (cdkDropListDropped)="onDeleteDrop($event)"
-      class="delete-area">
-  <span>Drop Here to Delete</span>
+      class="delete-area" [cdkDropListConnectedTo]="['test-case-list']">Drop Here to Delete
+  </div>
+</div>
+</div>
 </div>
 
 

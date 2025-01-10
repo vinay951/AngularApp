@@ -37,7 +37,7 @@ export class TestCasesService {
   runTestOnlineCompiler(email:string){
     return this.http.get<any[]>(this.apiUrl+"/test/onlineCompiler/"+email);
   }
-  dropTestCase(testCaseName:string){
-    return this.http.get<any[]>(this.apiUrlSpring+"/test/delete/"+testCaseName);
+  dropTestCase(testCase:TestCase){
+    return this.http.post<any[]>(this.apiUrlSpring+"/test/delete",testCase);
   }
 }

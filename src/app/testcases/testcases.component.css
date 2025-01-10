@@ -127,29 +127,6 @@
     height: auto;
   }
 }
-.test-case-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;  /* Ensures the delete area stays at the bottom */
-}
-
-.test-case-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  flex-grow: 1;  /* Ensures the test cases take up available space */
-}
-
-.test-case-cell {
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #ccc;
-  cursor: move;
-  background-color: white;
-}
 
 .test-case-cell.cdk-drag-preview {
   border: 2px dashed #000;
@@ -174,4 +151,11 @@
 
 .delete-area:hover {
   background-color: rgba(255, 0, 0, 0.2);
+}
+.scroll-container{
+  position: relative;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  max-height: 100%;
+  border: 1px solid #ccc;
 }
