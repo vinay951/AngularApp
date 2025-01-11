@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Test, TestCase } from '../model';
 import { LoadingComponent } from "../loading/loading.component";
 import { TestCasesService } from '../service/run/test-cases.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-test-register',
@@ -22,7 +24,7 @@ export class TestRegisterComponent {
     loading:false
   }
 
-  constructor(private testService:TestCasesService){
+  constructor(private testService:TestCasesService,private router:Router,private toastr:ToastrService){
 
   }
 
@@ -34,10 +36,13 @@ export class TestRegisterComponent {
     this.testService.createTestCase(test).subscribe(
       (response:any) => {
         this.isDataLoading = false;
-        
+        this.isModalOpen = false;
+        this.toastr.success("Test Case Added: "+test.name)
+        this.router.navigateByUrl('/test');
       },
       (error:any) => {
         console.error('Error sending OTP:', error);
+        this.toastr.error("Test Case failed To Add: "+test.name)
         this.isDataLoading = false;
       }
     );
