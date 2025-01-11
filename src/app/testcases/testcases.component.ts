@@ -29,7 +29,7 @@ export class TestcasesComponent implements OnInit {
   ngOnInit(): void {
     // Initialize multiple test cases
     this.getAllTestCases();
-    interval(10000).pipe(take(5)).subscribe(() => {
+    interval(10000).pipe().subscribe(() => {
        // Method called every second
        this.getAllTestCasesWithoutLoad();
     });
@@ -39,12 +39,33 @@ export class TestcasesComponent implements OnInit {
     this.apiService.getAllTestCases().subscribe(
       (response:any) => {
         
-        this.testCases = response;
+        if(!this.areArraysEqual(this.testCases,response)){
+          this.testCases = response;
+        }
       },
       (error:any) => {
         
       }
     );
+  }
+  areArraysEqual(arr1: any[], arr2: any[]): boolean {
+    // If the arrays have different lengths, they are not equal
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+  
+    // Sort both arrays by a unique identifier (assuming 'id' is unique for each object)
+    const sortedArr1 = [...arr1].sort((a, b) => a.id - b.id);
+    const sortedArr2 = [...arr2].sort((a, b) => a.id - b.id);
+  
+    // Compare the sorted arrays element by element
+    for (let i = 0; i < sortedArr1.length; i++) {
+      if (JSON.stringify(sortedArr1[i]) !== JSON.stringify(sortedArr2[i])) {
+        return false;
+      }
+    }
+  
+    return true;
   }
   getAllTestCases(){
     this.isDataLoading = true;
