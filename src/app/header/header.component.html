@@ -4,6 +4,7 @@
     </div>
     <ul class="menu">
       <li><a href="/home">Home</a></li>
+      <li><a href="javascript:void(0);" *ngIf="startingWithUser()" (click)="openRegisterForm()">Register Test Case</a>
       <li><a href="/chatgpt">ChatGpt</a></li>
       <li><a href="/profile">Profile</a></li>
       <li><a href="/compiler">Online Compiler</a></li>

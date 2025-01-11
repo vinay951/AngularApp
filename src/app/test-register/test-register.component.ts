@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TestCase } from '../model';
+import { Test, TestCase } from '../model';
 import { LoadingComponent } from "../loading/loading.component";
 import { TestCasesService } from '../service/run/test-cases.service';
 
@@ -19,7 +19,6 @@ export class TestRegisterComponent {
 
   registerData ={
     name:"",
-    id:0,
     loading:false
   }
 
@@ -30,7 +29,7 @@ export class TestRegisterComponent {
 
   // Handle form submission
   submitRegisterForm() {
-    const test:TestCase = this.registerData;
+    const test:Test = this.registerData;
     this.isDataLoading  = true;
     this.testService.createTestCase(test).subscribe(
       (response:any) => {

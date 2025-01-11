@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../loading/loading.component";
+import { MatDialog } from '@angular/material/dialog';
+import { TestRegisterComponent } from '../test-register/test-register.component';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,7 @@ export class HeaderComponent implements OnInit{
   showTooltip: boolean = false;  // Control visibility of tooltip
   username:string = localStorage.getItem("user")??'';
   isDataLoading = false;
-  constructor(private router: Router,private userService:UserService,private toastr:ToastrService){
+  constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog){
 
   }
   ngOnInit(): void {
@@ -64,5 +66,19 @@ export class HeaderComponent implements OnInit{
     localStorage.clear();
     this.router.navigate(['/login']); 
   }
+  openRegisterForm() {
+    const dialogRef = this.dialog.open(TestRegisterComponent, {
+      width: '400px',  // You can set the width or any other modal options
+    });
+
+    // Optionally, you can listen to the result of the dialog (when it's closed)
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Dialog closed with result:', result);
+      } else {
+        console.log('Dialog was closed');
+      }
+    });
+}
 
 }

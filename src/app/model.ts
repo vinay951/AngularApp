@@ -37,3 +37,7 @@ export interface TestCase {
   name: string;
   loading: boolean;
 }
+export interface Test{
+  name: string;
+  loading: boolean;
+}

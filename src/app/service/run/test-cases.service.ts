@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TestCase } from '../../model';
+import { Test, TestCase } from '../../model';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,7 +40,7 @@ export class TestCasesService {
   dropTestCase(testCase:TestCase){
     return this.http.post<any[]>(this.apiUrlSpring+"/test/delete",testCase);
   }
-  createTestCase(testCase:TestCase){
+  createTestCase(testCase:Test){
     return this.http.post<any[]>(this.apiUrlSpring+"/test/create",testCase);
   }
 }
