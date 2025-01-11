@@ -40,4 +40,7 @@ export class TestCasesService {
   dropTestCase(testCase:TestCase){
     return this.http.post<any[]>(this.apiUrlSpring+"/test/delete",testCase);
   }
+  createTestCase(testCase:TestCase){
+    return this.http.post<any[]>(this.apiUrlSpring+"/test/create",testCase);
+  }
 }

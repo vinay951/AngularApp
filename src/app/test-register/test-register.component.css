@@ -1,0 +1,85 @@
+/* Container for the form, including title */
+h2 {
+    font-size: 24px;
+    text-align: center; /* Center the title */
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Styling the form container */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  /* Form field container (label and input) */
+  form div {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  /* Label styling */
+  label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+    display: block;
+    text-align: left;
+  }
+  
+  /* Input field styling */
+  input {
+    width: 100%; /* Full width */
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none;
+  }
+  
+  /* Styling the submit button */
+  button {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    width: 100%; /* Full width */
+    padding: 14px 0; /* More padding (14px top/bottom) */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer;
+    text-align: center; /* Ensure text is centered */
+    display: flex;
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+  }
+  
+  /* Hover effect for the submit button */
+  button:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+  }
+  
+  /* Focus effect for the submit button (when clicked or focused) */
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5); /* Green shadow on focus */
+  }
+  
+  /* Responsive design for small screens */
+  @media (max-width: 600px) {
+    form {
+      width: 90%; /* Make the form take up more space on small screens */
+    }
+  
+    button.mat-button {
+      padding: 12px 0; /* Adjust padding for small screens */
+    }
+  }
+  

@@ -159,3 +159,11 @@
   max-height: 100%;
   border: 1px solid #ccc;
 }
+.top-right-link {
+  position: absolute;
+  top: 50px;     /* Adjust the top position */
+  right: 10px;   /* Adjust the right position */
+  text-decoration: none;  /* Optional: to remove underline */
+  padding: 10px;  /* Optional: styling */
+  border-radius: 5px;  /* Optional: styling */
+}

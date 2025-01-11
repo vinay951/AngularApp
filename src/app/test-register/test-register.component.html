@@ -1,0 +1,13 @@
+
+<h2>Register Test Case</h2>
+<form (ngSubmit)="submitRegisterForm()">
+    <div>
+    <label for="username">Test Case Name:</label>
+    <input type="text" id="username" [(ngModel)]="registerData.name" name="username" required />
+    </div>
+
+    <button mat-button type="submit">Submit</button>
+</form>
+<div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>

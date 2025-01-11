@@ -12,6 +12,7 @@ import { loginGuard } from './login.guard';
 import { TestcasesComponent } from './testcases/testcases.component';
 import { TestReportsComponent } from './test-reports/test-reports.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { TestRegisterComponent } from './test-register/test-register.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
@@ -23,6 +24,7 @@ export const routes: Routes = [
     { path: 'chatgpt', component: ChatComponent,canActivate:[authGuard]},
     {path:'test',component:TestcasesComponent,canActivate:[authGuard]},
     {path:'reports',component:TestReportsComponent,canActivate:[authGuard]},
+    {path:'testRegister',component:TestRegisterComponent,canActivate:[authGuard]},
     { path: 'accessDenied', component: AccessDeniedComponent },
     { path: 'otp', component: OtpComponent},
     { path: '**', redirectTo: '/home'}  // Default route, redirects to login

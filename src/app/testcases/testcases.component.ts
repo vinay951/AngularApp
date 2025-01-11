@@ -6,7 +6,9 @@ import {ToastrService } from 'ngx-toastr';
 import { TestCase } from '../model';
 import { LoadingComponent } from "../loading/loading.component";
 import { interval, take } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { TestRegisterComponent } from '../test-register/test-register.component';
 
 
 @Component({
@@ -18,7 +20,7 @@ import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 })
 export class TestcasesComponent implements OnInit {
   
-  constructor(private apiService: TestCasesService,private toastr:ToastrService) {
+  constructor(private apiService: TestCasesService,private toastr:ToastrService,private dialog:MatDialog) {
   }
 
   testCases: TestCase[] = [];
@@ -204,5 +206,19 @@ onDeleteDrop(event: CdkDragDrop<TestCase[]>) {
   onDragEnded(testCase: any) {
     // Logic when drag ends (e.g., remove any extra classes or reset state)
     console.log('Drag ended for', testCase.name);
+  }
+  openRegisterForm() {
+      const dialogRef = this.dialog.open(TestRegisterComponent, {
+        width: '400px',  // You can set the width or any other modal options
+      });
+  
+      // Optionally, you can listen to the result of the dialog (when it's closed)
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          console.log('Dialog closed with result:', result);
+        } else {
+          console.log('Dialog was closed');
+        }
+      });
   }
 }
