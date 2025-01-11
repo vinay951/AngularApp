@@ -5,7 +5,7 @@ import axios from 'axios';
   providedIn: 'root',
 })
 export class ChatService {
-  private apiKey: string = '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'; // Replace with your OpenAI API key
+  private apiKey: string = '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'; // Replace with your OpenAI API key
 
   constructor() {}
 
