@@ -38,8 +38,8 @@ export class TestRegisterComponent {
         this.isDataLoading = false;
         this.isModalOpen = false;
         this.toastr.success("Test Case Added: "+test.name)
-         window.location.reload();
         this.router.navigateByUrl('/test');
+        window.location.reload();
       },
       (error:any) => {
         console.error('Error sending OTP:', error);
