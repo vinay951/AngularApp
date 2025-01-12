@@ -212,6 +212,7 @@ onDeleteDrop(event: CdkDragDrop<TestCase[]>) {
           this.toastr.success("you Can't delete this Test Case")
         }
         this.isDataLoading = false;
+        window.location.reload();
       },
       (error) => {
         this.toastr.error("Error Occured While Deleting")
