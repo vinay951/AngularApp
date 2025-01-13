@@ -5,10 +5,8 @@ import { TestCasesService } from '../service/run/test-cases.service';
 import {ToastrService } from 'ngx-toastr';
 import { TestCase } from '../model';
 import { LoadingComponent } from "../loading/loading.component";
-import { interval, take } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { interval } from 'rxjs';
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
-import { TestRegisterComponent } from '../test-register/test-register.component';
 
 
 @Component({
