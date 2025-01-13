@@ -17,6 +17,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 4px 6px #4CAF50;
 }
 
 .navbar .logo a {
@@ -26,157 +27,111 @@ body {
   font-weight: bold;
 }
 
-.navbar .menu {
-  list-style: none;
+/* Style for the navbar */
+.navbar {
+  position: relative;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+}
+
+/* Style for the navbar */
+.navbar {
+  position: relative;
+  background-color: #4CAF50;
+  color: white;
   display: flex;
-  margin: 0;
-  padding: 0;
+  justify-content: space-between; /* This aligns the logo and menu-toggle button to the sides */
+  align-items: center; /* Center the items vertically */
+  padding: 10px;
 }
 
-.navbar .menu li {
-  margin-left: 20px;
-}
-
-.navbar .menu li a {
+/* Logo */
+.navbar .logo a {
   color: white;
   text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.navbar .menu li a:hover {
-  color: #dfe9e7;
-}
-
-/* Tooltip container */
-.tooltip {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 14px;
-  z-index: 10;
-  display: inline-block;
-  top: 30px;  /* Positioning of tooltip box */
-  left: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.2s;
-}
-
-/* Show the tooltip on hover */
-.navbar .menu li:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Home container styles */
-.home-container {
-  max-width: 800px;
-  margin: 50px auto;
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.home-container h1 {
-  text-align: center;
-  font-size: 32px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.home-container p {
-  font-size: 18px;
-  text-align: center;
-  color: #666;
-  margin-bottom: 30px;
-}
-
-.quick-links {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.quick-links h3 {
   font-size: 24px;
-  color: #333;
-  margin-bottom: 10px;
 }
 
-.quick-links ul {
-  list-style: none;
+/* Menu toggle button (☰) */
+.menu-toggle {
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 10;  /* Ensure the button is always on top */
+}
+
+/* Menu container */
+.menu-container {
+  position: absolute;
+  top: 50px;  /* Adjust the space between the navbar and the menu */
+  right: 0;  /* Align the menu to the right side */
+  width: 250px;  /* Adjust width as needed */
+  background-color: #4CAF50;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Menu items */
+.menu-container ul {
+  list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
-.quick-links ul li {
-  margin-bottom: 10px;
+.menu-container li {
+  padding: 10px;
 }
 
-.quick-links ul li a {
-  font-size: 18px;
-  color: #4CAF50;
+.menu-container li a {
+  color: white;
   text-decoration: none;
 }
 
-.quick-links ul li a:hover {
-  text-decoration: underline;
+.menu-container li a:hover {
+  background-color: #444;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-  /* Navbar */
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px;
-  }
-
-  /* Navbar items */
-  .navbar .menu {
-    flex-direction: column;
-    width: 100%;
-    margin-top: 10px;
-    padding-left: 0;
-  }
-
-  .navbar .menu li {
-    margin-left: 0;
-    margin-top: 10px;
-    text-align: left;
-    width: 100%;
-  }
-
-  /* Home container */
-  .home-container {
-    width: 90%;
-    padding: 20px;
-  }
-
-  .home-container h1 {
-    font-size: 28px;
-  }
-
-  .quick-links h3 {
-    font-size: 20px;
-  }
-
-  .quick-links ul li a {
-    font-size: 16px;
-  }
-
-  /* Tooltip */
-  .navbar .menu li a {
-    position: relative;
-  }
-}
-
-/* Style for the hoverable username */
-.username {
+/* Close button inside the menu */
+.close-menu {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
   cursor: pointer;
-  font-weight: bold;
-  color: #007bff;
+  margin-top: 10px;
+  align-self: flex-end;
 }
+
+/* Optional: Transition effect for the menu appearing */
+.menu-container {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.menu-container.ng-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.menu-container.ng-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-container.ng-leave {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-container.ng-leave-active {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+

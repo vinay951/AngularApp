@@ -7,17 +7,30 @@ import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../loading/loading.component";
 import { MatDialog } from '@angular/material/dialog';
 import { TestRegisterComponent } from '../test-register/test-register.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-header',
   imports: [ReactiveFormsModule, CommonModule, LoadingComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
+  animations: [
+    trigger('slideIn', [
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('300ms ease-in', style({ transform: 'translateX(0)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-out', style({ transform: 'translateX(-100%)' }))
+      ])
+    ])
+  ]
 })
 export class HeaderComponent implements OnInit{
   showTooltip: boolean = false;  // Control visibility of tooltip
   username:string = localStorage.getItem("user")??'';
   isDataLoading = false;
+  isMenuOpen = false;  // Menu state
   constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog){
 
   }
@@ -26,6 +39,15 @@ export class HeaderComponent implements OnInit{
   logout(){
     localStorage.clear();
     this.router.navigateByUrl('/login');
+  }
+  // Function to toggle the menu
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  // Function to close the menu
+  closeMenu() {
+    this.isMenuOpen = false;
   }
   delete(){
     if(window.confirm('Are you sure you want to proceed?')) {
