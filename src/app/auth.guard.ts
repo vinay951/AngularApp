@@ -1,8 +1,11 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { SessionService } from './session/session.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
+  const sessionService = inject(SessionService);
+  sessionService.setSessionData("routed",state.url);
 
   // Check if authToken exists in localStorage
   if (localStorage.getItem('user')) {

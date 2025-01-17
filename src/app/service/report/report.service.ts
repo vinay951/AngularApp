@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ReportService {
 
-  private apiUrl = 'https://backend-1055536593121.us-central1.run.app/reports/top5'; // Spring Boot API endpoint
+  private apiUrl = 'http://localhost:8080/reports/top5'; // Spring Boot API endpoint
 
   constructor(private http: HttpClient) { }
 
