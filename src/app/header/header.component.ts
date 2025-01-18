@@ -8,6 +8,7 @@ import { LoadingComponent } from "../loading/loading.component";
 import { MatDialog } from '@angular/material/dialog';
 import { TestRegisterComponent } from '../test-register/test-register.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { SessionService } from '../session/session.service';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +32,9 @@ export class HeaderComponent implements OnInit{
   username:string = localStorage.getItem("user")??'';
   isDataLoading = false;
   isMenuOpen = false;  // Menu state
-  constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog){
+  constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog,
+    private session:SessionService
+  ){
 
   }
   ngOnInit(): void {
@@ -39,6 +42,7 @@ export class HeaderComponent implements OnInit{
   logout(){
     localStorage.clear();
     this.router.navigateByUrl('/login');
+    this.session.clearSessionData();
   }
   // Function to toggle the menu
   toggleMenu() {
