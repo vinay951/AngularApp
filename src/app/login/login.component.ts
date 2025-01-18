@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit {
           if(response.responseMessage==="Success"){
             localStorage.setItem("user",this.loginForm.value.username);
             this.session.setSessionData("Token",response.token);
+            this.decodeJwtAndStore(response.token);
             this.isDataLoading = false;
             this.router.navigateByUrl("/home")
           } else{
@@ -96,5 +97,38 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+
+  // Method to decode JWT without any dependencies
+  decodeJwt(jwtToken: string): any {
+    try {
+      // JWT token has three parts: header, payload, and signature
+      const base64Url = jwtToken.split('.')[1]; // The payload part is in the middle
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // URL-safe base64 decoding
+      const jsonPayload = atob(base64); // Decode the base64 string into a JSON string
+      return JSON.parse(jsonPayload); // Parse the JSON string into an object
+    } catch (error) {
+      console.error('Invalid JWT token', error);
+      return null;
+    }
+  }
+
+  // Method to decode JWT and store the decoded values in sessionStorage
+  decodeJwtAndStore(jwtToken: string): void {
+    const decodedToken = this.decodeJwt(jwtToken);
+    if (decodedToken) {
+      // Store the entire decoded token in sessionStorage
+      sessionStorage.setItem('decodedToken', JSON.stringify(decodedToken));
+
+      // Store specific values like userId, username, etc.
+      sessionStorage.setItem('user', decodedToken.sub || '');
+      sessionStorage.setItem('expire', decodedToken.exp || '');
+    }
+  }
+
+  // Method to retrieve the decoded JWT from sessionStorage
+  getDecodedToken(): any {
+    const decodedToken = sessionStorage.getItem('decodedToken');
+    return decodedToken ? JSON.parse(decodedToken) : null;
   }
 }
