@@ -6,6 +6,7 @@ import { UserService } from '../service/user.service';
 import { Login } from '../model';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../loading/loading.component";
+import { SessionService } from '../session/session.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit {
   isDataLoading = false;
   uniqueName: string = '';
 
-  constructor(private fb: FormBuilder,private userService:UserService, private router: Router,private toastr: ToastrService) {}
+  constructor(private fb: FormBuilder,private userService:UserService, private router: Router,private toastr: ToastrService
+    ,private session:SessionService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -78,6 +81,7 @@ export class LoginComponent implements OnInit {
           console.log(response);
           if(response.responseMessage==="Success"){
             localStorage.setItem("user",this.loginForm.value.username);
+            this.session.setSessionData("Token",response.token);
             this.isDataLoading = false;
             this.router.navigateByUrl("/home")
           } else{
