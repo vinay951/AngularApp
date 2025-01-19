@@ -13,12 +13,14 @@ import { TestcasesComponent } from './testcases/testcases.component';
 import { TestReportsComponent } from './test-reports/test-reports.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { TestRegisterComponent } from './test-register/test-register.component';
+import { CodingComponent } from './coding/coding.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
     { path: 'register', component: UserRegistrationComponent },
     { path: 'forgot', component: ForgotComponent }, // Route for register page
     { path: 'profile', component: ProfileComponent,canActivate:[authGuard]},
+    { path: 'questions', component: CodingComponent,canActivate:[authGuard]},
     { path: 'home', component: HomeComponent,canActivate:[authGuard]},
     { path: 'compiler', component: CompilerComponent,canActivate:[authGuard]},
     { path: 'chatgpt', component: ChatComponent,canActivate:[authGuard]},

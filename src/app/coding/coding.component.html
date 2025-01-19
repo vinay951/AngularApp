@@ -1,0 +1,25 @@
+<div class="container">
+    <h1>Random Coding Question</h1>
+    <div *ngIf="question">
+      <p>{{ question.text }}</p>
+      <textarea [(ngModel)]="userCode" placeholder="Write your solution here"></textarea>
+      <div>
+        <label for="language">Select Language:</label>
+        <select [(ngModel)]="selectedLanguage">
+          <option value="java">Java</option>
+          <option value="python">Python</option>
+          <option value="cpp">C++</option>
+        </select>
+      </div>
+      <button (click)="submitSolution()">Submit</button>
+    </div>
+    <div *ngIf="result">
+      <h2>Test Results</h2>
+      <pre>{{ result }}</pre>
+    </div>
+  </div>
+
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>
+  
