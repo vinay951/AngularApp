@@ -4,10 +4,9 @@ import { WebsocketService } from '../service/websocket/websocket.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../service/user.service';
 import { LoadingComponent } from "../loading/loading.component";
-import { interval } from 'rxjs';
 import { IdleDetectionService } from '../service/idle/idle-detection.service';
+import { NotificationSendMessageService } from '../service/notification-send-message.service';
 
 @Component({
   selector: 'app-home',
@@ -29,8 +28,8 @@ export class HomeComponent implements OnInit {
   constructor( private router: Router,
     private websocketService:WebsocketService,
     private toastr:ToastrService,
-    private userService:UserService,
-    private idleService:IdleDetectionService
+    private idleService:IdleDetectionService,
+    private notificationService:NotificationSendMessageService,
   ){
 
   }
@@ -40,6 +39,7 @@ export class HomeComponent implements OnInit {
     this.loadMessages();
     this.websocketService.messages$.subscribe(message => {
       if (message) {
+        this.notificationService.showNotification(message.content);  // Show a notification for each new message
         // Log and add the received message to the array of messages
         console.log(`Message received from ${message.sender}: ${message.content}`);
         if(this.username != message.sender){

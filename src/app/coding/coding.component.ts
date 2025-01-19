@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from "../loading/loading.component";
 import { QuestionService } from '../service/question/question.service';
+import { NotificationSendMessageService } from '../service/notification-send-message.service';
 
 @Component({
   selector: 'app-coding',
@@ -18,7 +19,7 @@ export class CodingComponent {
   result: string | null = null;
   isDataLoading = false;
 
-  constructor(private questionService:QuestionService) {}
+  constructor(private questionService:QuestionService,private notification:NotificationSendMessageService) {}
 
   ngOnInit() {
     this.getRandomQuestion();
@@ -46,6 +47,7 @@ export class CodingComponent {
     };
     this.questionService.submitSolution(payload,this.question).subscribe({
       next: (response: any) => {
+        this.notification.showNotification(response.result);
         this.result = response.result+"\n\nYour Output is:\n\n"+response.output;
         this.isDataLoading = false;
         if(response.result === "Test Case Failed"){
