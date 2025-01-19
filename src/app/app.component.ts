@@ -20,7 +20,13 @@ export class AppComponent implements OnInit {
     interval(1000).pipe().subscribe(() => {
       this.checkTokenExpiration();
     });
-    
+    if ('Notification' in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('Notification permission granted');
+        }
+      });
+    }
   }
   title = 'angularApp';
   checkmethod():boolean{
@@ -52,5 +58,4 @@ export class AppComponent implements OnInit {
       this.logout();  // Clear session and navigate to login page
     }
   }
-
 }
