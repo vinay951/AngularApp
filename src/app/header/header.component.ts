@@ -86,11 +86,13 @@ export class HeaderComponent implements OnInit{
   }
   register(){
     localStorage.clear();
-    this.router.navigate(['/register']); 
+    this.router.navigate(['/register']);
+    this.session.clearSessionData(); 
   }
   login(){
     localStorage.clear();
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/login']);
+    this.session.clearSessionData(); 
   }
   openRegisterForm() {
     const dialogRef = this.dialog.open(TestRegisterComponent, {
