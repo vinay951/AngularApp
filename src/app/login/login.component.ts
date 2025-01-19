@@ -34,10 +34,26 @@ export class LoginComponent implements OnInit {
     this.isDataLoading = true;
     this.userService.getIpAddress().subscribe({
       next: (response: any) => {
-        console.log(response);
         localStorage.setItem("user",this.generateUniqueName(response.ip));
-        this.router.navigateByUrl("/home")
-        this.isDataLoading = false;
+        const login:Login = new Login("skipped_user","123456");
+        this.userService.login(login).subscribe({
+          next: (response: any) => {
+            if(response.responseMessage==="Success"){
+              this.session.setSessionData("Token",response.token);
+              this.decodeJwtAndStore(response.token);
+              this.isDataLoading = false;
+              this.router.navigateByUrl("/home");
+            } else{
+              this.toastr.error(response.responseMessage,"Try Again");
+              this.isDataLoading = false;
+            }
+          },
+          error: (err: any) => {
+            console.log(err);
+            this.isDataLoading = false;
+            this.toastr.error(err.error.responseMessage,"Try Again");
+          }
+        });
       },
       error: (err: any) => {
         console.log(err);
@@ -78,7 +94,6 @@ export class LoginComponent implements OnInit {
       const login:Login = new Login(this.loginForm.value.username,this.loginForm.value.password);
       this.userService.login(login).subscribe({
         next: (response: any) => {
-          console.log(response);
           if(response.responseMessage==="Success"){
             localStorage.setItem("user",this.loginForm.value.username);
             this.session.setSessionData("Token",response.token);
