@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
 
   // Method to check token expiration and handle session
   checkTokenExpiration(): void {
-    if (this.isTokenExpired() && (this.router.url != '/login' && this.router.url != '/register' && this.router.url != '/otp')) {
+    if (this.isTokenExpired() && (this.router.url != '/login' && this.router.url != '/register' && this.router.url != '/otp' && this.router.url!='/forgot')) {
       this.logout();  // Clear session and navigate to login page
     }
   }
