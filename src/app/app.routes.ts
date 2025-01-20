@@ -14,6 +14,7 @@ import { TestReportsComponent } from './test-reports/test-reports.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { TestRegisterComponent } from './test-register/test-register.component';
 import { CodingComponent } from './coding/coding.component';
+import { BikebuyerpredictionComponent } from './bikebuyerprediction/bikebuyerprediction.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
@@ -29,5 +30,6 @@ export const routes: Routes = [
     {path:'testRegister',component:TestRegisterComponent,canActivate:[authGuard]},
     { path: 'accessDenied', component: AccessDeniedComponent },
     { path: 'otp', component: OtpComponent},
+    { path: "predict", component: BikebuyerpredictionComponent,canActivate:[authGuard]},
     { path: '**', redirectTo: '/home'}  // Default route, redirects to login
 ];

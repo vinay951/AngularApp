@@ -1,0 +1,51 @@
+<!-- userForm.component.html -->
+<div class="form-container">
+    <h2>User Information</h2>
+    
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <div class="form-group">
+        <label for="maritalStatus">Marital Status</label>
+        <select id="maritalStatus" [(ngModel)]="userData.maritalStatus" name="maritalStatus" required>
+          <option value=0>Single</option>
+          <option value=1>Married</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="yearlyIncome">Yearly Income</label>
+        <input type="number" id="yearlyIncome" [(ngModel)]="userData.yearlyIncome" name="yearlyIncome" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="children">Number of Children</label>
+        <input type="number" id="children" [(ngModel)]="userData.children" name="children" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="homeOwner">Home Owner</label>
+        <select id="homeOwner" [(ngModel)]="userData.homeOwner" name="homeOwner" required>
+          <option value=1>Yes</option>
+          <option value=0>No</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="cars">Number of Cars</label>
+        <input type="number" id="cars" [(ngModel)]="userData.cars" name="cars" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" id="age" [(ngModel)]="userData.age" name="age" required />
+      </div>
+  
+      <button type="submit" [disabled]="!userForm.form.valid">Submit</button>
+    </form>
+  </div>
+  <h2>{{prediction}}</h2>
+
+    
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>
+  
