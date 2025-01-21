@@ -15,7 +15,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     timeExpired =  true; // If token decoding fails, consider it expired
   }
   // Check if authToken exists in localStorage
-  if (localStorage.getItem('user') && timeExpired) {
+  if (localStorage.getItem('user')) {
     if(state.url === '/test' || state.url === '/profile'){
       if(localStorage.getItem('user')?.startsWith("User-")){
         router.navigate(['/accessDenied']);
