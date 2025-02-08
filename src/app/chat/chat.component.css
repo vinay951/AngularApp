@@ -72,4 +72,11 @@
     font-size: 16px;
     color: #555;
   }
+  .top-right-link {
+    top: 10px;     /* Adjust the top position */
+    right: 10px;   /* Adjust the right position */
+    text-decoration: none;  /* Optional: to remove underline */
+    padding: 10px;  /* Optional: styling */
+    border-radius: 5px;  /* Optional: styling */
+  }
   

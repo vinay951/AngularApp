@@ -38,4 +38,8 @@ export class ChatComponent {
       this.isLoading = false;
     }
   }
+  clearChat(){
+    this.chatService.clearHistory();
+    this.messages = [];
+  }
 }

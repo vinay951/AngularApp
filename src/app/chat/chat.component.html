@@ -2,6 +2,7 @@
     <div class="chat-header">
       <h2>Chat with GPT</h2>
     </div>
+    <a href="javascript:void(0);" class="top-right-link" (click)="clearChat()">Clear Chat</a>
     <div class="chat-box">
       <div *ngFor="let message of messages" class="message" [ngClass]="{'user': message.sender === 'user', 'bot': message.sender === 'bot'}">
         <p>{{ message.text }}</p>
