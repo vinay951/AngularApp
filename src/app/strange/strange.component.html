@@ -1,0 +1,14 @@
+<div class="strange-container" (mouseover)="onHover()">
+    <div *ngFor="let item of items" [ngStyle]="getRandomStyle()" class="strange-item">
+      {{ item }}
+    </div>
+    
+    <div *ngIf="isButtonVisible" class="weird-button" (click)="toggleVisibility()">
+      Click Me
+    </div>
+  
+    <div *ngIf="showMessage" class="strange-message">
+      You clicked the button at {{ buttonClickTime }}!
+    </div>
+  </div>
+  

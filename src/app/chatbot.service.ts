@@ -115,6 +115,15 @@ export class ChatbotService {
       if(!localStorage.getItem('user')){
         reply = "Login First to access Chat gpt page";
       }
+    }else if(message.toLocaleLowerCase().includes("strange") || message.toLocaleLowerCase().includes("strange")){
+      let validate:Boolean = confirm("routing to strange page")
+      if(validate){
+        this.route.navigateByUrl('/strange');
+        reply = "routed to strange page";
+      }
+      if(!localStorage.getItem('user')){
+        reply = "Login First to access Chat gpt page";
+      }
     } else{
       reply = "Router Bot is not able to understand the message";
     }
