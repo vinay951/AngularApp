@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from "./footer/footer.component";
 import { SessionService } from './session/session.service';
 import { interval } from 'rxjs';
+import { ChatbotComponent } from "./chatbot/chatbot.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, CommonModule, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, CommonModule, FooterComponent, ChatbotComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

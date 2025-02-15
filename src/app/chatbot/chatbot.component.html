@@ -1,0 +1,24 @@
+<!-- Floating circular button -->
+<div *ngIf="!isChatOpen" class="chat-button" (click)="toggleChat()">
+    <span>Chat</span>
+  </div>
+  
+  <!-- Chat window -->
+  <div [ngClass]="{'chat-window': true, 'open': isChatOpen}">
+    <div class="chat-header">
+      <span>Chatbot</span>
+      <button class="close-btn" (click)="toggleChat()">X</button>
+    </div>
+  
+    <div class="chat-box">
+      <div *ngFor="let message of botMessages" class="message">
+        {{ message }}
+      </div>
+    </div>
+  
+    <div class="input-container">
+      <input [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" placeholder="Type your message" />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+  
