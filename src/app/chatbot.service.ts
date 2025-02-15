@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
+import { AfterViewInit, Injectable, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { delay, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { SessionService } from './session/session.service';
+import { HomeComponent } from './home/home.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatbotService {
 
+
+
   private apiUrl = 'https://dialogflow.googleapis.com/v2/projects/pizzadelivery-yflisb/agent/sessions/4166c918-747d-e25d-60bc-d3151584f369:detectIntent';
   
   constructor(private http: HttpClient,private route:Router,private session:SessionService) {}
+  
 
   sendMessage(message: string): Observable<any> {
     const headers = new HttpHeaders({
@@ -98,6 +102,15 @@ export class ChatbotService {
       if(validate){
         this.route.navigateByUrl('/predict');
         reply = "routed to Bike Buyer Prediction page";
+      }
+      if(!localStorage.getItem('user')){
+        reply = "Login First to access Chat gpt page";
+      }
+    }else if(message.toLocaleLowerCase().includes("profile") || message.toLocaleLowerCase().includes("profile")){
+      let validate:Boolean = confirm("routing to Profile page")
+      if(validate){
+        this.route.navigateByUrl('/profile');
+        reply = "routed to Profile page";
       }
       if(!localStorage.getItem('user')){
         reply = "Login First to access Chat gpt page";
