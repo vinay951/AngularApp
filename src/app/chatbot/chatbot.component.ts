@@ -24,7 +24,7 @@ export class ChatbotComponent {
     if (this.userMessage.trim()) {
       this.botMessages.push(`You: ${this.userMessage}`);
       this.chatbotService.sendMessage(this.userMessage).subscribe((response: any) => {
-        this.botMessages.push(`Bot: ${response.reply}`);
+        this.botMessages.push(`Bot: ${response}`);
         this.userMessage = '';
       });
     }
