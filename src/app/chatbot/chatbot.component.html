@@ -1,12 +1,12 @@
 <!-- Floating circular button -->
 <div *ngIf="!isChatOpen" class="chat-button" (click)="toggleChat()">
-    <span>Chat</span>
+    <span>Route</span>
   </div>
   
   <!-- Chat window -->
   <div [ngClass]="{'chat-window': true, 'open': isChatOpen}">
     <div class="chat-header">
-      <span>Chatbot</span>
+      <span>Enter Description to route to particular page</span>
       <button class="close-btn" (click)="toggleChat()">X</button>
     </div>
   

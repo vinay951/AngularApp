@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { delay, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { SessionService } from './session/session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ChatbotService {
 
   private apiUrl = 'https://dialogflow.googleapis.com/v2/projects/pizzadelivery-yflisb/agent/sessions/4166c918-747d-e25d-60bc-d3151584f369:detectIntent';
   
-  constructor(private http: HttpClient,private route:Router) {}
+  constructor(private http: HttpClient,private route:Router,private session:SessionService) {}
 
   sendMessage(message: string): Observable<any> {
     const headers = new HttpHeaders({
@@ -28,7 +29,7 @@ export class ChatbotService {
     };
     const payload = { message };
     let reply ='';
-    if(message.includes("login")){
+    if(message.toLocaleLowerCase().includes("login")){
       let validate:Boolean = confirm("routing to login page")
       if(validate){
         this.route.navigateByUrl('/login');
@@ -37,20 +38,72 @@ export class ChatbotService {
       if(localStorage.getItem('user')){
         reply = "You are already logged in";
       }
-    }else if(message.includes("logout")){
+    }else if(message.toLocaleLowerCase().includes("logout")){
       let validate:Boolean = confirm("Do you want to logout")
       if(validate){
-        localStorage.removeItem('user');
+        localStorage.clear();
+        this.session.clearSessionData();
         reply = "You are successfully logged out";
       }
-    } else if(message.includes("home")){
+    } else if(message.toLocaleLowerCase().includes("home")){
       let validate:Boolean = confirm("routing to home page")
       if(validate){
         this.route.navigateByUrl('/home');
         reply = "routed to home page";
       }
+      if(!localStorage.getItem('user')){
+        reply = "Login First to access home page";
+      }
+    }else if(message.toLocaleLowerCase().includes("chat")){
+      let validate:Boolean = confirm("routing to Chat Gpt page")
+      if(validate){
+        this.route.navigateByUrl('/chatgpt');
+        reply = "routed to Chat Gpt page";
+      }
+      if(!localStorage.getItem('user')){
+        reply = "Login First to access Chat gpt page";
+      }
+    }else if(message.toLocaleLowerCase().includes("password")){
+      let validate:Boolean = false;
+      let page = '';
+      if(!localStorage.getItem('user')){
+        validate = confirm("routing to forgot Password page");
+        page = "/forgot";
+        reply = "routed to forgot Password page";
+      } else{
+        validate = confirm("routing to Change Password page");
+        page = "/profile";
+        reply = "routed to profile page";
+      }
+      if(validate){
+        this.route.navigateByUrl(page);
+      }
+    }else if(message.toLocaleLowerCase().includes("create") || message.toLocaleLowerCase().includes("register")){
+      let validate:Boolean = confirm("routing to create user page")
+      if(validate){
+        this.route.navigateByUrl('/register');
+        reply = "routed to create user page";
+      }
+    }else if(message.toLocaleLowerCase().includes("compiler") || message.toLocaleLowerCase().includes("online")){
+      let validate:Boolean = confirm("routing to online compiler page")
+      if(validate){
+        this.route.navigateByUrl('/compiler');
+        reply = "routed to online compiler page";
+      }
+      if(!localStorage.getItem('user')){
+        reply = "Login First to access Chat gpt page";
+      }
+    } else if(message.toLocaleLowerCase().includes("prediction") || message.toLocaleLowerCase().includes("predict")){
+      let validate:Boolean = confirm("routing to Bike Buyer Prediction page")
+      if(validate){
+        this.route.navigateByUrl('/predict');
+        reply = "routed to Bike Buyer Prediction page";
+      }
+      if(!localStorage.getItem('user')){
+        reply = "Login First to access Chat gpt page";
+      }
     } else{
-      reply = "beta version need some more time to understand ur question";
+      reply = "Router Bot is not able to understand the message";
     }
     return this.getRandomObservable(reply);
   }
