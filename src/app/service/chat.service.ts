@@ -25,8 +25,6 @@ export class ChatService {
           {
             model: 'gpt-4o-mini',  // or 'gpt-4' depending on your access
             messages: this.messagesHistory,  // Use the entire conversation context
-            max_tokens: 100,
-            temperature: 0.7,
           },
           {
             headers: {
