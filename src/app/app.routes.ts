@@ -16,6 +16,7 @@ import { TestRegisterComponent } from './test-register/test-register.component';
 import { CodingComponent } from './coding/coding.component';
 import { BikebuyerpredictionComponent } from './bikebuyerprediction/bikebuyerprediction.component';
 import { StrangeComponent } from './strange/strange.component';
+import { DynamicComponent } from './dynamic/dynamic.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
@@ -32,6 +33,7 @@ export const routes: Routes = [
     { path: 'accessDenied', component: AccessDeniedComponent },
     { path: 'otp', component: OtpComponent},
     { path: 'strange', component: StrangeComponent,canActivate:[authGuard]},
+    { path: 'dynamic', component: DynamicComponent,canActivate:[authGuard]},
     { path: "predict", component: BikebuyerpredictionComponent,canActivate:[authGuard]},
     { path: '**', redirectTo: '/home'}  // Default route, redirects to login
 ];

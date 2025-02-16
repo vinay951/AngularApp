@@ -1,0 +1,63 @@
+<div class="container">
+    <h2>Dynamic Element Creator</h2>
+  
+    <!-- Select Element Type -->
+    <div>
+      <label for="elementType">Choose an element:</label>
+      <select [(ngModel)]="selectedElement" id="elementType">
+        <option value="">--Select--</option>
+        <option value="button">Button</option>
+        <option value="textbox">Text Box</option>
+        <option value="checkbox">Checkbox</option>
+        <option value="radio">Radio Button</option>
+        <option value="div">Div Container</option>
+        <option value="select">Dropdown</option>
+        <option value="paragraph">Paragraph</option>
+        <option value="image">Image</option>
+      </select>
+    </div>
+  
+    <!-- Dynamic Style Inputs -->
+    <div *ngIf="selectedElement" class="style-inputs">
+      <label for="color">Color:</label>
+      <input [(ngModel)]="selectedColor" type="text" placeholder="e.g., red, #ff0000">
+  
+      <label for="size">Font Size (px):</label>
+      <input [(ngModel)]="selectedSize" type="number" placeholder="e.g., 16">
+  
+      <label for="bgColor">Background Color:</label>
+      <input [(ngModel)]="selectedBgColor" type="text" placeholder="e.g., #f0f0f0">
+  
+      <label for="padding">Padding:</label>
+      <input [(ngModel)]="selectedPadding" type="text" placeholder="e.g., 10px">
+  
+      <label for="margin">Margin:</label>
+      <input [(ngModel)]="selectedMargin" type="text" placeholder="e.g., 10px">
+  
+      <label for="borderRadius">Border Radius:</label>
+      <input [(ngModel)]="selectedBorderRadius" type="text" placeholder="e.g., 5px">
+    </div>
+  
+    <div>
+      <button (click)="addElement()">Add Element</button>
+    </div>
+  
+    <!-- Render Created Elements -->
+    <div class="elements-container">
+      <div *ngFor="let element of elements" [ngStyle]="element.styles">
+        <div *ngIf="element.type === 'button'" class="dynamic-element" (click)="handleClick()">Click Me</div>
+        <input *ngIf="element.type === 'textbox'" type="text" placeholder="Enter text" class="dynamic-element" />
+        <input *ngIf="element.type === 'checkbox'" type="checkbox" class="dynamic-element" />
+        <input *ngIf="element.type === 'radio'" type="radio" name="radio-group" class="dynamic-element" />
+        <div *ngIf="element.type === 'div'" class="custom-div dynamic-element">This is a custom div</div>
+        <select *ngIf="element.type === 'select'" class="dynamic-element">
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </select>
+        <p *ngIf="element.type === 'paragraph'" class="dynamic-element">This is a dynamic paragraph!</p>
+        <img *ngIf="element.type === 'image'" class="dynamic-element" src="https://via.placeholder.com/150" alt="Image" />
+      </div>
+    </div>
+  </div>
+  
+  
