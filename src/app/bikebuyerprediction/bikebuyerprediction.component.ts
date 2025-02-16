@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PredictionService } from '../prediction.service';
 import { LoadingComponent } from "../loading/loading.component";
+import { NotificationSendMessageService } from '../service/notification-send-message.service';
 
 @Component({
   selector: 'app-bikebuyerprediction',
@@ -23,7 +24,7 @@ export class BikebuyerpredictionComponent {
   };
   prediction: any;
 
-  constructor(private apiService: PredictionService) {}
+  constructor(private apiService: PredictionService,private notificationService:NotificationSendMessageService) {}
 
   onSubmit() {
     const { maritalStatus, yearlyIncome, children, homeOwner, cars, age } = this.userData;
@@ -32,6 +33,7 @@ export class BikebuyerpredictionComponent {
       .subscribe(response => {
         this.prediction = response.message;
         console.log('Prediction received:', this.prediction);
+        this.notificationService.showNotification('Prediction received:'+ this.prediction);
         this.isDataLoading = false;
       }, error => {
         console.error('Error calling API:', error);

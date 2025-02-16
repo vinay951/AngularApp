@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from "../loading/loading.component";
 import { CompileService } from '../service/compile.service';
+import { NotificationSendMessageService } from '../service/notification-send-message.service';
 
 @Component({
   selector: 'app-compiler',
@@ -24,7 +25,7 @@ export class CompilerComponent {
   };
   isDataLoading = false;
 
-  constructor(private codeExecutionService: CompileService) {
+  constructor(private codeExecutionService: CompileService,private notificationService:NotificationSendMessageService) {
     this.code = this.defaultCode[this.selectedLanguage];
   }
 
@@ -33,6 +34,7 @@ export class CompilerComponent {
     this.codeExecutionService.executeCode(this.code,this.selectedLanguage).subscribe(
       (response:any) => {
         this.output = response.output;
+        this.notificationService.showNotification("Code executed successfully");
         this.isDataLoading = false;
       },
       (error:any) => {
