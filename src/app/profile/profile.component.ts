@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../service/user.service';
-import { Login, User } from '../model';
+import { Login, ProfilePic, User } from '../model';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../loading/loading.component";
 
@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   };
   isPasswordChangeVisible: boolean = false;
   isDataLoading = false;
+  profilePicturePreview: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +51,7 @@ export class ProfileComponent implements OnInit {
   // Load user data (this can be an API call to your backend)
   loadUserData() {
     this.isDataLoading = true;
+    this.getProfilePic();
     this.userService.getUserProfile(localStorage.getItem("user")).subscribe(
       (data:any) => {
         this.user = data;
@@ -86,15 +88,43 @@ export class ProfileComponent implements OnInit {
       (response:any) => {
         if(response.responseMessage === "User Updated"){
           this.toastr.success(response.responseMessage);
+          if (this.profilePicturePreview) {
+            this.isDataLoading = true;
+            let profile:ProfilePic = new ProfilePic(localStorage.getItem("user")??"",this.profilePicturePreview);
+            this.userService.uploadProfilePic(profile).subscribe(
+              (response:any) => {
+                if(response.responseMessage === "Success"){
+                  this.toastr.success('Profile picture uploaded successfully');
+                }
+                this.isDataLoading = false;
+              },
+              (error:any) => {
+                this.toastr.error(error.message,"Try Again");
+                console.error('Error changing password:', error);
+                this.isDataLoading = false;
+              }
+            );
+          }
         } else{
           this.toastr.error(response.responseMessage,"Try AGain");
+          this.isDataLoading = false;
         }
-        this.isDataLoading = false;
       },
       (error) => {
         this.toastr.error(error.error.responseMessage,"Try AGain");
         console.error('Error updating profile:', error);
         this.isDataLoading = false;
+      }
+    );
+  }
+  getProfilePic(){
+    const email = localStorage.getItem("user")??"";
+    this.userService.getProfile(email).subscribe(
+      (response:any) => {
+        this.profilePicturePreview = response.picture;
+      },
+      (error) => {
+        console.error('Error getting profile pic:', error);
       }
     );
   }
@@ -124,4 +154,15 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profilePicturePreview = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+    
 }

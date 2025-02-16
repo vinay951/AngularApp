@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';  // You may need to install this module
 import { Observable } from 'rxjs';
-import { Login, User } from '../model';
+import { Login, ProfilePic, User } from '../model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +41,12 @@ export class UserService {
   deleteUser(email: string): Observable<any> {
     // Calling the Spring Boot backend to send the OTP
     return this.http.delete(this.apiUrl+'/delete/'+email);
+  }
+  getProfile(email: string): Observable<any> {
+    return this.http.get(this.apiUrl+'/getPic/'+email);
+  }
+  uploadProfilePic(data:ProfilePic): Observable<any> {
+    return this.http.post(this.apiUrl+'/profilePic', data);
   }
   
 }

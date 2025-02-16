@@ -41,3 +41,14 @@ export interface Test{
   name: string;
   loading: boolean;
 }
+export class ProfilePic{
+  email: string;
+  picture: string;
+  constructor(
+    email: string = '',
+    picture: string = ''
+  ) {
+    this.email = email;
+    this.picture = picture;
+  }
+}

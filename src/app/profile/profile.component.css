@@ -154,4 +154,32 @@ body {
       padding: 8px;
     }
   }
+  .profile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+  }
+  
+  .profile-img-preview {
+    margin-top: 10px;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  hr {
+    margin: 20px 0;
+  }
+  
   
