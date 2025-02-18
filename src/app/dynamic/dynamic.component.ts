@@ -83,5 +83,33 @@ export class DynamicComponent {
     handleClick() {
       alert('Button clicked!');
     }
+    downloadCreatedHtml(){
+      // Select the div element you want to download
+      var divContent = document.querySelector('.elements-container'); // Modify this selector if necessary
+
+      // Create the complete HTML structure with <html> and <body> tags
+      var fullHTML = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Downloaded Div</title>
+          </head>
+          <body>
+            ${divContent ? divContent.outerHTML : ''}
+          </body>
+        </html>
+      `;
+
+      // Create a Blob with the HTML content
+      var blob = new Blob([fullHTML], { type: 'text/html' });
+
+      // Create an anchor element to trigger the download
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'created.html'; // Name of the file to download
+
+      // Trigger the download
+      link.click();
+    }
   }
   
