@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Upload an Image for Deblurring</h2>
+  
+    <!-- Custom File Input -->
+    <label for="file-upload" class="label-file">Choose an Image</label>
+    <input type="file" id="file-upload" (change)="onImageSelect($event)" />
+    
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  
+    <!-- Upload Button -->
+    <button (click)="onUpload()">Upload</button>
+  
+    <!-- Deblurred Image Display -->
+    <div *ngIf="deblurredImageUrl" class="deblurred-image">
+      <h3>Deblurred Image:</h3>
+      <img [src]="deblurredImageUrl" alt="Deblurred Image" />
+    </div>
+    <div class="deblurred-image">
+        <h3>Uploaded Image:</h3>
+        <img [src]="selectedImageURl" alt="Selected Image" />
+      </div>
+  </div>
+  
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>
