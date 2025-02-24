@@ -42,10 +42,12 @@ export class HomeComponent implements OnInit {
         // Log and add the received message to the array of messages
         console.log(`Message received from ${message.sender}: ${message.content}`);
         if(!localStorage.getItem("user")?.includes(message.sender)){
-          console.log(localStorage.getItem("user"))
-          console.log(message.sender)
-          this.notificationService.showNotification(message.content,message.sender);  // Show a notification for each new message
           this.toastr.info(`Message received from ${message.sender}: ${message.content}`);
+          if(message.content === null){
+            this.notificationService.showNotification(message.sender+":Joined",message.sender);  // Show a notification for each new message
+          }else{
+            this.notificationService.showNotification(message.content,message.sender);  // Show a notification for each new message
+          }
         }
         this.messages.push(message);
         this.saveMessages();
