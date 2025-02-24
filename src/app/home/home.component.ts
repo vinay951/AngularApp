@@ -39,10 +39,12 @@ export class HomeComponent implements OnInit {
     this.loadMessages();
     this.websocketService.messages$.subscribe(message => {
       if (message) {
-        this.notificationService.showNotification(message.content);  // Show a notification for each new message
         // Log and add the received message to the array of messages
         console.log(`Message received from ${message.sender}: ${message.content}`);
-        if(this.username != message.sender){
+        if(!localStorage.getItem("user")?.includes(message.sender)){
+          console.log(localStorage.getItem("user"))
+          console.log(message.sender)
+          this.notificationService.showNotification(message.content,message.sender);  // Show a notification for each new message
           this.toastr.info(`Message received from ${message.sender}: ${message.content}`);
         }
         this.messages.push(message);

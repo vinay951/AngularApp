@@ -7,12 +7,12 @@ export class NotificationSendMessageService {
 
   constructor() { }
 
-  showNotification(message: string) {
+  showNotification(message: string,user: string) {
     if ('Notification' in window) {
       if (Notification.permission === 'granted') {
         console.log('Notification permission is granted. Notification will be shown.');
         // Show notification
-        new Notification('New Message!', {
+        new Notification('New Message from :'+user, {
           body: message, // Custom body passed as an argument
           icon: 'compiler.png', // Ensure the icon is correct
           requireInteraction: true, // Keep the notification open until the user closes it
@@ -22,10 +22,10 @@ export class NotificationSendMessageService {
         Notification.requestPermission().then(permission => {
           if (permission === 'granted') {
             console.log('Notification permission is granted after request. Notification will be shown.');
-            new Notification('New Message!', {
+            new Notification('Message from:'+user, {
               body: message, // Custom body passed as an argument
               icon: 'compiler.png', // Ensure the icon is correct
-              requireInteraction: true, // Keep the notification open until the user closes it
+              requireInteraction: false, // Keep the notification open until the user closes it
             });
           } else {
             console.log('Notification permission is denied. No notification will be shown.');

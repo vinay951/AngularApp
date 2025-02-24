@@ -34,7 +34,7 @@ export class CompilerComponent {
     this.codeExecutionService.executeCode(this.code,this.selectedLanguage).subscribe(
       (response:any) => {
         this.output = response.output;
-        this.notificationService.showNotification("Code executed successfully");
+        this.notificationService.showNotification("Code executed successfully",localStorage.getItem("user")!);
         this.isDataLoading = false;
       },
       (error:any) => {

@@ -47,7 +47,7 @@ export class CodingComponent {
     };
     this.questionService.submitSolution(payload,this.question).subscribe({
       next: (response: any) => {
-        this.notification.showNotification(response.result);
+        this.notification.showNotification(response.result,localStorage.getItem("user")!);
         this.result = response.result+"\n\nYour Output is:\n\n"+response.output;
         this.isDataLoading = false;
         if(response.result === "Test Case Failed"){

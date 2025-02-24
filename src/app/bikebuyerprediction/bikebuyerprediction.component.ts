@@ -33,7 +33,7 @@ export class BikebuyerpredictionComponent {
       .subscribe(response => {
         this.prediction = response.message;
         console.log('Prediction received:', this.prediction);
-        this.notificationService.showNotification('Prediction received:'+ this.prediction);
+        this.notificationService.showNotification('Prediction received:'+ this.prediction,localStorage.getItem("user")!);
         this.isDataLoading = false;
       }, error => {
         console.error('Error calling API:', error);
