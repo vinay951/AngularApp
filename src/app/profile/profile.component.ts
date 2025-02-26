@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
 
   // Load user data (this can be an API call to your backend)
   loadUserData() {
-    this.isDataLoading = true;
+    // this.isDataLoading = true;
     this.getProfilePic();
     this.userService.getUserProfile(localStorage.getItem("user")).subscribe(
       (data:any) => {
@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
           lastName: data.lastName,
           email: data.emailId
         });
-        this.isDataLoading = false;
+        // this.isDataLoading = false;
       },
       (error:any) => {
         console.error('Error loading user data', error);
@@ -118,13 +118,16 @@ export class ProfileComponent implements OnInit {
     );
   }
   getProfilePic(){
+    this.isDataLoading = true;
     const email = localStorage.getItem("user")??"";
     this.userService.getProfile(email).subscribe(
       (response:any) => {
         this.profilePicturePreview = response.picture;
+        this.isDataLoading = false;
       },
       (error) => {
         console.error('Error getting profile pic:', error);
+        this.isDataLoading = false;
       }
     );
   }
