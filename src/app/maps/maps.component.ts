@@ -1,7 +1,7 @@
 declare var google: any; // Declare the google object
 
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteService } from '../services/maps/autocomplete.service';
 import { GeocodingService } from '../services/maps/geocoding.service';
@@ -12,13 +12,16 @@ import { GeocodingService } from '../services/maps/geocoding.service';
   templateUrl: './maps.component.html',
   styleUrl: './maps.component.css'
 })
-export class MapsComponent implements OnInit {
+export class MapsComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
-    this.getLocation();
+    // this.getLocation();
   }
   constructor(private autocompleteService: AutocompleteService,
     private geocodingService: GeocodingService){
 
+  }
+  ngAfterViewInit(): void {
+    this.getLocation();
   }
   address: string = '';
   suggestions: any[] = [];
