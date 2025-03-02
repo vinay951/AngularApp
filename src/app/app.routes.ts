@@ -18,6 +18,7 @@ import { BikebuyerpredictionComponent } from './bikebuyerprediction/bikebuyerpre
 import { StrangeComponent } from './strange/strange.component';
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { UploadComponent } from './upload/upload.component';
+import { MapsComponent } from './maps/maps.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
@@ -37,5 +38,6 @@ export const routes: Routes = [
     { path: 'dynamic', component: DynamicComponent,canActivate:[authGuard]},
     { path: "predict", component: BikebuyerpredictionComponent,canActivate:[authGuard]},
     { path: 'unblur', component: UploadComponent,canActivate:[authGuard]},
+    { path: 'maps', component: MapsComponent,canActivate:[authGuard]},
     { path: '**', redirectTo: '/home'}  // Default route, redirects to login
 ];

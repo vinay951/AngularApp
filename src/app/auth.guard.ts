@@ -11,9 +11,14 @@ export const authGuard: CanActivateFn = (route, state) => {
   try {
     const expirationTime = Number(sessionService.getSessionData("expire")) * 1000; // exp is in seconds, convert to milliseconds
     timeExpired =  !(Date.now() > expirationTime); // If current time is greater than expiration time, it's expired
+    if(!timeExpired){
+      router.navigate(['/login']);
+      return false;
+    }
   } catch (error) {
-    timeExpired =  true; // If token decoding fails, consider it expired
+    return false;
   }
+  console.log(timeExpired)
   // Check if authToken exists in localStorage
   if (localStorage.getItem('user')) {
     if(state.url === '/test' || state.url === '/profile'){

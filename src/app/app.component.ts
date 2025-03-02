@@ -18,9 +18,9 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    interval(1000).pipe().subscribe(() => {
-      this.checkTokenExpiration();
-    });
+    // interval(1000).pipe().subscribe(() => {
+    //   this.checkTokenExpiration();
+    // });
     if ('Notification' in window) {
       Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {
