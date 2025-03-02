@@ -1,7 +1,5 @@
-// src/app/services/geocoding.service.ts
-import { Injectable } from '@angular/core';
-
 declare var google: any;  // Declare google as a global variable
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',

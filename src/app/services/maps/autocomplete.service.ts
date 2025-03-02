@@ -1,7 +1,7 @@
-// src/app/services/autocomplete.service.ts
+declare var google: any; // Declare google as a global variable
+
 import { Injectable } from '@angular/core';
 
-declare var google: any; // Declare google as a global variable
 
 @Injectable({
   providedIn: 'root',
