@@ -444,3 +444,8 @@ button.accent {
 .online-users-list li:hover {
   background-color: #e0f7fa;
 }
+#map {
+  height: 500px; /* Set the height of the map */
+  width: 100%;  /* Full width of the container */
+}
+

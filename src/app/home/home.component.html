@@ -1,5 +1,4 @@
 <!-- home.component.html -->
-  
   <!-- If the user is not connected, show the username input page -->
 <div *ngIf="!isConnected" id="username-page">
   <div class="username-page-container">
@@ -42,6 +41,7 @@
         </ul>
       </div>
     </div>
+    
 
     <!-- If a connection message exists, show it (e.g., "Connecting...") -->
     <div *ngIf="connectingMessage" class="connecting">{{ connectingMessage }}</div>
@@ -80,6 +80,7 @@
 
   </div>
 </div>
+<div id="map" style="height: 300px; width: 50%;"></div>
 <div *ngIf="isDataLoading">
   <app-loading [isLoading]="isDataLoading"></app-loading>
 </div>
