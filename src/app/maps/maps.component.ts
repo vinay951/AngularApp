@@ -1,4 +1,4 @@
-declare var google: any; // Declare the google object
+declare var google: any;
 
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
