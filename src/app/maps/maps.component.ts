@@ -3,6 +3,8 @@ declare var google: any; // Declare the google object
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutocompleteService } from '../services/maps/autocomplete.service';
+import { GeocodingService } from '../services/maps/geocoding.service';
 
 @Component({
   selector: 'app-maps',
@@ -14,12 +16,50 @@ export class MapsComponent implements OnInit {
   ngOnInit(): void {
     this.getLocation();
   }
+  constructor(private autocompleteService: AutocompleteService,
+    private geocodingService: GeocodingService){
 
+  }
+  address: string = '';
+  suggestions: any[] = [];
+  errorMessage: string | null = null;
   defaultLat = 37.7749;
   defaultLng = -122.4194;
   // Properties to store current location
   lat: number = this.defaultLat;
   lng: number = this.defaultLng;
+
+  onInputChange(): void {
+    if (this.address.trim()) {
+      this.autocompleteService
+        .getSuggestions(this.address)
+        .then((predictions) => {
+          this.suggestions = predictions;
+        })
+        .catch((error) => {
+          this.suggestions = [];
+        });
+    } else {
+      this.suggestions = [];
+    }
+  }
+
+  onSearch(suggestion: string): void {
+    this.address = suggestion;
+    this.suggestions = [];
+    this.geocodingService
+      .geocodeAddress(this.address)
+      .then((result: any) => {
+        console.log('Geocoding result:', result);
+        this.lat = result.lat;
+        this.lng = result.lng;
+        this.loadMap();
+      })
+      .catch((error) => {
+        this.errorMessage = error;
+      });
+  }
+
   getLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -79,6 +119,6 @@ export class MapsComponent implements OnInit {
 }
 // Ensure the initMap function is available globally
 (window as any).initMap = function() {
-  const mapComp = new MapsComponent();
+  const mapComp = new MapsComponent(this.autocompleteService, this.geocodingService);
   mapComp.loadMap();
 };

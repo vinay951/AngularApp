@@ -1,4 +1,21 @@
-
+<div>
+    <h1>Search for a Location</h1>
+    <input
+      type="text"
+      [(ngModel)]="address"
+      (input)="onInputChange()"
+      placeholder="Enter an address"
+      class="search-input"
+    />
+    <div *ngIf="suggestions.length > 0" class="suggestions-container">
+      <ul>
+        <li *ngFor="let suggestion of suggestions" (click)="onSearch(suggestion.description)">
+          {{ suggestion.description }}
+        </li>
+      </ul>
+    </div>
+    <button (click)="onSearch(address)">Search</button>
+</div>
 <div id="map" style="height: 100%; width: 100%;">
 </div>
 <div>
