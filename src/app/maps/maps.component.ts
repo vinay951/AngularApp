@@ -31,6 +31,8 @@ export class MapsComponent implements OnInit,AfterViewInit {
   }
   address: string = '';
   km=0;
+  p1='';
+  p2='';
   isDataLoading = false;
   suggestions: any[] = [];
   errorMessage: string | null = null;
@@ -117,6 +119,11 @@ export class MapsComponent implements OnInit,AfterViewInit {
   loadMap(): void {
     this.weatherService.getWeather(this.lat,this.lng).subscribe(
       (response:any) => {
+        this.p1 = this.p2;
+        this.p2 = response.location.name;
+        if(this.p1===''){
+          this.p1 = response.location.name;
+        }
         this.weatherData = response;
       },
       (error:any) => {
