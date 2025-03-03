@@ -1,23 +1,46 @@
-/* For styling the map and suggestions */
-#map {
-  height: 50vh; /* You can adjust the height */
-  width: 100%;
-  border: 1px solid #ccc;
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fb; /* Light background */
+  padding: 20px;
+  margin: 0;
+  box-sizing: border-box;
 }
 
+h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Search Textbox */
 .search-input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 12px 15px;
   font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
 }
 
+/* On focus, the border turns blue */
+.search-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Suggestions Container */
 .suggestions-container {
   max-height: 200px;
   overflow-y: auto;
-  border: 1px solid #ccc;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   background-color: white;
-  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .suggestions-container ul {
@@ -27,14 +50,56 @@
 }
 
 .suggestions-container li {
-  padding: 10px;
+  padding: 12px 15px;
   cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  transition: background-color 0.3s ease;
 }
 
+/* Highlight suggestion on hover */
 .suggestions-container li:hover {
   background-color: #f1f1f1;
 }
 
+/* Button Styling */
 button {
-  margin-top: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%; /* Full width for better appearance on mobile */
+  transition: background-color 0.3s ease;
+}
+
+/* Button on hover */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Button disabled state */
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Container for map and buttons */
+#map {
+  height: 50vh; /* Responsive height for the map */
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
