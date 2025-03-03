@@ -76,8 +76,14 @@ export class MapsComponent implements OnInit,AfterViewInit {
         (error) => {
           // Error - User denied permission or other issues
           console.error('Error getting location:', error);
-          // If an error occurs (e.g., user denies location), use the default location
-          this.loadMap();
+          if (error.code === error.PERMISSION_DENIED) {
+            // Handle the case where the user denies location access
+            alert("You have denied the location request. The default location will be used.");
+          } else {
+            // Handle other errors, such as timeout or unavailable location
+            alert("An error occurred while fetching your location. The default location will be used.");
+          }
+          this.loadMap();  // Use the default location if there is an error
         },
         {
           enableHighAccuracy: true, // Ensure high accuracy (uses GPS if available)
@@ -89,7 +95,7 @@ export class MapsComponent implements OnInit,AfterViewInit {
       // Geolocation is not supported by this browser
       console.warn('Geolocation is not supported by this browser.');
       this.loadMap();  // Use the default location if geolocation is not supported
-    }
+    }    
   }
 
   // Function to load the map with the user's location or default location
