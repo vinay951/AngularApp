@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteService } from '../services/maps/autocomplete.service';
 import { GeocodingService } from '../services/maps/geocoding.service';
 import { LoadingComponent } from "../loading/loading.component";
+import { WeatherService } from '../weather.service';
 
 @Component({
   selector: 'app-maps',
@@ -18,7 +19,7 @@ export class MapsComponent implements OnInit,AfterViewInit {
     // this.getLocation();
   }
   constructor(private autocompleteService: AutocompleteService,
-    private geocodingService: GeocodingService,private cdr: ChangeDetectorRef
+    private geocodingService: GeocodingService,private cdr: ChangeDetectorRef,private weatherService:WeatherService
   ){
 
   }
@@ -32,7 +33,9 @@ export class MapsComponent implements OnInit,AfterViewInit {
   isDataLoading = false;
   suggestions: any[] = [];
   errorMessage: string | null = null;
+  isHovered = false;
   defaultLat = 37.7749;
+  weatherData: any = null;
   defaultLng = -122.4194;
   // Properties to store current location
   lat: number = this.defaultLat;
@@ -77,39 +80,47 @@ export class MapsComponent implements OnInit,AfterViewInit {
           // Success - User granted permission
           console.log('Location found:', position.coords.latitude, position.coords.longitude);
           this.lat = position.coords.latitude;
+          console.log(position);
           this.lng = position.coords.longitude;
-          this.isDataLoading = false;
           this.loadMap();
+          this.isDataLoading = false;
         },
         (error) => {
           this.isDataLoading = false;
           // Error - User denied permission or other issues
           console.error('Error getting location:', error);
           if (error.code === error.PERMISSION_DENIED) {
-            // Handle the case where the user denies location access
-            alert("You have denied the location request. The default location will be used.");
+            alert("You have denied location access. Default location will be used.");
           } else {
-            // Handle other errors, such as timeout or unavailable location
-            alert("An error occurred while fetching your location. The default location will be used.");
+            alert("An error occurred while fetching your location. Default location will be used.");
           }
-          this.loadMap();  // Use the default location if there is an error
+          this.loadMap();  // Fallback to default location
         },
         {
-          enableHighAccuracy: true, // Ensure high accuracy (uses GPS if available)
-          timeout: 5000, // Timeout after 30 seconds if no location is found
-          maximumAge: 0 // No cached location (always get fresh data)
+          enableHighAccuracy: true,
+          timeout: 10000, // Timeout after 10 seconds if no location is found
+          maximumAge: 0
         }
       );
     } else {
       this.isDataLoading = false;
       // Geolocation is not supported by this browser
-      console.warn('Geolocation is not supported by this browser.');
-      this.loadMap();  // Use the default location if geolocation is not supported
-    }    
+      alert('Geolocation is not supported by this browser.');
+      this.loadMap();  // Fallback to default location
+    }
   }
+  
 
   // Function to load the map with the user's location or default location
   loadMap(): void {
+    this.weatherService.getWeather(this.lat,this.lng).subscribe(
+      (response:any) => {
+        this.weatherData = response;
+      },
+      (error:any) => {
+        console.error('Error getting weather:', error);
+      }
+    );
     console.log('Loading map with lat:', this.lat, 'lng:', this.lng); // Log lat/lng
     const mapElement = document.getElementById('map') as HTMLElement;
 
@@ -138,6 +149,6 @@ export class MapsComponent implements OnInit,AfterViewInit {
 }
 // Ensure the initMap function is available globally
 (window as any).initMap = function() {
-  const mapComp = new MapsComponent(this.autocompleteService, this.geocodingService,this.cdr);
+  const mapComp = new MapsComponent(this.autocompleteService, this.geocodingService,this.cdr,this.weatherService);
   mapComp.loadMap();
 };

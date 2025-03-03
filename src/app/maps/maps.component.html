@@ -1,25 +1,43 @@
 <div>
-    <h1>Search for a Location</h1>
-    <input
-      type="text"
-      [(ngModel)]="address"
-      (input)="onInputChange()"
-      placeholder="Enter an address"
-      class="search-input"
-    />
-    <div *ngIf="suggestions.length > 0" class="suggestions-container">
-      <ul>
-        <li *ngFor="let suggestion of suggestions" (click)="onSearch(suggestion.description)">
-          {{ suggestion.description }}
-        </li>
-      </ul>
+  <h1>Search for a Location</h1>
+  <input
+    type="text"
+    [(ngModel)]="address"
+    (input)="onInputChange()"
+    placeholder="Enter an address"
+    class="search-input"
+  />
+  <div *ngIf="suggestions.length > 0" class="suggestions-container">
+    <ul>
+      <li *ngFor="let suggestion of suggestions" (click)="onSearch(suggestion.description)">
+        {{ suggestion.description }}
+      </li>
+    </ul>
+  </div>
+  <button (click)="onSearch(address)">Search</button>
+</div>
+<div id="map" ></div>
+<!-- City name and weather details -->
+<div *ngIf="weatherData" class="weather-container">
+  <h2
+    class="weather-location bounce"
+    (mouseover)="isHovered = true"
+    (mouseleave)="isHovered = false"
+  >
+    {{ weatherData.location.name }}
+  </h2>
+  <div *ngIf="isHovered" class="weather-info">
+    <div class="weather-stats">
+      <p><strong>Temperature:</strong> {{ weatherData.current.temp_c }}°C</p>
+      <p><strong>Wind Speed:</strong> {{ weatherData.current.pressure_mb }} km/h</p>
+      <p><strong>Humidity:</strong> {{ weatherData.current.humidity }}%</p>
+      <p><strong>Wind Speed:</strong> {{ weatherData.current.wind_kph }} km/h</p>
     </div>
-    <button (click)="onSearch(address)">Search</button>
+  </div>
 </div>
-<div id="map"></div>
-<div>
-    <button class="btn btn-primary" (click)="getLocation()">Get Current Location</button>
-</div>
+
+<!-- Button to Get Current Location -->
+<button class="btn btn-primary" (click)="getLocation()">Get Current Location</button>
 <div *ngIf="isDataLoading">
   <app-loading [isLoading]="isDataLoading"></app-loading>
 </div>

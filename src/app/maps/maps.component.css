@@ -181,3 +181,66 @@ button:disabled {
     height: 40vh; /* Further reduce map height for small screens */
   }
 }
+
+/* Weather Information Section */
+.weather-container {
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.weather-location {
+  font-size: 26px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+/* Bouncing Animation for City Name */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.bounce {
+  display: inline-block;
+  animation: bounce 1s infinite;
+}
+
+.weather-info {
+  font-size: 18px;
+  color: #555;
+  transition: opacity 0.3s ease;
+}
+
+.weather-stats {
+  text-align: left;
+  font-size: 18px;
+  color: #555;
+}
+
+.weather-stats p {
+  margin: 8px 0;
+}
+
+.weather-stats strong {
+  font-weight: bold;
+}
+
