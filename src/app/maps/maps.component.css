@@ -1,46 +1,73 @@
-/* General Styling */
+/* Global Styling */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f7fb; /* Light background */
-  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f4f8; /* Soft background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
-  box-sizing: border-box;
 }
 
 h1 {
-  text-align: center;
-  font-size: 24px;
+  font-size: 2rem;
+  font-weight: 700;
   color: #333;
+  text-align: center;
   margin-bottom: 20px;
+  transition: color 0.3s ease;
 }
 
-/* Search Textbox */
+/* Hover effect on h1 */
+h1:hover {
+  color: #007bff; 
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect to add more depth */
+.container:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Input Field (Search Box) */
 .search-input {
   width: 100%;
-  padding: 12px 15px;
+  padding: 14px 20px;
   font-size: 16px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
+  border: none;
+  border-radius: 12px;
+  background: #f7f7f7;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.5);
   margin-bottom: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-/* On focus, the border turns blue */
 .search-input:focus {
-  border-color: #007bff;
   outline: none;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3), 0 0 10px rgba(0, 123, 255, 0.5);
+  border: 2px solid #007bff;
 }
 
 /* Suggestions Container */
 .suggestions-container {
-  max-height: 200px;
+  max-height: 300px;
   overflow-y: auto;
   margin-top: 10px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .suggestions-container ul {
@@ -50,56 +77,107 @@ h1 {
 }
 
 .suggestions-container li {
-  padding: 12px 15px;
-  cursor: pointer;
+  padding: 12px 18px;
   font-size: 16px;
+  cursor: pointer;
   color: #333;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-/* Highlight suggestion on hover */
+/* Hover effect on suggestions */
 .suggestions-container li:hover {
   background-color: #f1f1f1;
+  transform: translateX(10px);
 }
 
 /* Button Styling */
 button {
-  padding: 12px 20px;
+  padding: 14px 28px;
   font-size: 16px;
-  color: white;
-  background-color: #007bff;
+  color: #fff;
+  background: linear-gradient(135deg, #007bff, #00c6ff);
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  width: 100%; /* Full width for better appearance on mobile */
-  transition: background-color 0.3s ease;
+  transition: all 0.4s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  width: auto; /* Make the button width flexible */
+  margin: 10px auto; /* Center the button */
+  display: block;
 }
 
-/* Button on hover */
+/* On hover: Change color and add a scale effect */
 button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #0056b3, #0099cc);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
 }
 
-/* Button disabled state */
+/* Button Disabled State */
 button:disabled {
-  background-color: #cccccc;
+  background: #cccccc;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-/* Container for map and buttons */
+/* Glassmorphism Effect for Map */
 #map {
-  height: 50vh; /* Responsive height for the map */
+  height: 50vh;
   width: 100%;
   margin-top: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .search-input {
+    font-size: 15px;
+    padding: 12px 18px;
+  }
+
+  .suggestions-container li {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 12px 24px;
+  }
+
+  #map {
+    height: 45vh; /* Slightly reduce the map size on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .container {
+    padding: 15px;
+    width: 100%;
+  }
+
+  .search-input {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  #map {
+    height: 40vh; /* Further reduce map height for small screens */
+  }
 }
