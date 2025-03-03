@@ -1,14 +1,15 @@
 declare var google: any;
 
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteService } from '../services/maps/autocomplete.service';
 import { GeocodingService } from '../services/maps/geocoding.service';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-maps',
-  imports: [FormsModule,CommonModule,ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, LoadingComponent],
   templateUrl: './maps.component.html',
   styleUrl: './maps.component.css'
 })
@@ -17,13 +18,18 @@ export class MapsComponent implements OnInit,AfterViewInit {
     // this.getLocation();
   }
   constructor(private autocompleteService: AutocompleteService,
-    private geocodingService: GeocodingService){
+    private geocodingService: GeocodingService,private cdr: ChangeDetectorRef
+  ){
 
   }
   ngAfterViewInit(): void {
-    this.getLocation();
+    setTimeout(() => {
+      this.getLocation();
+      this.cdr.detectChanges(); // Trigger change detection explicitly
+    }, 100); // Delay by 100ms or adjust as needed
   }
   address: string = '';
+  isDataLoading = false;
   suggestions: any[] = [];
   errorMessage: string | null = null;
   defaultLat = 37.7749;
@@ -65,15 +71,18 @@ export class MapsComponent implements OnInit,AfterViewInit {
 
   getLocation(): void {
     if (navigator.geolocation) {
+      this.isDataLoading = true;
       navigator.geolocation.getCurrentPosition(
         (position) => {
           // Success - User granted permission
           console.log('Location found:', position.coords.latitude, position.coords.longitude);
           this.lat = position.coords.latitude;
           this.lng = position.coords.longitude;
+          this.isDataLoading = false;
           this.loadMap();
         },
         (error) => {
+          this.isDataLoading = false;
           // Error - User denied permission or other issues
           console.error('Error getting location:', error);
           if (error.code === error.PERMISSION_DENIED) {
@@ -87,11 +96,12 @@ export class MapsComponent implements OnInit,AfterViewInit {
         },
         {
           enableHighAccuracy: true, // Ensure high accuracy (uses GPS if available)
-          timeout: 10000, // Timeout after 10 seconds if no location is found
+          timeout: 5000, // Timeout after 30 seconds if no location is found
           maximumAge: 0 // No cached location (always get fresh data)
         }
       );
     } else {
+      this.isDataLoading = false;
       // Geolocation is not supported by this browser
       console.warn('Geolocation is not supported by this browser.');
       this.loadMap();  // Use the default location if geolocation is not supported
@@ -128,6 +138,6 @@ export class MapsComponent implements OnInit,AfterViewInit {
 }
 // Ensure the initMap function is available globally
 (window as any).initMap = function() {
-  const mapComp = new MapsComponent(this.autocompleteService, this.geocodingService);
+  const mapComp = new MapsComponent(this.autocompleteService, this.geocodingService,this.cdr);
   mapComp.loadMap();
 };

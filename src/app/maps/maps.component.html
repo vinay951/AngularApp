@@ -16,7 +16,10 @@
     </div>
     <button (click)="onSearch(address)">Search</button>
 </div>
-<div id="map" style="height: 100%; width: 100%;"></div>
+<div id="map" style="height: 50vh; width: 100%;"></div>
 <div>
     <button class="btn btn-primary" (click)="getLocation()">Get Current Location</button>
+</div>
+<div *ngIf="isDataLoading">
+  <app-loading [isLoading]="isDataLoading"></app-loading>
 </div>
