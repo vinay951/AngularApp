@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+    localStorage.clear();
+    this.session.clearSessionData();
   }
   skip(){
     this.isDataLoading = true;

@@ -1,0 +1,20 @@
+<div class="hotel-container" *ngIf="hotels.length > 0; else noHotels">
+    <h2>Nearby Hotels 🏨</h2>
+    <div *ngFor="let hotel of hotels" class="hotel-card">
+      <div class="hotel-details">
+        <p class="hotel-name">{{ hotel.name }}</p>
+        <p class="hotel-rating">
+          ⭐ <span *ngFor="let star of [].constructor(Math.round(hotel.rating)); let i = index" class="star">★</span> 
+          ({{ hotel.user_ratings_total }} reviews)
+        </p>
+        <p class="hotel-address">📍 {{ hotel.vicinity }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- No Hotels Template -->
+  <ng-template #noHotels>
+    <p class="no-hotels">No hotels found. Please try a different location.</p>
+  </ng-template>
+  
+  

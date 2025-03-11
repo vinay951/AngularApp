@@ -1,0 +1,72 @@
+/* Centering the hotel list */
+.hotel-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Hotel Card Style */
+  .hotel-card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .hotel-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Hotel Details */
+  .hotel-details {
+    text-align: left;
+    flex-grow: 1;
+  }
+  
+  .hotel-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .hotel-rating {
+    font-size: 14px;
+    color: #ff9800;
+  }
+  
+  .hotel-address {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Star Emoji Styling */
+  .star {
+    color: #ffcc00;
+    font-size: 16px;
+  }
+  
+  /* No Hotels Message */
+  .no-hotels {
+    font-size: 16px;
+    color: #777;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .hotel-card {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  

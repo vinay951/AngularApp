@@ -1,12 +1,13 @@
 declare var google: any;
 
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteService } from '../services/maps/autocomplete.service';
 import { GeocodingService } from '../services/maps/geocoding.service';
 import { LoadingComponent } from "../loading/loading.component";
 import { WeatherService } from '../weather.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-maps',
@@ -19,7 +20,7 @@ export class MapsComponent implements OnInit,AfterViewInit {
     // this.getLocation();
   }
   constructor(private autocompleteService: AutocompleteService,
-    private geocodingService: GeocodingService,private cdr: ChangeDetectorRef,private weatherService:WeatherService
+    private geocodingService: GeocodingService,private cdr: ChangeDetectorRef,private weatherService:WeatherService,private router:Router
   ){
 
   }
@@ -33,6 +34,8 @@ export class MapsComponent implements OnInit,AfterViewInit {
   km=0;
   p1='';
   p2='';
+  @Output() latEvent = new EventEmitter<Number>();
+  @Output() longEvent = new EventEmitter<Number>();
   isDataLoading = false;
   suggestions: any[] = [];
   errorMessage: string | null = null;
@@ -171,10 +174,15 @@ export class MapsComponent implements OnInit,AfterViewInit {
   deg2rad(deg:any) {
     return deg * (Math.PI/180)
   }
+  sendLatLong(){
+    localStorage.setItem('lat',this.lat.toString());
+    localStorage.setItem('lng',this.lng.toString());
+    this.router.navigate(['/hotels']);
+  }
 
 }
 // Ensure the initMap function is available globally
 (window as any).initMap = function() {
-  const mapComp = new MapsComponent(this.autocompleteService, this.geocodingService,this.cdr,this.weatherService);
+  const mapComp = new MapsComponent(this.autocompleteService, this.geocodingService,this.cdr,this.weatherService,this.router);
   mapComp.loadMap();
 };
