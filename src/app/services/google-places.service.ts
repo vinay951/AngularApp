@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GooglePlacesService {
-  private apiKey = 'AIzaSyAhOcRr1fO7p_fHdVWSsHRIPU5ekBJvIXc';
+  private apiKey = 'AIzaSyD0ZC3IftbW94fj_q0LYlCfuZVZrnVKP-8';
   private baseUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
 
   constructor(private http: HttpClient) {}
