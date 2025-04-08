@@ -23,7 +23,7 @@ export class AutocompleteService {
         resolve();
       } else {
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyD0ZC3IftbW94fj_q0LYlCfuZVZrnVKP-8&loading=async&libraries=places`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyATtUTVEecxD8DgR4YtSRZlOA4kC-7Zh4U&loading=async&libraries=places`;
         script.async = true;
         script.defer = true;
         script.onload = () => resolve();
