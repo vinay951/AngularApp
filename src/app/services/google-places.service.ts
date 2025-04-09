@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GooglePlacesService {
-  private apiKey = 'AIzaSyATtUTVEecxD8DgR4YtSRZlOA4kC-7Zh4U';
-  private baseUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
+  private apiKey = 'AIzaSyCbL-ZWgka-3ntOYiSt48hRE4r-vphpvNs';
+  private baseUrl = 'https://maps.googleapis.com';
 
   constructor(private http: HttpClient) {}
 
   getNearbyHotels(lat: number, lng: number, radius: number = 5000): Observable<any> {
-    const url = `${this.baseUrl}?location=${lat},${lng}&radius=${radius}&type=lodging&key=${this.apiKey}`;
+    const url = this.baseUrl+`/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=restaurant&key=${this.apiKey}`;
     return this.http.get(url);
   }
 }

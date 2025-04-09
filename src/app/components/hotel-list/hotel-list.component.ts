@@ -27,5 +27,8 @@ export class HotelListComponent implements OnInit {
       this.hotels = response.results;
     });
   }
+  createStars(rating: number) {
+    return new Array(Math.round(rating)); // Create an array with the number of stars
+  }
   
 }

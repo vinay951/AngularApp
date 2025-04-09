@@ -4,8 +4,8 @@
       <div class="hotel-details">
         <p class="hotel-name">{{ hotel.name }}</p>
         <p class="hotel-rating">
-          ⭐ <span *ngFor="let star of [].constructor(Math.round(hotel.rating)); let i = index" class="star">★</span> 
-          ({{ hotel.user_ratings_total }} reviews)
+          ⭐ <span *ngFor="let star of createStars(hotel.rating || 0); let i = index" class="star">★</span>
+          ({{ hotel.user_ratings_total || 0}} reviews)
         </p>
         <p class="hotel-address">📍 {{ hotel.vicinity }}</p>
       </div>

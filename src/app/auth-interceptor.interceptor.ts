@@ -9,7 +9,7 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const authToken = authService.getSessionData("Token");
 
-  if (authToken && (!req.url.startsWith("https://selenium") || !req.url.startsWith("https://maps"))) {
+  if (authToken && (!req.url.startsWith("https://selenium") && !req.url.startsWith("https://maps"))) {
     req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${authToken}`
