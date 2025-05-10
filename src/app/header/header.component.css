@@ -7,131 +7,147 @@ body {
   color: #333;
 }
 
-/* Navigation Bar */
+/* General styles for the navbar */
 .navbar {
-  background-color: #4CAF50;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  background: linear-gradient(90deg, #004e92, #000428);
+  color: white;
+  padding: 20px 40px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 4px 6px #4CAF50;
+  z-index: 1000;
 }
 
 .navbar .logo a {
-  font-size: 24px;
   color: white;
   text-decoration: none;
+  font-size: 2em;
   font-weight: bold;
+  letter-spacing: 2px;
+  transition: color 0.3s, transform 0.3s;
 }
 
-/* Style for the navbar */
-.navbar {
-  position: relative;
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px;
+.navbar .logo a:hover {
+  color: #00c6ff;
+  transform: scale(1.1);
 }
 
-/* Style for the navbar */
-.navbar {
-  position: relative;
-  background-color: #4CAF50;
-  color: white;
-  display: flex;
-  justify-content: space-between; /* This aligns the logo and menu-toggle button to the sides */
-  align-items: center; /* Center the items vertically */
-  padding: 10px;
-}
-
-/* Logo */
-.navbar .logo a {
-  color: white;
-  text-decoration: none;
-  font-size: 24px;
-}
-
-/* Menu toggle button (☰) */
+/* Menu toggle button */
 .menu-toggle {
-  font-size: 30px;
   background: none;
   border: none;
   color: white;
+  font-size: 2.5em;
   cursor: pointer;
-  z-index: 10;  /* Ensure the button is always on top */
+  transition: transform 0.3s, color 0.3s;
+}
+
+.menu-toggle:hover {
+  transform: rotate(90deg);
+  color: #00c6ff;
 }
 
 /* Menu container */
 .menu-container {
   position: absolute;
-  top: 50px;  /* Adjust the space between the navbar and the menu */
-  right: 0;  /* Align the menu to the right side */
-  width: 250px;  /* Adjust width as needed */
-  background-color: #4CAF50;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  top: 80px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   z-index: 1000;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
+  animation: slideDown 0.5s ease-in-out;
+  max-height: 400px; /* Limit height for scroll */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
-/* Menu items */
-.menu-container ul {
-  list-style-type: none;
-  padding: 0;
+/* Custom scrollbar styles */
+.menu-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.menu-container::-webkit-scrollbar-thumb {
+  background: #00c6ff;
+  border-radius: 5px;
+}
+
+.menu-container::-webkit-scrollbar-thumb:hover {
+  background: #0072ff;
+}
+
+.menu-container::-webkit-scrollbar-track {
+  background: #000428;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu {
+  list-style: none;
   margin: 0;
+  padding: 20px;
 }
 
-.menu-container li {
-  padding: 10px;
+.menu li {
+  margin: 15px 0;
 }
 
-.menu-container li a {
+.menu li a {
   color: white;
   text-decoration: none;
+  padding: 15px 20px;
+  display: block;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #004e92, #000428);
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  font-size: 1.2em;
+  text-align: center;
 }
 
-.menu-container li a:hover {
-  background-color: #444;
+.menu li a:hover {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 198, 255, 0.5);
 }
 
-/* Close button inside the menu */
+/* Close button */
 .close-menu {
   background: none;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 1.8em;
   cursor: pointer;
   margin-top: 10px;
-  align-self: flex-end;
+  transition: color 0.3s;
 }
 
-/* Optional: Transition effect for the menu appearing */
-.menu-container {
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+.close-menu:hover {
+  color: #00c6ff;
 }
 
-.menu-container.ng-enter {
-  opacity: 0;
-  transform: translateX(100%);
-}
+/* Responsive design */
+@media (max-width: 768px) {
+  .menu-container {
+    width: 95%;
+    right: 2.5%;
+  }
 
-.menu-container.ng-enter-active {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.menu-container.ng-leave {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.menu-container.ng-leave-active {
-  opacity: 0;
-  transform: translateX(100%);
+  .menu li a {
+    text-align: center;
+    font-size: 1em;
+  }
 }
 
 

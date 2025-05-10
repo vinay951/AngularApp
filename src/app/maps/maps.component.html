@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <h1>Search for a Location</h1>
   <input
     type="text"
@@ -14,10 +14,11 @@
       </li>
     </ul>
   </div>
-  <h1>Distanced from {{p1}} to {{p2}} is:{{km}} KMS</h1>
-  <button (click)="onSearch(address)">Search</button>
+  <h1 class="distance-info">Distance from {{p1}} to {{p2}} is: {{km}} KMS</h1>
+  <button class="btn btn-search" (click)="onSearch(address)">Search</button>
 </div>
-<div id="map" ></div>
+<div id="map" class="map-container"></div>
+
 <!-- City name and weather details -->
 <div *ngIf="weatherData" class="weather-container">
   <h2
@@ -36,7 +37,7 @@
     </div>
   </div>
 </div>
-<a href="javascript:void(0);" (click)="sendLatLong()"  class="weather-api">Hotels</a>
+<a href="javascript:void(0);" (click)="sendLatLong()" class="btn btn-hotels">Hotels</a>
 
 <!-- Button to Get Current Location -->
 <button class="btn btn-primary" (click)="getLocation()">Get Current Location</button>
