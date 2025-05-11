@@ -89,9 +89,8 @@ export class LoginFaceidComponent {
       next: (res) => {
         this.loginStatus = 'Face ID login successful!';
         // Optionally, store JWT token from res if provided
-        if (res.token) {
+        if (res.message === 'Face ID login successful (no GCP check)') {
           localStorage.setItem("user",this.userId);
-          localStorage.setItem('token', res.token);
           this.session.setSessionData("Token",res.token);
           this.decodeJwtAndStore(res.token);
           this.router.navigateByUrl("/home");
