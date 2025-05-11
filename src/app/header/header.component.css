@@ -15,10 +15,17 @@ body {
   background: linear-gradient(90deg, #004e92, #000428);
   color: white;
   padding: 20px 40px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   z-index: 1000;
+  border-radius: 10px;
+  transform: perspective(1000px) rotateX(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar:hover {
+  transform: perspective(1000px) rotateX(5deg);
 }
 
 .navbar .logo a {
@@ -28,11 +35,13 @@ body {
   font-weight: bold;
   letter-spacing: 2px;
   transition: color 0.3s, transform 0.3s;
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
 .navbar .logo a:hover {
   color: #00c6ff;
   transform: scale(1.1);
+  text-shadow: 0 5px 10px rgba(0, 198, 255, 0.5);
 }
 
 /* Menu toggle button */
@@ -43,11 +52,13 @@ body {
   font-size: 2.5em;
   cursor: pointer;
   transition: transform 0.3s, color 0.3s;
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
 .menu-toggle:hover {
   transform: rotate(90deg);
   color: #00c6ff;
+  text-shadow: 0 5px 10px rgba(0, 198, 255, 0.5);
 }
 
 /* Menu container */
@@ -63,6 +74,12 @@ body {
   animation: slideDown 0.5s ease-in-out;
   max-height: 400px; /* Limit height for scroll */
   overflow-y: auto; /* Enable vertical scrolling */
+  transform: perspective(1000px) rotateX(-10deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.menu-container:hover {
+  transform: perspective(1000px) rotateX(0deg);
 }
 
 /* Custom scrollbar styles */
@@ -114,6 +131,7 @@ body {
   transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
   font-size: 1.2em;
   text-align: center;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
 .menu li a:hover {
@@ -131,10 +149,12 @@ body {
   cursor: pointer;
   margin-top: 10px;
   transition: color 0.3s;
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
 
 .close-menu:hover {
   color: #00c6ff;
+  text-shadow: 0 5px 10px rgba(0, 198, 255, 0.5);
 }
 
 /* Responsive design */
