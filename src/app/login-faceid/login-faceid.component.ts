@@ -90,6 +90,7 @@ export class LoginFaceidComponent {
         this.loginStatus = 'Face ID login successful!';
         // Optionally, store JWT token from res if provided
         if (res.token) {
+          localStorage.setItem("user",this.userId);
           localStorage.setItem('token', res.token);
           this.session.setSessionData("Token",res.token);
           this.decodeJwtAndStore(res.token);
@@ -122,7 +123,7 @@ export class LoginFaceidComponent {
         this.faceidRegisterStatus = 'Face ID registration successful!';
       },
       error: (err) => {
-        this.faceidRegisterStatus = err.error || 'Face ID registration failed.';
+        this.faceidRegisterStatus = 'Face ID registration failed.';
       }
     });
   }
