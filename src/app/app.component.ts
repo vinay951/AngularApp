@@ -17,6 +17,9 @@ export class AppComponent implements OnInit {
   constructor( private router: Router,private session:SessionService){
 
   }
+
+  isOfflineModalOpen = false;
+
   ngOnInit(): void {
     // interval(1000).pipe().subscribe(() => {
     //   this.checkTokenExpiration();
@@ -28,7 +31,20 @@ export class AppComponent implements OnInit {
         }
       });
     }
+
+    window.addEventListener('offline', () => {
+      this.isOfflineModalOpen = true;
+    });
+
+    window.addEventListener('online', () => {
+      this.isOfflineModalOpen = false;
+    });
   }
+
+  closeOfflineModal() {
+    this.isOfflineModalOpen = false;
+  }
+
   title = 'angularApp';
   checkmethod():boolean{
     if(this.router.url==='/login' || this.router.url==='/register' ||  this.router.url==='/otp' || this.router.url==='/forgot' || this.router.url==='/accessDenied'){
