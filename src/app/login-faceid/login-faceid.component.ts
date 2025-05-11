@@ -4,11 +4,12 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SessionService } from '../session/session.service';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-login-faceid',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LoadingComponent],
   templateUrl: './login-faceid.component.html',
   styleUrl: './login-faceid.component.css'
 })
@@ -22,6 +23,7 @@ export class LoginFaceidComponent {
   private faceImageBlob: Blob | null = null;
   showPopup: boolean = false;
   capturedImageUrl: string | null = null;
+  isDataLoading=false;
 
   constructor(private http: HttpClient,private fb: FormBuilder, private router: Router,
       private session:SessionService) {}
@@ -85,6 +87,7 @@ export class LoginFaceidComponent {
     const formData = new FormData();
     formData.append('email', this.userId);
     formData.append('faceImage', blob, 'face.jpg');
+    this.isDataLoading=true
     this.http.post<any>('https://onlinecompiler-1080506539744.us-central1.run.app/api/faceid/login', formData).subscribe({
       next: (res) => {
         this.loginStatus = 'Face ID login successful (face image matched)';
@@ -95,9 +98,11 @@ export class LoginFaceidComponent {
           this.decodeJwtAndStore(res.token);
           this.router.navigateByUrl("/home");
         }
+        this.isDataLoading=false
       },
       error: (err) => {
         this.loginStatus = err.error?.message || 'Face ID login failed.';
+        this.isDataLoading=false
       }
     });
   }
@@ -112,6 +117,7 @@ export class LoginFaceidComponent {
       this.faceidRegisterStatus = 'Unable to capture face image.';
       return;
     }
+    this.isDataLoading=true;
     // For demo, use userId as both email and login
     const formData = new FormData();
     formData.append('email', this.userId);
@@ -119,10 +125,16 @@ export class LoginFaceidComponent {
     formData.append('faceImage', blob, 'face.jpg');
     this.http.post<any>('https://onlinecompiler-1080506539744.us-central1.run.app/api/faceid/register', formData).subscribe({
       next: (res) => {
+        this.isDataLoading=false;
         this.faceidRegisterStatus = 'Face ID registration successful!';
       },
       error: (err) => {
-        console.error(err);
+        this.isDataLoading=false;
+        if (err.error?.message === 'Face ID already registered') {
+          this.faceidRegisterStatus = 'Face ID already registered. Please use a different User ID.';
+        } else if (err.error?.message.includes('No')) {
+          this.faceidRegisterStatus = 'User Not Registered. Please Create Account';
+        } 
         this.faceidRegisterStatus = err.error?.message || 'Face ID registration failed.';
       }
     });
