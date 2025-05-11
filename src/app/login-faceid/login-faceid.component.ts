@@ -122,6 +122,8 @@ export class LoginFaceidComponent {
         this.faceidRegisterStatus = 'Face ID registration successful!';
       },
       error: (err) => {
+        console.error(err);
+        this.faceidRegisterStatus = err.error?.message || 'Face ID registration failed.';
         this.faceidRegisterStatus = 'Face ID registration failed.';
       }
     });
