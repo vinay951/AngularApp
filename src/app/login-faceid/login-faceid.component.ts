@@ -87,7 +87,7 @@ export class LoginFaceidComponent {
     formData.append('faceImage', blob, 'face.jpg');
     this.http.post<any>('https://onlinecompiler-1080506539744.us-central1.run.app/api/faceid/login', formData).subscribe({
       next: (res) => {
-        this.loginStatus = 'Face ID login successful!';
+        this.loginStatus = 'Face ID login successful (face image matched)';
         // Optionally, store JWT token from res if provided
         if (res.message === 'Face ID login successful (no GCP check)') {
           localStorage.setItem("user",this.userId);
