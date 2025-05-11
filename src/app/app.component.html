@@ -4,3 +4,9 @@
 <router-outlet />
 <app-chatbot></app-chatbot>
 <footer><app-footer></app-footer></footer>
+<div *ngIf="isOfflineModalOpen" class="offline-modal">
+  <div class="offline-modal-content">
+    <p>You are offline. Please check your internet connection.</p>
+    <button (click)="closeOfflineModal()">Close</button>
+  </div>
+</div>
