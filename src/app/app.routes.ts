@@ -20,9 +20,11 @@ import { DynamicComponent } from './dynamic/dynamic.component';
 import { UploadComponent } from './upload/upload.component';
 import { MapsComponent } from './maps/maps.component';
 import { HotelListComponent } from './components/hotel-list/hotel-list.component';
+import { LoginFaceidComponent } from './login-faceid/login-faceid.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
+    { path: 'login-faceid', component: LoginFaceidComponent }, // Face ID login route
     { path: 'register', component: UserRegistrationComponent },
     { path: 'forgot', component: ForgotComponent }, // Route for register page
     { path: 'profile', component: ProfileComponent,canActivate:[authGuard]},

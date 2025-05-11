@@ -1,0 +1,25 @@
+<div class="faceid-login-3d">
+  <div class="faceid-login-container">
+    <h2>Face ID Login</h2>
+    <input type="text" [(ngModel)]="userId" placeholder="Enter User ID" class="userid-input" />
+    <div class="camera-3d">
+      <video #video width="320" height="240" autoplay muted></video>
+      <canvas #canvas width="320" height="240" style="display:none;"></canvas>
+      <div class="camera-light"></div>
+      <div class="camera-shadow"></div>
+    </div>
+    <div class="faceid-actions">
+      <button (click)="loginWithFaceId()">Login with Face ID</button>
+      <button (click)="registerWithFaceId()">Register Face ID</button>
+    </div>
+    <div *ngIf="loginStatus" class="login-status">{{ loginStatus }}</div>
+    <div *ngIf="faceidRegisterStatus" class="register-status">{{ faceidRegisterStatus }}</div>
+  </div>
+  <div *ngIf="showPopup" class="popup-overlay">
+    <div class="popup-content">
+      <h3>Captured Face</h3>
+      <img [src]="capturedImageUrl" alt="Captured Face" class="popup-image" />
+      <button (click)="closePopup()">Close</button>
+    </div>
+  </div>
+</div>
