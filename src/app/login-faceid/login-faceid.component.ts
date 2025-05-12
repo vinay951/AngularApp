@@ -108,6 +108,7 @@ export class LoginFaceidComponent {
         this.isDataLoading=false
       },
       error: (err) => {
+        this.isDataLoading=false;
         if (err.error?.message === 'Face ID already registered') {
           this.faceidRegisterStatus = 'Face ID already registered. Please use a different User ID.';
         } else if (err.error?.message.includes('No')) {
@@ -115,7 +116,6 @@ export class LoginFaceidComponent {
         }
         else{
           this.loginStatus = err.error?.message || 'Face ID login failed.';
-          this.isDataLoading=false;
         }
       }
     });
