@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
 
   title = 'angularApp';
   checkmethod():boolean{
-    if(this.router.url==='/login' || this.router.url==='/register' ||  this.router.url==='/otp' || this.router.url==='/forgot' || this.router.url==='/accessDenied'){
+    if(this.router.url==='/login' || this.router.url==='/register' ||  this.router.url==='/otp' || this.router.url==='/forgot' || this.router.url==='/accessDenied' || this.router.url === '/login-faceid'){
       return false;
     } return true;
   }
