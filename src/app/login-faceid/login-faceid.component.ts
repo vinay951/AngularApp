@@ -113,8 +113,10 @@ export class LoginFaceidComponent {
         } else if (err.error?.message.includes('No')) {
           this.faceidRegisterStatus = 'User Not Registered. Please Create Account';
         }
-        this.loginStatus = err.error?.message || 'Face ID login failed.';
-        this.isDataLoading=false
+        else{
+          this.loginStatus = err.error?.message || 'Face ID login failed.';
+          this.isDataLoading=false;
+        }
       }
     });
   }
@@ -146,8 +148,9 @@ export class LoginFaceidComponent {
           this.faceidRegisterStatus = 'Face ID already registered. Please use a different User ID.';
         } else if (err.error?.message.includes('No')) {
           this.faceidRegisterStatus = 'User Not Registered. Please Create Account';
-        } 
-        this.faceidRegisterStatus = err.error?.message || 'Face ID registration failed.';
+        } else{
+          this.faceidRegisterStatus = err.error?.message || 'Face ID registration failed.';
+        }
       }
     });
   }
