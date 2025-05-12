@@ -48,5 +48,10 @@ export class UserService {
   uploadProfilePic(data:ProfilePic): Observable<any> {
     return this.http.post(this.apiUrl+'/profilePic', data);
   }
-  
+  faceIdCheck(email:string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/faceid/`+email);
+  }
+  deleteFaceId(email:string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/api/faceid/delete/`+email);
+  }
 }

@@ -6,6 +6,7 @@ import { FooterComponent } from "./footer/footer.component";
 import { SessionService } from './session/session.service';
 import { interval } from 'rxjs';
 import { ChatbotComponent } from "./chatbot/chatbot.component";
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ import { ChatbotComponent } from "./chatbot/chatbot.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  constructor( private router: Router,private session:SessionService){
+  constructor(private router: Router,private session:SessionService,private userService:UserService) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false; // Disable route reuse
 
   }
 
@@ -39,6 +41,7 @@ export class AppComponent implements OnInit {
     window.addEventListener('online', () => {
       this.isOfflineModalOpen = false;
     });
+    this.faceIdPresent();
   }
 
   closeOfflineModal() {
@@ -73,6 +76,23 @@ export class AppComponent implements OnInit {
   checkTokenExpiration(): void {
     if (this.isTokenExpired() && (this.router.url != '/login' && this.router.url != '/register' && this.router.url != '/otp' && this.router.url!='/forgot')) {
       this.logout();  // Clear session and navigate to login page
+    }
+  }
+  faceIdPresent(){
+    const email = this.session.getSessionData("user");
+    if (email) {
+      this.userService.faceIdCheck(email).subscribe({
+      next: (response) => {
+        if(response.message === 'Face ID registered') {
+          this.session.setSessionData("faceId","true");
+        } else{
+          this.session.setSessionData("faceId","false");
+        }
+      },
+      error: (err) => {
+        console.error('Face ID login failed', err);
+      }
+      });
     }
   }
 }

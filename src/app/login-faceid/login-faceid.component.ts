@@ -111,7 +111,9 @@ export class LoginFaceidComponent {
         this.isDataLoading=false;
         if (err.error?.message === 'Face ID already registered') {
           this.faceidRegisterStatus = 'Face ID already registered. Please use a different User ID.';
-        } else if (err.error?.message.includes('No')) {
+        } else if (err.error?.message.includes('face')) {
+          this.faceidRegisterStatus = 'Face Not Detected';
+        }else if (err.error?.message.includes('No value')) {
           this.faceidRegisterStatus = 'User Not Registered. Please Create Account';
         }
         else{
@@ -146,7 +148,7 @@ export class LoginFaceidComponent {
         this.isDataLoading=false;
         if (err.error?.message === 'Face ID already registered') {
           this.faceidRegisterStatus = 'Face ID already registered. Please use a different User ID.';
-        } else if (err.error?.message.includes('No')) {
+        } else if (err.error?.message.includes('No value')) {
           this.faceidRegisterStatus = 'User Not Registered. Please Create Account';
         } else{
           this.faceidRegisterStatus = err.error?.message || 'Face ID registration failed.';

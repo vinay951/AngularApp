@@ -21,6 +21,7 @@
       <li><a href="/reports">Test Reports</a></li>
       <li><a href="/questions">Random Question Programming Test</a></li>
       <li><a href="javascript:void(0);" *ngIf="startingWithUser()" (click)="delete()">Delete My Account</a></li>
+      <li><a href="javascript:void(0);" *ngIf="checkFaceID()" (click)="deleteFaceID()">Delete Face-ID</a></li>
       <li><a href="/dynamic" *ngIf="startingWithUser()">Dynamic elements Creation</a></li>
       <li><a href="javascript:void(0);" *ngIf="startingWithUser()" (click)="logout()">Logout</a></li>
       <li><a href="javascript:void(0);" *ngIf="!startingWithUser()" (click)="register()">Register</a></li>

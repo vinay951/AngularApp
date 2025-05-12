@@ -107,6 +107,36 @@ export class HeaderComponent implements OnInit{
         console.log('Dialog was closed');
       }
     });
-}
+  }
+  deleteFaceID(){
+    this.isDataLoading = true;
+    const email = localStorage.getItem("user")??"";
+    this.userService.deleteFaceId(email).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        if(response.message==="Face ID user deleted successfully"){
+          this.isDataLoading = false;
+          this.toastr.success("Face ID Deleted Successfully");
+          this.session.setSessionData("faceId","false");
+        } else{
+          this.toastr.error(response.message,"Try Again");
+          this.isDataLoading = false;
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+        this.isDataLoading = false;
+        this.toastr.error(err.message,"Try Again");
+      }
+    });
+  }
+  checkFaceID(){
+    if(this.session.getSessionData("faceId") === "true"){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
 }
