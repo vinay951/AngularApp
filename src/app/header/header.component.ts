@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit{
   showTooltip: boolean = false;  // Control visibility of tooltip
   username:string = localStorage.getItem("user")??'';
   isDataLoading = false;
+  faceIdLoading = true;
   isMenuOpen = false;  // Menu state
   constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog,
     private session:SessionService
@@ -117,6 +118,7 @@ export class HeaderComponent implements OnInit{
         console.log(response);
         if(response.message==="Face ID user deleted successfully"){
           this.isDataLoading = false;
+          console.log("Face ID Deleted Successfully");
           this.toastr.success("Face ID Deleted Successfully");
           this.session.setSessionData("faceId","false");
         } else{
@@ -131,15 +133,9 @@ export class HeaderComponent implements OnInit{
       }
     });
   }
-  checkFaceID(){
-    setTimeout(() => {
-      if(this.session.getSessionData("faceId") === "true"){
-      return true;
-      }
-      else{
-      return false;
-      }
-    }, 5000);
+  checkFaceID(): boolean {
+    this.faceIdLoading = false;
+    return this.session.getSessionData("faceId") === "true";
   }
 
 }

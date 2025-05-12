@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../loading/loading.component";
 import { IdleDetectionService } from '../service/idle/idle-detection.service';
 import { NotificationSendMessageService } from '../service/notification-send-message.service';
+import { UserService } from '../service/user.service';
+import { SessionService } from '../session/session.service';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +32,8 @@ export class HomeComponent implements OnInit {
     private toastr:ToastrService,
     private idleService:IdleDetectionService,
     private notificationService:NotificationSendMessageService,
+    private userService:UserService,
+    private session:SessionService
   ){
 
   }
@@ -69,6 +73,7 @@ export class HomeComponent implements OnInit {
     this.websocketService.activeOnlineUsers$.subscribe((count) => {
       this.activeOnlineUsers = count;  // Update the active user
     });
+    this.faceIdPresent();
   }
   logout(){
     localStorage.clear();
@@ -136,5 +141,22 @@ export class HomeComponent implements OnInit {
   removeDomain(email: string): string {
     const atIndex = email.indexOf('@');
     return atIndex !== -1 ? email.substring(0, atIndex) : email;
+  }
+  faceIdPresent(){
+    const email = this.session.getSessionData("user");
+    if (email) {
+      this.userService.faceIdCheck(email).subscribe({
+      next: (response) => {
+        if(response.message === 'Face ID registered') {
+          this.session.setSessionData("faceId","true");
+        } else{
+          this.session.setSessionData("faceId","false");
+        }
+      },
+      error: (err) => {
+        console.error('Face ID login failed', err);
+      }
+      });
+    }
   }
 }
