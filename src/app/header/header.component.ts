@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    this.checkFaceID();
   }
   logout(){
     localStorage.clear();
@@ -131,12 +132,14 @@ export class HeaderComponent implements OnInit{
     });
   }
   checkFaceID(){
-    if(this.session.getSessionData("faceId") === "true"){
+    setTimeout(() => {
+      if(this.session.getSessionData("faceId") === "true"){
       return true;
-    }
-    else{
+      }
+      else{
       return false;
-    }
+      }
+    }, 5000);
   }
 
 }
