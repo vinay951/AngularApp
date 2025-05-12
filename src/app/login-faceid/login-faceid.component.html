@@ -3,7 +3,7 @@
     <h2>Face ID Login</h2>
     <input type="text" [(ngModel)]="userId" placeholder="Enter User ID" class="userid-input" />
     <div class="camera-3d">
-      <video #video width="320" height="240" autoplay muted></video>
+      <video #video width="320" height="240" autoplay muted playsinline></video>
       <canvas #canvas width="320" height="240" style="display:none;"></canvas>
       <div class="camera-light"></div>
       <div class="camera-shadow"></div>

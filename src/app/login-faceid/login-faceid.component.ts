@@ -49,12 +49,19 @@ export class LoginFaceidComponent {
     if (this.videoRef && this.canvasRef) {
       const video = this.videoRef.nativeElement;
       const canvas = this.canvasRef.nativeElement;
+      // Dynamically set canvas size to match video size (for mobile)
+      canvas.width = video.videoWidth || 320;
+      canvas.height = video.videoHeight || 240;
       const context = canvas.getContext('2d');
       if (context) {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         return new Promise(resolve => {
           canvas.toBlob(blob => {
             if (blob) {
+              // Revoke previous URL if exists
+              if (this.capturedImageUrl) {
+                URL.revokeObjectURL(this.capturedImageUrl);
+              }
               this.capturedImageUrl = URL.createObjectURL(blob);
               this.showPopup = true;
             }
@@ -92,7 +99,7 @@ export class LoginFaceidComponent {
       next: (res) => {
         this.loginStatus = 'Face ID login successful (face image matched)';
         // Optionally, store JWT token from res if provided
-        if (res.message === 'Face ID login successful (no GCP check)') {
+        if (res.message === 'Face ID login successful (face image matched)') {
           localStorage.setItem("user",this.userId);
           this.session.setSessionData("Token",res.token);
           this.decodeJwtAndStore(res.token);
