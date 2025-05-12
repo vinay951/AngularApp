@@ -1,5 +1,9 @@
 <div class="profile-container">
   <h2>User Profile</h2>
+   <!-- Profile Image at Top -->
+  <div *ngIf="profilePicturePreview" class="profile-img-top">
+    <img [src]="profilePicturePreview" alt="Profile Picture Preview" class="profile-img-preview" />
+  </div>
 
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -45,23 +49,22 @@
         class="form-control"
         accept="image/*"
       />
-      <div *ngIf="profilePicturePreview">
-        <p>Current Profile Picture:</p>
-        <img [src]="profilePicturePreview" alt="Profile Picture Preview" class="profile-img-preview" />
-      </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">
-      Update Profile
-    </button>
+    <div class="button-row">
+      <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">
+        Update Profile
+      </button>
+    </div>
   </form>
 
   <hr />
 
-  <!-- Change Password Section -->
-  <button class="btn btn-secondary" (click)="togglePasswordChange()">
-    Change Password
-  </button>
+  <div class="button-row">
+    <button class="btn btn-secondary" (click)="togglePasswordChange()">
+      Change Password
+    </button>
+  </div>
 
   <div *ngIf="isPasswordChangeVisible">
     <form [formGroup]="profileForm" (ngSubmit)="changePassword()">
@@ -86,9 +89,11 @@
         />
       </div>
 
-      <button type="submit" class="btn btn-success">
-        Change Password
-      </button>
+      <div class="button-row">
+        <button type="submit" class="btn btn-success">
+          Change Password
+        </button>
+      </div>
     </form>
   </div>
 </div>
