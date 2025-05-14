@@ -165,12 +165,12 @@ body, .faceid-login-3d {
 .popup-content button:hover {
   background: linear-gradient(90deg, #1565c0 60%, #1976d2 100%);
 }
-
-/* Responsive styles for mobile devices */
-@media (max-width: 600px) {
-  .faceid-login-container {
-    max-width: 98vw;
-    padding: 18px 4vw 18px 4vw;
+.reverse-camera-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  background: #fff;
   }
   .camera-3d video {
     width: 100% !important;
@@ -183,4 +183,3 @@ body, .faceid-login-3d {
     width: 100%;
     min-width: 0;
   }
-}

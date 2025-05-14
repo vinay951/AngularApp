@@ -8,6 +8,12 @@
       <div class="camera-light"></div>
       <div class="camera-shadow"></div>
       <!-- Show reverse camera button only on mobile -->
+      <button 
+        *ngIf="isMobile" 
+        class="reverse-camera-btn" 
+        (click)="toggleCamera()"
+        type="button"
+      >&#8645; Reverse Camera</button>
       <button (click)="loginWithFaceId()">Login with Face ID</button>
       <button (click)="registerWithFaceId()">Register Face ID</button>
     </div>

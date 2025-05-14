@@ -24,25 +24,34 @@ export class LoginFaceidComponent {
   showPopup: boolean = false;
   capturedImageUrl: string | null = null;
   isDataLoading=false;
+  isMobile: boolean = false;
+  facingMode: 'user' | 'environment' = 'user';
 
   constructor(private http: HttpClient,private fb: FormBuilder, private router: Router,
-      private session:SessionService) {}
+      private session:SessionService) {
+    // Detect mobile device
+    this.isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+  }
 
   startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    // Stop previous stream if any
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => track.stop());
+    }
+    // Use facingMode constraint for mobile
+    const videoConstraints: any = this.isMobile
+      ? { facingMode: this.facingMode }
+      : true;
+    navigator.mediaDevices.getUserMedia({ video: videoConstraints })
       .then(stream => {
         this.stream = stream;
         if (this.videoRef && this.videoRef.nativeElement) {
           this.videoRef.nativeElement.srcObject = stream;
         }
       })
-      .catch(() => {
-        this.loginStatus = 'Unable to access camera.';
+      .catch(err => {
+        this.loginStatus = 'Unable to access camera: ' + err;
       });
-  }
-
-  ngAfterViewInit() {
-    this.startCamera();
   }
 
   async captureFaceImage(): Promise<Blob | null> {
@@ -193,5 +202,14 @@ export class LoginFaceidComponent {
   getDecodedToken(): any {
     const decodedToken = sessionStorage.getItem('decodedToken');
     return decodedToken ? JSON.parse(decodedToken) : null;
+  }
+
+  toggleCamera() {
+    this.facingMode = this.facingMode === 'user' ? 'environment' : 'user';
+    this.startCamera();
+  }
+
+  ngAfterViewInit() {
+    this.startCamera();
   }
 }
