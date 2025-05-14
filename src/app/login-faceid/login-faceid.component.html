@@ -3,21 +3,24 @@
     <h2>Face ID Login</h2>
     <input type="text" [(ngModel)]="userId" placeholder="Enter User ID" class="userid-input" />
     <div class="camera-3d">
-      <video #video width="320" height="240" autoplay muted playsinline></video>
+      <div class="camera-video-wrapper">
+        <video #video width="320" height="240" autoplay muted playsinline></video>
+        <button 
+          *ngIf="isMobile" 
+          class="reverse-camera-btn" 
+          (click)="toggleCamera()"
+          type="button"
+          aria-label="Reverse Camera"
+          title="Switch Camera"
+        >&#8635;</button>
+      </div>
       <canvas #canvas width="320" height="240" style="display:none;"></canvas>
       <div class="camera-light"></div>
       <div class="camera-shadow"></div>
-      <!-- Show reverse camera button only on mobile -->
-      <button 
-        *ngIf="isMobile" 
-        class="reverse-camera-btn" 
-        (click)="toggleCamera()"
-        type="button"
-        aria-label="Reverse Camera"
-        title="Switch Camera"
-      >&#8635;</button>
-      <button (click)="loginWithFaceId()">Login with Face ID</button>
-      <button (click)="registerWithFaceId()">Register Face ID</button>
+      <div class="camera-actions">
+        <button (click)="loginWithFaceId()">Login with Face ID</button>
+        <button (click)="registerWithFaceId()">Register Face ID</button>
+      </div>
     </div>
     <div *ngIf="loginStatus" class="login-status">{{ loginStatus }}</div>
     <div *ngIf="faceidRegisterStatus" class="register-status">{{ faceidRegisterStatus }}</div>
