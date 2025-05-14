@@ -103,24 +103,28 @@ body, .faceid-login-3d {
 
 .reverse-camera-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 3;
-  background: rgba(255,255,255,0.92);
-  border: 2px solid #90caf9;
-  color: #1976d2;
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.10);
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-}
-.reverse-camera-btn:hover {
-  background: #1976d2;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  background: rgba(25, 118, 210, 0.85);
+  border: none;
   color: #fff;
-  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18), 0 1.5px 8px 0 rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  outline: none;
+}
+.reverse-camera-btn:hover, .reverse-camera-btn:focus {
+  background: #1565c0;
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.24);
+  transform: scale(1.08);
 }
 
 .userid-input {
