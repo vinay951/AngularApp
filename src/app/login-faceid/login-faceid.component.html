@@ -7,8 +7,7 @@
       <canvas #canvas width="320" height="240" style="display:none;"></canvas>
       <div class="camera-light"></div>
       <div class="camera-shadow"></div>
-    </div>
-    <div class="faceid-actions">
+      <!-- Show reverse camera button only on mobile -->
       <button (click)="loginWithFaceId()">Login with Face ID</button>
       <button (click)="registerWithFaceId()">Register Face ID</button>
     </div>
@@ -23,6 +22,6 @@
     </div>
   </div>
 </div>
- <div *ngIf="isDataLoading">
-    <app-loading [isLoading]="isDataLoading"></app-loading>
-  </div>
+<div *ngIf="isDataLoading">
+  <app-loading [isLoading]="isDataLoading"></app-loading>
+</div>
