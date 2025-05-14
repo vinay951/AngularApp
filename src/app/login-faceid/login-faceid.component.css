@@ -1,9 +1,20 @@
 /* 3D Blue Theme, Green and Black Text */
 
 body, .faceid-login-3d {
-  background: linear-gradient(120deg, #1976d2 0%, #64b5f6 100%);
+  background: linear-gradient(135deg, #e3f0ff 0%, #f8fafc 100%);
   min-height: 100vh;
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  /* Add a subtle pattern overlay for depth */
+  background-image:
+    repeating-linear-gradient(135deg, #e3f0ff 0 2px, transparent 2px 40px),
+    repeating-linear-gradient(225deg, #f8fafc 0 2px, transparent 2px 40px);
+  background-blend-mode: lighten;
+  animation: gradientMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 60px 60px, -60px -60px; }
 }
 
 .faceid-login-3d {
@@ -19,8 +30,10 @@ body, .faceid-login-3d {
   margin: 0 auto;
   padding: 36px 28px 28px 28px;
   border-radius: 22px;
-  background: rgba(255,255,255,0.97);
-  box-shadow: 0 8px 40px 0 rgba(25, 118, 210, 0.25), 0 1.5px 8px 0 rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 8px 40px 0 rgba(25, 118, 210, 0.18), 0 1.5px 8px 0 rgba(0,0,0,0.06);
+  backdrop-filter: blur(12px) saturate(1.2);
+  border: 1.5px solid rgba(100,181,246,0.18);
   text-align: center;
   transform-style: preserve-3d;
   transform: rotateY(-8deg) scale(1.03);
@@ -35,10 +48,10 @@ body, .faceid-login-3d {
 .faceid-login-container h2 {
   margin-bottom: 24px;
   color: #1976d2;
-  font-size: 2.2rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 8px #64b5f6;
+  font-size: 2.3rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 12px #b3e5fc, 0 1px 0 #fff;
 }
 
 .camera-3d {
@@ -49,12 +62,14 @@ body, .faceid-login-3d {
   margin-bottom: 18px;
   perspective: 800px;
   width: 100%;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .camera-3d video {
   border-radius: 16px;
-  box-shadow: 0 4px 24px 0 rgba(25, 118, 210, 0.18);
-  border: 2.5px solid #1976d2;
+  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.13);
+  border: 2.5px solid #90caf9;
   background: #e3f2fd;
   transform: rotateX(6deg) scale(1.01);
   width: 100% !important;
@@ -68,9 +83,9 @@ body, .faceid-login-3d {
   position: absolute;
   top: 12px; left: 18px;
   width: 18px; height: 18px;
-  background: radial-gradient(circle, #fff 60%, #64b5f6 100%);
+  background: radial-gradient(circle, #fff 60%, #90caf9 100%);
   border-radius: 50%;
-  box-shadow: 0 0 16px 4px #64b5f6;
+  box-shadow: 0 0 18px 6px #90caf9;
   z-index: 2;
   opacity: 0.7;
 }
@@ -79,7 +94,7 @@ body, .faceid-login-3d {
   position: absolute;
   bottom: -18px; left: 50%;
   width: 120px; height: 18px;
-  background: radial-gradient(ellipse at center, #1976d2 0%, #64b5f6 80%);
+  background: radial-gradient(ellipse at center, #90caf9 0%, #e3f0ff 80%);
   border-radius: 50%;
   transform: translateX(-50%) scaleY(0.7);
   opacity: 0.5;
@@ -91,39 +106,41 @@ body, .faceid-login-3d {
   top: 10px;
   right: 10px;
   z-index: 3;
-  background: #fff;
-  border: 2px solid #1976d2;
+  background: rgba(255,255,255,0.92);
+  border: 2px solid #90caf9;
   color: #1976d2;
   border-radius: 8px;
   padding: 6px 14px;
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
-  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.10);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .reverse-camera-btn:hover {
   background: #1976d2;
   color: #fff;
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
 }
 
 .userid-input {
   width: 98%;
   padding: 12px;
   margin-bottom: 22px;
-  border: 2px solid #1976d2;
+  border: 2px solid #b3e5fc;
   border-radius: 9px;
   font-size: 1.1rem;
   box-sizing: border-box;
-  background: #e3f2fd;
+  background: rgba(227,242,253,0.85);
   color: #222;
-  transition: border 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1.5px 8px 0 rgba(25, 118, 210, 0.08);
+  transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.10);
 }
 .userid-input:focus {
   border: 2px solid #388e3c;
   outline: none;
   background: #fff;
+  box-shadow: 0 0 0 3px #b3e5fc55;
 }
 
 .camera-3d button,
@@ -148,11 +165,40 @@ body, .faceid-login-3d {
   transform: translateY(-2px) scale(1.04);
 }
 
+.camera-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.camera-actions button {
+  margin: 0;
+  width: 90%;
+  background: linear-gradient(90deg, #1976d2 60%, #64b5f6 100%);
+  color: #fff;
+  border: 1.5px solid #b3e5fc;
+  box-shadow: 0 2px 16px rgba(25, 118, 210, 0.13);
+  font-size: 1.13rem;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s, border 0.2s;
+}
+.camera-actions button:hover {
+  background: linear-gradient(90deg, #388e3c 60%, #1976d2 100%);
+  border: 1.5px solid #388e3c;
+  box-shadow: 0 8px 32px rgba(56, 142, 60, 0.13);
+  transform: translateY(-2px) scale(1.04);
+}
+
 .login-status, .register-status {
   margin-top: 18px;
   font-weight: 600;
   font-size: 1.1rem;
   letter-spacing: 0.5px;
+  text-shadow: 0 1px 0 #fff, 0 2px 8px #b3e5fc33;
 }
 
 .login-status {
@@ -166,7 +212,7 @@ body, .faceid-login-3d {
 .popup-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(25, 118, 210, 0.25);
+  background: rgba(25, 118, 210, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,10 +220,12 @@ body, .faceid-login-3d {
 }
 
 .popup-content {
-  background: #fff;
+  background: rgba(255,255,255,0.95);
   border-radius: 18px;
   padding: 32px 28px 18px 28px;
-  box-shadow: 0 8px 40px 0 rgba(25, 118, 210, 0.18);
+  box-shadow: 0 8px 40px 0 rgba(25, 118, 210, 0.13);
+  backdrop-filter: blur(8px) saturate(1.1);
+  border: 1.5px solid #b3e5fc33;
   text-align: center;
   min-width: 280px;
   transform: scale(1.04) rotateY(-4deg);
@@ -200,15 +248,16 @@ body, .faceid-login-3d {
 
 .popup-content button {
   padding: 10px 24px;
-  border: none;
-  border-radius: 8px;
+  border: 1.5px solid #b3e5fc;
+  border-radius: 10px;
   background: linear-gradient(90deg, #1976d2 60%, #64b5f6 100%);
   color: #fff;
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, border 0.2s;
 }
 .popup-content button:hover {
   background: linear-gradient(90deg, #388e3c 60%, #1976d2 100%);
+  border: 1.5px solid #388e3c;
 }
