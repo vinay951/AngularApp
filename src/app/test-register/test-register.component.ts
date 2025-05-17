@@ -25,7 +25,7 @@ export class TestRegisterComponent {
   }
 
   constructor(private testService:TestCasesService,private router:Router,private toastr:ToastrService){
-
+    this.isModalOpen = true; // Show popup by default for testing
   }
 
 
@@ -36,8 +36,8 @@ export class TestRegisterComponent {
     this.testService.createTestCase(test).subscribe(
       (response:any) => {
         this.isDataLoading = false;
-        this.isModalOpen = false;
         this.toastr.success("Test Case Added: "+test.name)
+        this.isModalOpen = false; // Close popup only after successful submit
         if(this.router.url === '/test'){
           window.location.reload();
         }else{
@@ -50,7 +50,10 @@ export class TestRegisterComponent {
         this.isDataLoading = false;
       }
     );
-   
+  }
+
+  closePopup() {
+    this.isModalOpen = false;
   }
 
 }

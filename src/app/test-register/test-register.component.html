@@ -1,13 +1,20 @@
-
-<h2>Register Test Case</h2>
-<form (ngSubmit)="submitRegisterForm()">
-    <div>
-    <label for="username">Test Case Name:</label>
-    <input type="text" id="username" [(ngModel)]="registerData.name" name="username" required />
+<div *ngIf="isModalOpen">
+  <div class="popup-overlay">
+    <div class="popup-content">
+      <h2>Register Test Case</h2>
+      <form (ngSubmit)="submitRegisterForm()">
+        <div>
+          <label for="username">Test Case Name:</label>
+          <input type="text" id="username" [(ngModel)]="registerData.name" name="username" required />
+        </div>
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+          <button mat-button type="submit">Submit</button>
+          <button class="popup-close-btn" type="button" (click)="closePopup()" aria-label="Close">Close</button>
+        </div>
+      </form>
+      <div *ngIf="isDataLoading">
+        <app-loading [isLoading]="isDataLoading"></app-loading>
+      </div>
     </div>
-
-    <button mat-button type="submit">Submit</button>
-</form>
-<div *ngIf="isDataLoading">
-    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>
 </div>
