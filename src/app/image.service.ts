@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ImageService {
-  private apiUrl = 'https://selenium-1080506539744.us-central1.run.app/deblur';
+  private apiUrl = 'https://selenium-710942123958.europe-west1.run.app/deblur';
 
   constructor(private http: HttpClient) {}
 

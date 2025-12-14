@@ -7,8 +7,8 @@ import { Test, TestCase } from '../../model';
 })
 export class TestCasesService {
 
-  apiUrl = "https://selenium-1080506539744.us-central1.run.app";
-  apiUrlSpring = "https://onlinecompiler-1080506539744.us-central1.run.app";
+  apiUrl = "https://selenium-710942123958.europe-west1.run.app";
+  apiUrlSpring = "https://onlinecompiler-710942123958.europe-west1.run.app";
 
 
   constructor(private http:HttpClient) {

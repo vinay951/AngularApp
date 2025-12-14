@@ -1,0 +1,31 @@
+<div class="game-container">
+  <h2>Number Guessing Game</h2>
+  <p>Guess a number between 1 and 100</p>
+  <input type="number" [(ngModel)]="guess" placeholder="Enter your guess" min="1" max="100">
+  <button (click)="checkGuess()">Guess</button>
+  <button (click)="resetGame()">Reset</button>
+  <p>{{ message }}</p>
+  <p *ngIf="attempts > 0">Attempts: {{ attempts }}</p>
+</div>
+
+<div class="car-container">
+  <h2>Car Game</h2>
+  <div class="car-board" [style.width.px]="carLaneCount * tileSize" [style.height.px]="carBoardHeight * tileSize">
+    <div *ngFor="let y of [].constructor(carBoardHeight); let row = index">
+      <div *ngFor="let x of [].constructor(carLaneCount); let col = index"
+           class="tile"
+           [ngClass]="getCarTileClass(col, row)"
+           [style.width.px]="tileSize"
+           [style.height.px]="tileSize">
+      </div>
+    </div>
+  </div>
+  <div class="car-info">
+    <p>Score: {{ carScore }}</p>
+    <button *ngIf="!carIsActive && !carGameOver" (click)="startCarGame()">Start</button>
+    <button *ngIf="carIsActive" (click)="stopCarGame()">Pause</button>
+    <button (click)="resetCarGame()">Reset</button>
+    <p *ngIf="carGameOver" class="game-over">Game Over!</p>
+    <p class="hint">Use your keyboard left/right arrow keys to move the car.</p>
+  </div>
+</div>

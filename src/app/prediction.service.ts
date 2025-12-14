@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PredictionService {
-  baseUrl = 'https://selenium-1080506539744.us-central1.run.app/prediction';
+  baseUrl = 'https://selenium-710942123958.europe-west1.run.app/prediction';
 
   constructor(private http:HttpClient) { }
 

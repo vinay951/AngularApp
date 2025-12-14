@@ -104,7 +104,7 @@ export class LoginFaceidComponent {
     formData.append('email', this.userId);
     formData.append('faceImage', blob, 'face.jpg');
     this.isDataLoading=true
-    this.http.post<any>('https://onlinecompiler-1080506539744.us-central1.run.app/api/faceid/login', formData).subscribe({
+    this.http.post<any>('https://onlinecompiler-710942123958.europe-west1.run.app/api/faceid/login', formData).subscribe({
       next: (res) => {
         this.loginStatus = 'Face ID login successful (face image matched)';
         // Optionally, store JWT token from res if provided
@@ -148,7 +148,7 @@ export class LoginFaceidComponent {
     formData.append('email', this.userId);
     formData.append('login', this.userId);
     formData.append('faceImage', blob, 'face.jpg');
-    this.http.post<any>('https://onlinecompiler-1080506539744.us-central1.run.app/api/faceid/register', formData).subscribe({
+    this.http.post<any>('https://onlinecompiler-710942123958.europe-west1.run.app/api/faceid/register', formData).subscribe({
       next: (res) => {
         this.isDataLoading=false;
         this.faceidRegisterStatus = 'Face ID registration successful!';
