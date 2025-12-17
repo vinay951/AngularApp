@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-chatbot',
   imports: [FormsModule,ReactiveFormsModule,CommonModule],
   templateUrl: './chatbot.component.html',
-  styleUrl: './chatbot.component.css'
+  styleUrls: ['./chatbot.component.css']
 })
 export class ChatbotComponent {
   userMessage: string = '';
@@ -24,7 +24,9 @@ export class ChatbotComponent {
     if (this.userMessage.trim()) {
       this.botMessages.push(`You: ${this.userMessage}`);
       this.chatbotService.sendMessage(this.userMessage).subscribe((response: any) => {
-        this.botMessages.push(`Bot: ${response}`);
+        // response is expected to be an object { route, reply, raw }
+        const text = (response && (response.reply || response.raw)) ? (response.reply || response.raw) : JSON.stringify(response);
+        this.botMessages.push(`Bot: ${text}`);
         this.userMessage = '';
       });
     }

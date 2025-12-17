@@ -4,140 +4,117 @@ import { delay, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { SessionService } from './session/session.service';
 import { HomeComponent } from './home/home.component';
+import { routes as appRoutes } from './app.routes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatbotService {
 
-
-
-  private apiUrl = 'https://dialogflow.googleapis.com/v2/projects/pizzadelivery-yflisb/agent/sessions/4166c918-747d-e25d-60bc-d3151584f369:detectIntent';
+	private apiUrl = 'https://dialogflow.googleapis.com/v2/projects/pizzadelivery-yflisb/agent/sessions/4166c918-747d-e25d-60bc-d3151584f369:detectIntent';
   
-  constructor(private http: HttpClient,private route:Router,private session:SessionService) {}
-  
+	constructor(private http: HttpClient,private route:Router,private session:SessionService) {
+		this.initializeRoutesSystemMessage();
+	}
 
-  sendMessage(message: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${123}`,
-      'Content-Type': 'application/json',
-    });
+	// Initialize system message from application routes at service construction
+	private initializeRoutesSystemMessage(): void {
+		try {
+			const simplified = (appRoutes || []).map(r => ({
+				path: (r as any).path ?? null,
+				component: ((r as any).component && ((r as any).component as any).name) || null,
+				canActivate: (r as any).canActivate ? (r as any).canActivate.map((g: any) => g.name || String(g)) : null
+			}));
+			const routesContent = JSON.stringify(simplified, null, 2);
+			this.sendRoutesSystemMessage(routesContent);
+		} catch (e) {
+			// if anything fails, just skip attaching the routes system message
+		}
+	}
 
-    const body = {
-      queryInput: {
-        text: {
-          text: message,
-          languageCode: 'en-US',
-        },
-      },
-    };
-    const payload = { message };
-    let reply ='';
-    if(message.toLocaleLowerCase().includes("login")){
-      let validate:Boolean = confirm("routing to login page")
-      if(validate){
-        this.route.navigateByUrl('/login');
-        reply = "routed to login page";
-      }
-      if(localStorage.getItem('user')){
-        reply = "You are already logged in";
-      }
-    }else if(message.toLocaleLowerCase().includes("logout")){
-      let validate:Boolean = confirm("Do you want to logout")
-      if(validate){
-        localStorage.clear();
-        this.session.clearSessionData();
-        reply = "You are successfully logged out";
-      }
-    } else if(message.toLocaleLowerCase().includes("home")){
-      let validate:Boolean = confirm("routing to home page")
-      if(validate){
-        this.route.navigateByUrl('/home');
-        reply = "routed to home page";
-      }
-      if(!localStorage.getItem('user')){
-        reply = "Login First to access home page";
-      }
-    }else if(message.toLocaleLowerCase().includes("chat")){
-      let validate:Boolean = confirm("routing to Chat Gpt page")
-      if(validate){
-        this.route.navigateByUrl('/chatgpt');
-        reply = "routed to Chat Gpt page";
-      }
-      if(!localStorage.getItem('user')){
-        reply = "Login First to access Chat gpt page";
-      }
-    }else if(message.toLocaleLowerCase().includes("password")){
-      let validate:Boolean = false;
-      let page = '';
-      if(!localStorage.getItem('user')){
-        validate = confirm("routing to forgot Password page");
-        page = "/forgot";
-        reply = "routed to forgot Password page";
-      } else{
-        validate = confirm("routing to Change Password page");
-        page = "/profile";
-        reply = "routed to profile page";
-      }
-      if(validate){
-        this.route.navigateByUrl(page);
-      }
-    }else if(message.toLocaleLowerCase().includes("create") || message.toLocaleLowerCase().includes("register")){
-      let validate:Boolean = confirm("routing to create user page")
-      if(validate){
-        this.route.navigateByUrl('/register');
-        reply = "routed to create user page";
-      }
-    }else if(message.toLocaleLowerCase().includes("compiler") || message.toLocaleLowerCase().includes("online")){
-      let validate:Boolean = confirm("routing to online compiler page")
-      if(validate){
-        this.route.navigateByUrl('/compiler');
-        reply = "routed to online compiler page";
-      }
-      if(!localStorage.getItem('user')){
-        reply = "Login First to access Chat gpt page";
-      }
-    } else if(message.toLocaleLowerCase().includes("prediction") || message.toLocaleLowerCase().includes("predict")){
-      let validate:Boolean = confirm("routing to Bike Buyer Prediction page")
-      if(validate){
-        this.route.navigateByUrl('/predict');
-        reply = "routed to Bike Buyer Prediction page";
-      }
-      if(!localStorage.getItem('user')){
-        reply = "Login First to access Chat gpt page";
-      }
-    }else if(message.toLocaleLowerCase().includes("profile") || message.toLocaleLowerCase().includes("profile")){
-      let validate:Boolean = confirm("routing to Profile page")
-      if(validate){
-        this.route.navigateByUrl('/profile');
-        reply = "routed to Profile page";
-      }
-      if(!localStorage.getItem('user')){
-        reply = "Login First to access Chat gpt page";
-      }
-    }else if(message.toLocaleLowerCase().includes("strange") || message.toLocaleLowerCase().includes("strange")){
-      let validate:Boolean = confirm("routing to strange page")
-      if(validate){
-        this.route.navigateByUrl('/strange');
-        reply = "routed to strange page";
-      }
-      if(!localStorage.getItem('user')){
-        reply = "Login First to access Chat gpt page";
-      }
-    } else{
-      reply = "Router Bot is not able to understand the message";
-    }
-    return this.getRandomObservable(reply);
-  }
+	// New: store a system prompt that describes app routes (set by calling sendRoutesSystemMessage)
+	private systemMessage: string | null = null;
 
-  // A list of observables (can be any type of observable)
-  observablesList: Observable<any> = of('ok').pipe(delay(500));
+	// New: call this once with the contents of app.routes.ts (or summarized routes).
+	// The system message instructs the model to return a JSON with "route" and "reply".
+	sendRoutesSystemMessage(routesContent: string) {
+		this.systemMessage = `You are an application assistant aware of the app routes. Routes:\n${routesContent}\n\nWhen the user's question should navigate to a route, respond with a valid JSON object (only the JSON) like: {"route": "/path", "reply": "Helpful answer"}. If no navigation is needed, return: {"route": null, "reply": "Helpful answer"}. The reply field should be user-facing text. Do not include extra text outside the JSON.`;
+	}
+
+	sendMessage(message: string): Observable<any> {
+		// Build chat messages for the chat service
+		const messages: any[] = [];
+		if (this.systemMessage) {
+			messages.push({ role: 'system', content: this.systemMessage });
+		}
+		messages.push({ role: 'user', content: message });
+
+		// Get API key from SessionService (caller must ensure it's stored there)
+   const apiKey: string = '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'; // Replace with your OpenAI API key
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${apiKey}`
+		});
+
+		const body = {
+			model: 'gpt-4o-mini', // adjust model as needed
+			messages: messages
+		};
+
+		return new Observable(observer => {
+			// Call chat service (OpenAI Chat Completions)
+			this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers }).subscribe({
+				next: (res) => {
+					const raw = res?.choices?.[0]?.message?.content ?? '';
+					let route: string | null = null;
+					let reply: string = raw;
+
+					// Try to parse JSON first (preferred - per system instruction)
+					try {
+						const parsed = JSON.parse(raw);
+						if (parsed) {
+							if (typeof parsed.reply === 'string') reply = parsed.reply;
+							route = parsed.route ?? null;
+						}
+					} catch (e) {
+						// Fallback: try to extract a route with regex and a textual reply
+						const routeMatch = raw.match(/"route"\s*:\s*"([^"]+)"|route\s*:\s*'([^']+)'|ROUTE\s*[:=]\s*(\/[^\s"']+)/i);
+						if (routeMatch) {
+							route = routeMatch[1] ?? routeMatch[2] ?? routeMatch[3] ?? null;
+						}
+						// Extract reply if JSON-like reply present
+						const replyMatch = raw.match(/"reply"\s*:\s*"([^"]+)"/i);
+						if (replyMatch) reply = replyMatch[1];
+					}
+
+					// If a route is provided, navigate
+					if (route) {
+						try {
+							this.route.navigate([route]);
+						} catch (navErr) {
+							// ignore navigation errors but include them in returned payload if desired
+						}
+					}
+
+					observer.next({ route, reply, raw });
+					observer.complete();
+				},
+				error: (err) => {
+					observer.error(err);
+				}
+			});
+		});
+	}
+
+	// A list of observables (can be any type of observable)
+	observablesList: Observable<any> = of('ok').pipe(delay(500));
 
 
-  // Function to return a random Observable from the list
-  getRandomObservable(reply:string): Observable<any> {
+	// Function to return a random Observable from the list
+	// renamed parameter from `reply` to `text` to avoid any accidental free-variable 'reply' references
+	getRandomObservable(text: string): Observable<any> {
    
-    return of(reply).pipe(delay(500));
-  }
+		return of(text).pipe(delay(500));
+	}
 }
 
