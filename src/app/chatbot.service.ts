@@ -50,20 +50,20 @@ export class ChatbotService {
 		messages.push({ role: 'user', content: message });
 
 		// Get API key from SessionService (caller must ensure it's stored there)
-   const apiKey: string = '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'; // Replace with your OpenAI API key
+   const apiKey: string = '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'; // Replace with your OpenAI API key
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			'Authorization': `Bearer ${apiKey}`
 		});
 
 		const body = {
-			model: 'gpt-4o-mini', // adjust model as needed
+			model: 'sonar-pro', // adjust model as needed
 			messages: messages
 		};
 
 		return new Observable(observer => {
 			// Call chat service (OpenAI Chat Completions)
-			this.http.post<any>('https://api.openai.com/v1/chat/completions', body, { headers }).subscribe({
+			this.http.post<any>('https://api.perplexity.ai/chat/completions', body, { headers }).subscribe({
 				next: (res) => {
 					const raw = res?.choices?.[0]?.message?.content ?? '';
 					let route: string | null = null;

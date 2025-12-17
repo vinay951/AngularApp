@@ -5,7 +5,7 @@ import axios from 'axios';
   providedIn: 'root',
 })
 export class ChatService {
-  private apiKey: string = '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'; // Replace with your OpenAI API key
+  private apiKey: string = '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'; // Replace with your OpenAI API key
   private messagesHistory: { role: string; content: string }[] = []; // Store conversation history here
 
   constructor() {}
@@ -21,9 +21,9 @@ export class ChatService {
     while (retries < maxRetries) {
       try {
         const response = await axios.post(
-          'https://api.openai.com/v1/chat/completions',
+          'https://api.perplexity.ai/chat/completions',
           {
-            model: 'gpt-4o-mini',  // or 'gpt-4' depending on your access
+            model: 'sonar-pro',  // or 'gpt-4' depending on your access
             messages: this.messagesHistory,  // Use the entire conversation context
           },
           {
