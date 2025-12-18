@@ -30,7 +30,7 @@ export class ChatComponent {
 
     try {
       const botResponse = await this.chatService.sendMessage(userMsg);
-      this.messages.push({ text: botResponse, sender: 'bot' });
+      this.messages.push({ text: botResponse, sender: 'bot', isHtml: true });
     } catch (error) {
       console.error('Error sending message:', error);
       this.messages.push({ text: 'Sorry, something went wrong.', sender: 'bot' });

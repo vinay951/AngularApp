@@ -6,7 +6,9 @@ import axios from 'axios';
 })
 export class ChatService {
   private apiKey: string = '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'; // Replace with your OpenAI API key
-  private messagesHistory: { role: string; content: string }[] = []; // Store conversation history here
+  private messagesHistory: { role: string; content: string }[] = [
+    { role: 'system', content: 'You are an AI assistant. Always respond in HTML format suitable for direct rendering in a web page. and it should has images and links except videos' }
+  ]; // Store conversation history here
 
   constructor() {}
 
