@@ -21,6 +21,7 @@ import { UploadComponent } from './upload/upload.component';
 import { MapsComponent } from './maps/maps.component';
 import { HotelListComponent } from './components/hotel-list/hotel-list.component';
 import { LoginFaceidComponent } from './login-faceid/login-faceid.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
@@ -43,5 +44,6 @@ export const routes: Routes = [
     { path: 'unblur', component: UploadComponent,canActivate:[authGuard]},
     { path: 'maps', component: MapsComponent,canActivate:[authGuard]},
     { path: 'hotels', component: HotelListComponent,canActivate:[authGuard]},
-    { path: '**', redirectTo: '/home'}  // Default route, redirects to login
+    { path: 'page-not-found', component: PageNotFoundComponent },  // Default route
+    { path: '**', redirectTo: '/page-not-found'}  // Default route, redirects to login
 ];

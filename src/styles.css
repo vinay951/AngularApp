@@ -5,3 +5,39 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 footer {
     margin-top: auto;
   }
+
+/* Global Dark Mode Styles */
+body.dark-mode {
+  background: #181818 !important;
+  color: #e0e0e0 !important;
+}
+body.dark-mode .search-suggestions {
+  background: #232526;
+  color: #e0e0e0;
+}
+body.dark-mode .search-suggestions li:hover {
+  background: #181818;
+  color: #ffd700;
+}
+body.dark-mode .app-header {
+  background: linear-gradient(90deg, #181818 0%, #232526 100%);
+  color: #e0e0e0;
+}
+body.dark-mode .header-search {
+  background: #232526;
+  color: #e0e0e0;
+}
+body.dark-mode .header-search input[type="search"] {
+  color: #e0e0e0;
+  background: #232526;
+}
+body.dark-mode .nav-links {
+  background: #181818;
+}
+body.dark-mode .nav-links a {
+  color: #e0e0e0;
+}
+body.dark-mode .nav-links a:hover {
+  background: #232526;
+  color: #ffd700;
+}

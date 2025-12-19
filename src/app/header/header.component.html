@@ -1,41 +1,52 @@
-<div class="navbar">
-  <div class="logo">
-    <a href="/home">Online Compiler</a>
+<nav class="app-header" role="navigation" aria-label="Main navigation">
+  <div class="header-inner">
+    <a class="brand" [routerLink]="['/home']" href="/home">
+      <img src="assets/logo.svg" alt="Online Compiler logo" class="logo" />
+      <span class="brand-title">Online Compiler</span>
+    </a>
+
+    <form class="header-search" (submit)="onSearch($event)" role="search">
+      <label for="header-search-input" class="visually-hidden">Search</label>
+      <input id="header-search-input" name="q" type="search" [(ngModel)]="searchQuery" (input)="onSearchInput()" placeholder="Search menu..." autocomplete="off" />
+      <button type="submit" class="search-btn" aria-label="Search">🔍</button>
+      <ul *ngIf="showSuggestions" class="search-suggestions">
+        <li *ngFor="let item of filteredMenuItems" (mousedown)="onSuggestionClick(item)">
+          {{item.label}}
+        </li>
+      </ul>
+    </form>
+
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" aria-pressed="false" title="Toggle theme" (click)="toggleDarkMode()">🌓</button>
+      <button class="like-btn" type="button" [class.liked]="liked" (click)="toggleLike()" title="Like">❤️</button>
+      <button class="keep-btn" type="button" [class.kept]="kept" (click)="toggleKeep()" title="Keep">🔖</button>
+      <button class="hamburger" [attr.aria-expanded]="isMenuOpen" (click)="toggleMenu()" aria-controls="main-nav" aria-label="Toggle navigation">
+        <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+      </button>
+    </div>
   </div>
 
-  <!-- Button to toggle the menu -->
-  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
-  
-  <!-- Menu -->
-  <div class="menu-container" *ngIf="isMenuOpen" (mouseleave)="closeMenu()">
-    <ul class="menu">
-      <li><a href="/home">Home</a></li>
-      <li><a href="javascript:void(0);" *ngIf="startingWithUser()" (click)="openRegisterForm()">Register Test Case</a></li>
-      <li><a href="/chatgpt">ChatGPT</a></li>
-      <li><a href="/profile">Profile</a></li>
-      <li><a href="/compiler">Online Compiler</a></li>
-      <li><a href="/predict">Bike Buyer Prediction</a></li>
-      <li><a href="/test">Test Case</a></li>
-      <li><a href="/unblur">Unblur Image</a></li>
-      <li><a href="/maps">Current Location</a></li>
-      <li><a href="/reports">Test Reports</a></li>
-      <li><a href="/questions">Random Question Programming Test</a></li>
-      <li><a href="javascript:void(0);" *ngIf="startingWithUser()" (click)="delete()">Delete My Account</a></li>
-      <li *ngIf="!faceIdLoading">
-        <a href="javascript:void(0);" *ngIf="checkFaceID()" (click)="deleteFaceID()">Delete Face-ID</a>
-      </li>
-      <li><a href="/dynamic" *ngIf="startingWithUser()">Dynamic elements Creation</a></li>
-      <li><a href="javascript:void(0);" *ngIf="startingWithUser()" (click)="logout()">Logout</a></li>
-      <li><a href="javascript:void(0);" *ngIf="!startingWithUser()" (click)="register()">Register</a></li>
-      <li><a href="javascript:void(0);" *ngIf="!startingWithUser()" (click)="login()">Login</a></li>
-    </ul>
+  <ul id="main-nav" class="nav-links" [class.open]="isMenuOpen" *ngIf="isMenuOpen" (mouseleave)="closeMenu()">
+    <li><a [routerLink]="['/home']" href="/home">Home</a></li>
+    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="openRegisterForm()">Register Test Case</a></li>
+    <li><a [routerLink]="['/chatgpt']" href="/chatgpt">ChatGPT</a></li>
+    <li><a [routerLink]="['/profile']" href="/profile">Profile</a></li>
+    <li><a [routerLink]="['/compiler']" href="/compiler">Online Compiler</a></li>
+    <li><a [routerLink]="['/predict']" href="/predict">Bike Buyer Prediction</a></li>
+    <li><a [routerLink]="['/test']" href="/test">Test Case</a></li>
+    <li><a [routerLink]="['/unblur']" href="/unblur">Unblur Image</a></li>
+    <li><a [routerLink]="['/maps']" href="/maps">Current Location</a></li>
+    <li><a [routerLink]="['/reports']" href="/reports">Test Reports</a></li>
+    <li><a [routerLink]="['/questions']" href="/questions">Random Questions</a></li>
+    <li *ngIf="startingWithUser()"><a [routerLink]="['/dynamic']" href="/dynamic">Dynamic elements</a></li>
+    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="logout()">Logout</a></li>
+    <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="register()">Register</a></li>
+    <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="login()">Login</a></li>
+    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="delete()">Delete My Account</a></li>
+    <li *ngIf="!faceIdLoading"><a href="javascript:void(0);" *ngIf="checkFaceID()" (click)="deleteFaceID()">Delete Face‑ID</a></li>
+  </ul>
+</nav>
 
-    <!-- Close button -->
-    <button class="close-menu" (click)="closeMenu()">X</button>
-  </div>
+<div *ngIf="isDataLoading">
+  <app-loading [isLoading]="isDataLoading"></app-loading>
 </div>
-
-
-  <div *ngIf="isDataLoading">
-    <app-loading [isLoading]="isDataLoading"></app-loading>
-  </div>
