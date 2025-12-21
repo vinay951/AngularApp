@@ -54,4 +54,10 @@ export class UserService {
   deleteFaceId(email:string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/api/faceid/delete/`+email);
   }
+  toggleMode(email:string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/toggleTheme`,{ email: email } );
+  }
+  getMode(email:string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getTheme/`+email);
+  }
 }

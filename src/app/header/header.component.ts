@@ -112,12 +112,21 @@ export class HeaderComponent implements OnInit{
 
     // Dark mode toggle
     toggleDarkMode() {
-      this.darkMode = !this.darkMode;
-      if (this.darkMode) {
-        document.body.classList.add('dark-mode');
-      } else {
-        document.body.classList.remove('dark-mode');
-      }
+      this.userService.toggleMode(this.username).subscribe({
+        next: (response: any) => {
+          console.log(response);
+          if(response.theme==="dark"){
+            this.darkMode = true;
+            document.body.classList.add('dark-mode');
+          } else{
+            this.darkMode = false;
+            document.body.classList.remove('dark-mode');
+          }
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      });
     }
 
     // Like button logic
@@ -131,6 +140,25 @@ export class HeaderComponent implements OnInit{
     }
   ngOnInit(): void {
     this.checkFaceID();
+    this.getMode();
+  }
+  getMode(){
+    const email = localStorage.getItem("user")??"";
+    this.userService.getMode(email).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        if(response.theme==="dark"){
+          this.darkMode = true;
+          document.body.classList.add('dark-mode');
+        } else{
+          this.darkMode = false;
+          document.body.classList.remove('dark-mode');
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
   logout(){
     localStorage.clear();
