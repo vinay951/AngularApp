@@ -11,3 +11,69 @@ body {
   background: var(--color-bg) !important;
   color: var(--color-text) !important;
 }
+
+/* Global overrides for Home page to ensure theme variables are respected
+   and header-controlled dark mode applies everywhere. */
+
+/* Card and container backgrounds */
+.chat-container, .username-page-container, .chat-messages, #chatroom {
+  background: var(--color-card) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+
+/* Chat header */
+.chat-header {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)) !important;
+  color: var(--color-text) !important;
+}
+
+/* Message bubbles */
+.chat-message .content {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-border) !important;
+}
+.chat-message.self .content {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+/* Typing area */
+.typing-area {
+  background: var(--color-card) !important;
+}
+.typing-area input, .form-control, #typingArea .form-control {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* Buttons */
+.typing-area button, .username-page-container .accent, button.primary, button.accent {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)) !important;
+  color: #fff !important;
+}
+
+/* Avatars and list accents */
+.chat-message .avatar, #chatroom .chat-message i {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+/* Online users dropdown */
+.online-users-list, .online-users-list ul {
+  background: var(--color-card) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* Scrollbars */
+.chat-messages::-webkit-scrollbar-thumb {
+  background: var(--color-primary) !important;
+}
+
+/* Map and misc */
+#map {
+  background: var(--color-bg) !important;
+}
