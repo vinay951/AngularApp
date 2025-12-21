@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';  // You may need to install this module
+import { HttpClient, HttpHeaders } from '@angular/common/http';  // You may need to install this module
 import { Observable } from 'rxjs';
 import { Login, ProfilePic, User } from '../model';
 
@@ -55,7 +55,7 @@ export class UserService {
     return this.http.delete(`${this.apiUrl}/api/faceid/delete/`+email);
   }
   toggleMode(email:string): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/toggleTheme`,{ email: email } );
+    return this.http.get(`${this.apiUrl}/toggleTheme`+ email);
   }
   getMode(email:string): Observable<any> {
     return this.http.get(`${this.apiUrl}/getTheme/`+email);
