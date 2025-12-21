@@ -151,6 +151,7 @@ export class HeaderComponent implements OnInit{
   }
   getMode(){
     const email = localStorage.getItem("user")??"";
+    this.isDataLoading = true;
     this.userService.getMode(email).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -161,9 +162,11 @@ export class HeaderComponent implements OnInit{
           this.darkMode = false;
           document.body.classList.remove('dark-mode');
         }
+        this.isDataLoading = false;
       },
       error: (err: any) => {
         console.log(err);
+        this.isDataLoading = false;
       }
     });
   }
