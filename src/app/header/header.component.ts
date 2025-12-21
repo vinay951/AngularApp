@@ -112,6 +112,13 @@ export class HeaderComponent implements OnInit{
 
     // Dark mode toggle
     toggleDarkMode() {
+      if(this.darkMode){
+        this.darkMode = false;
+        document.body.classList.remove('dark-mode');
+      } else{
+        this.darkMode = true;
+        document.body.classList.add('dark-mode');
+      }
       this.userService.toggleMode(this.username).subscribe({
         next: (response: any) => {
           console.log(response);
