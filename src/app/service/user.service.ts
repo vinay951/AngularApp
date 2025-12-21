@@ -55,7 +55,7 @@ export class UserService {
     return this.http.delete(`${this.apiUrl}/api/faceid/delete/`+email);
   }
   toggleMode(email:string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/toggleTheme`+ email);
+    return this.http.get(`${this.apiUrl}/toggleTheme/`+ email);
   }
   getMode(email:string): Observable<any> {
     return this.http.get(`${this.apiUrl}/getTheme/`+email);
