@@ -12,7 +12,7 @@ import {  Router } from '@angular/router';
 export class AccessDeniedComponent implements OnInit {
 
   constructor(private router:Router){
-
+    
   }
   ngOnInit(): void {
     // Wait for the view to be initialized and then add the 'show' class for animation

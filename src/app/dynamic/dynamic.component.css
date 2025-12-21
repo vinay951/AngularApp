@@ -1,4 +1,14 @@
 .container {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+  background: var(--color-card);
+  color: var(--color-text);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+.container {
     max-width: 600px;
     margin: auto;
     text-align: center;
@@ -19,21 +29,23 @@
   select,
   textarea {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color-border);
     font-size: 16px;
     cursor: pointer;
     margin: 5px 0;
     transition: all 0.3s ease;
     border-radius: 5px;
+    background: var(--color-bg);
+    color: var(--color-text);
   }
   
   button {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--color-primary);
+    color: #fff;
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: var(--color-secondary);
     transform: scale(1.05);
   }
   

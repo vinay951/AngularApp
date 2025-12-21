@@ -1,0 +1,19 @@
+/* Global dark mode variables */
+:root {
+  --color-bg: #fff;
+  --color-text: #232526;
+  --color-primary: #007bff;
+  --color-secondary: #0056b3;
+  --color-accent: #ffd700;
+  --color-card: #f4f7fb;
+  --color-border: #ccc;
+}
+body.dark-mode {
+  --color-bg: #181818;
+  --color-text: #e0e0e0;
+  --color-primary: #2196f3;
+  --color-secondary: #1565c0;
+  --color-accent: #ffd700;
+  --color-card: #232526;
+  --color-border: #444;
+}

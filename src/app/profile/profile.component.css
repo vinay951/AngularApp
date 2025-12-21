@@ -1,20 +1,21 @@
+@import '../../theme.css';
 body, .profile-container {
-  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  background: linear-gradient(135deg, var(--color-card) 0%, var(--color-bg) 100%);
   min-height: 100vh;
-  color: #111;
+  color: var(--color-text);
   font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
 }
 
 .profile-container {
   max-width: 420px;
   margin: 40px auto;
-  background: rgba(255,255,255,0.95);
+  background: var(--color-bg);
   border-radius: 24px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), 0 1.5px 8px 0 rgba(0,0,0,0.10);
   padding: 2.5rem 2rem 2rem 2rem;
   position: relative;
   z-index: 1;
-  border: 1.5px solid #e3f0fc;
+  border: 1.5px solid var(--color-border);
   transition: box-shadow 0.3s;
 }
 
@@ -24,9 +25,9 @@ body, .profile-container {
   font-weight: 700;
   margin-top: 0.5rem;
   margin-bottom: 2.5rem;
-  color: #111;
+  color: var(--color-text);
   letter-spacing: 1px;
-  text-shadow: 1px 2px 8px #b3e0ff;
+  text-shadow: 1px 2px 8px var(--color-border);
 }
 
 .form-group {
@@ -38,6 +39,7 @@ body, .profile-container {
 
 label {
   font-weight: 600;
+  color: var(--color-text);
   color: #222;
   font-size: 1.05rem;
 }

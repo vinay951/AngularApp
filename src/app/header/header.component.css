@@ -1,29 +1,31 @@
+@import '../../theme.css';
 /* Search suggestions dropdown */
-.search-suggestions {
-  position: absolute;
-  top: 2.5rem;
-  left: 0;
-  right: 0;
-  background: #fff;
-  color: #232526;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-  z-index: 2000;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-height: 220px;
-  overflow-y: auto;
-}
-.search-suggestions li {
-  padding: 0.7rem 1.2rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.search-suggestions li:hover {
-  background: #414345;
-  color: #ffd700;
-}
+  .search-suggestions {
+    position: absolute;
+    top: 2.5rem;
+    left: 0;
+    right: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    z-index: 2000;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+  .search-suggestions li {
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    color: var(--color-text);
+  }
+  .search-suggestions li:hover {
+    background: var(--color-secondary);
+    color: var(--color-accent);
+  }
 body.dark-mode .search-suggestions {
   background: #232526;
   color: #e0e0e0;
@@ -86,15 +88,15 @@ body.dark-mode .nav-links a:hover {
   color: #ffd700;
 }
 /* Modern Responsive Header Styles */
-.app-header {
-  background: linear-gradient(90deg, #232526 0%, #414345 100%);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-}
+  .app-header {
+    background: linear-gradient(90deg, var(--color-card) 0%, var(--color-secondary) 100%);
+    color: var(--color-text);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+  }
 
 .header-inner {
   display: flex;

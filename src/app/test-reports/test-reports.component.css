@@ -1,20 +1,22 @@
+@import '../../theme.css';
 h2 {
-    color: #333;
+    color: var(--color-text);
     margin-bottom: 20px;
   }
   
   h3 {
-    color: #007bff;
+    color: var(--color-primary);
   }
   
   div {
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 5px;
+    background: var(--color-bg);
   }
   
   p {
-    color: #888;
+    color: var(--color-border);
   }
   

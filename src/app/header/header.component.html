@@ -1,7 +1,7 @@
 <nav class="app-header" role="navigation" aria-label="Main navigation">
   <div class="header-inner">
     <a class="brand" [routerLink]="['/home']" href="/home">
-      <img src="assets/logo.svg" alt="Online Compiler logo" class="logo" />
+      <img src="compiler.png" alt="Online Compiler logo" class="logo" />
       <span class="brand-title">Online Compiler</span>
     </a>
 
@@ -27,23 +27,23 @@
   </div>
 
   <ul id="main-nav" class="nav-links" [class.open]="isMenuOpen" *ngIf="isMenuOpen" (mouseleave)="closeMenu()">
-    <li><a [routerLink]="['/home']" href="/home">Home</a></li>
-    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="openRegisterForm()">Register Test Case</a></li>
-    <li><a [routerLink]="['/chatgpt']" href="/chatgpt">ChatGPT</a></li>
-    <li><a [routerLink]="['/profile']" href="/profile">Profile</a></li>
-    <li><a [routerLink]="['/compiler']" href="/compiler">Online Compiler</a></li>
-    <li><a [routerLink]="['/predict']" href="/predict">Bike Buyer Prediction</a></li>
-    <li><a [routerLink]="['/test']" href="/test">Test Case</a></li>
-    <li><a [routerLink]="['/unblur']" href="/unblur">Unblur Image</a></li>
-    <li><a [routerLink]="['/maps']" href="/maps">Current Location</a></li>
-    <li><a [routerLink]="['/reports']" href="/reports">Test Reports</a></li>
-    <li><a [routerLink]="['/questions']" href="/questions">Random Questions</a></li>
-    <li *ngIf="startingWithUser()"><a [routerLink]="['/dynamic']" href="/dynamic">Dynamic elements</a></li>
-    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="logout()">Logout</a></li>
-    <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="register()">Register</a></li>
-    <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="login()">Login</a></li>
-    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="delete()">Delete My Account</a></li>
-    <li *ngIf="!faceIdLoading"><a href="javascript:void(0);" *ngIf="checkFaceID()" (click)="deleteFaceID()">Delete Face‑ID</a></li>
+    <li><a [routerLink]="['/home']" href="/home" (click)="closeMenu()">Home</a></li>
+    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="openRegisterForm(); closeMenu()">Register Test Case</a></li>
+    <li><a [routerLink]="['/chatgpt']" href="/chatgpt" (click)="closeMenu()">ChatGPT</a></li>
+    <li><a [routerLink]="['/profile']" href="/profile" (click)="closeMenu()">Profile</a></li>
+    <li><a [routerLink]="['/compiler']" href="/compiler" (click)="closeMenu()">Online Compiler</a></li>
+    <li><a [routerLink]="['/predict']" href="/predict" (click)="closeMenu()">Bike Buyer Prediction</a></li>
+    <li><a [routerLink]="['/test']" href="/test" (click)="closeMenu()">Test Case</a></li>
+    <li><a [routerLink]="['/unblur']" href="/unblur" (click)="closeMenu()">Unblur Image</a></li>
+    <li><a [routerLink]="['/maps']" href="/maps" (click)="closeMenu()">Current Location</a></li>
+    <li><a [routerLink]="['/reports']" href="/reports" (click)="closeMenu()">Test Reports</a></li>
+    <li><a [routerLink]="['/questions']" href="/questions" (click)="closeMenu()">Random Questions</a></li>
+    <li *ngIf="startingWithUser()"><a [routerLink]="['/dynamic']" href="/dynamic" (click)="closeMenu()">Dynamic elements</a></li>
+    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="logout(); closeMenu()">Logout</a></li>
+    <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="register(); closeMenu()">Register</a></li>
+    <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="login(); closeMenu()">Login</a></li>
+    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="delete(); closeMenu()">Delete My Account</a></li>
+    <li *ngIf="!faceIdLoading"><a href="javascript:void(0);" *ngIf="checkFaceID()" (click)="deleteFaceID(); closeMenu()">Delete Face‑ID</a></li>
   </ul>
 </nav>
 

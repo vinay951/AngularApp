@@ -1,13 +1,12 @@
-/* 3D Blue Theme, Green and Black Text */
-
+@import '../../theme.css';
 body, .faceid-login-3d {
-  background: linear-gradient(135deg, #e3f0ff 0%, #f8fafc 100%);
+  background: linear-gradient(135deg, var(--color-card) 0%, var(--color-bg) 100%);
   min-height: 100vh;
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
   /* Add a subtle pattern overlay for depth */
   background-image:
-    repeating-linear-gradient(135deg, #e3f0ff 0 2px, transparent 2px 40px),
-    repeating-linear-gradient(225deg, #f8fafc 0 2px, transparent 2px 40px);
+    repeating-linear-gradient(135deg, var(--color-card) 0 2px, transparent 2px 40px),
+    repeating-linear-gradient(225deg, var(--color-bg) 0 2px, transparent 2px 40px);
   background-blend-mode: lighten;
   animation: gradientMove 12s ease-in-out infinite alternate;
 }
@@ -30,10 +29,10 @@ body, .faceid-login-3d {
   margin: 0 auto;
   padding: 36px 28px 28px 28px;
   border-radius: 22px;
-  background: rgba(255,255,255,0.85);
+  background: var(--color-bg);
   box-shadow: 0 8px 40px 0 rgba(25, 118, 210, 0.18), 0 1.5px 8px 0 rgba(0,0,0,0.06);
   backdrop-filter: blur(12px) saturate(1.2);
-  border: 1.5px solid rgba(100,181,246,0.18);
+  border: 1.5px solid var(--color-border);
   text-align: center;
   transform-style: preserve-3d;
   transform: rotateY(-8deg) scale(1.03);

@@ -1,42 +1,42 @@
-/* userForm.component.css */
+@import '../../theme.css';
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-  }
-  
-  .form-container {
+    background-color: var(--color-card);
+    color: var(--color-text);
+}
+
+.form-container {
     max-width: 500px;
     margin: 50px auto;
-    background-color: #fff;
+    background-color: var(--color-bg);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
+    color: var(--color-text);
     text-align: center;
-    color: #2c6b2f;
-  }
-  
-  .form-group {
+    color: var(--color-primary);
+}
+
+.form-group {
     margin-bottom: 15px;
-  }
-  
-  label {
+}
+
+label {
     font-size: 1.1em;
-    color: #2c6b2f;
+    color: var(--color-primary);
     display: block;
     margin-bottom: 5px;
-  }
-  
-  input, select {
+}
+
+input, select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 4px;
     font-size: 1em;
-  }
-  
+    background: var(--color-bg);
+    color: var(--color-text);
+}
   input[type="number"] {
     -moz-appearance: textfield;
   }
@@ -48,25 +48,26 @@ body {
   }
   
   button {
-    background-color: #28a745;
-    color: white;
+    background-color: var(--color-primary);
+    color: #fff;
     font-size: 1.1em;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     width: 100%;
+    transition: background 0.2s;
   }
   
   button:disabled {
-    background-color: #ddd;
+    background-color: var(--color-border);
   }
   
   button:hover {
-    background-color: #218838;
+    background-color: var(--color-secondary);
   }
   
   button:disabled:hover {
-    background-color: #ddd;
+    background-color: var(--color-border);
   }
   

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ChatbotService } from '../chatbot.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,7 @@ export class ChatbotComponent {
   isLoading: boolean = false;
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
 
-  constructor(private chatbotService: ChatbotService) {}
+  constructor(private chatbotService: ChatbotService, private cdr: ChangeDetectorRef) {}
 
   onEnter(): void {
     if (!this.isLoading) {
@@ -34,17 +34,20 @@ export class ChatbotComponent {
       // scroll after adding user's message
       setTimeout(() => this.scrollToBottom(), 0);
       this.isLoading = true;
+      this.cdr.detectChanges(); // Force update to show loader
       this.chatbotService.sendMessage(this.userMessage).subscribe((response: any) => {
         // response is expected to be an object { route, reply, raw }
         const text = (response && (response.reply || response.raw)) ? (response.reply || response.raw) : JSON.stringify(response);
         this.botMessages.push(`Bot: ${text}`);
         this.userMessage = '';
         this.isLoading = false;
+        this.cdr.detectChanges(); // Force update to hide loader
         // scroll after bot response arrives
         setTimeout(() => this.scrollToBottom(), 0);
       }, (error: any) => {
         this.botMessages.push(`Bot: Error receiving response`);
         this.isLoading = false;
+        this.cdr.detectChanges(); // Force update to hide loader
         setTimeout(() => this.scrollToBottom(), 0);
       });
     }

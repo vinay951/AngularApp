@@ -1,3 +1,4 @@
+@import '../../theme.css';
 /* Global Styles */
 * {
     margin: 0;
@@ -6,16 +7,16 @@
   }
   
   body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-  }
+      font-family: 'Arial', sans-serif;
+      background-color: var(--color-card);
+      color: var(--color-text);
+    }
   
   .container {
     width: 80%;
     max-width: 900px;
     margin: 50px auto;
-    background-color: white;
+    background-color: var(--color-bg);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -24,13 +25,13 @@
   h1 {
     text-align: center;
     font-size: 2rem;
-    color: #4a90e2;
+    color: var(--color-primary);
     margin-bottom: 20px;
   }
   
   /* Question Section */
   .question {
-    background-color: #e7f4f9;
+    background-color: var(--color-card);
     padding: 15px;
     border-radius: 5px;
     margin-bottom: 20px;

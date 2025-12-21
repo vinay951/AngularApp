@@ -1,10 +1,12 @@
 /* Floating circular button */
+@import '../../theme.css';
+
 .chat-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--color-primary);
+    color: #fff;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -15,11 +17,11 @@
     font-size: 18px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 10; /* Ensure it appears above other content */
-  }
-  
-  .chat-button:hover {
-    background-color: #0056b3;
-  }
+}
+
+.chat-button:hover {
+    background-color: var(--color-secondary);
+}
   
   .chat-button span {
     font-size: 14px;
@@ -32,8 +34,8 @@
     right: 20px;
     width: 300px;
     height: 400px;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -55,12 +57,13 @@
     display: flex;
     justify-content: space-between;
     font-weight: bold;
+    color: var(--color-text);
   }
   
   .close-btn {
     background: none;
     border: none;
-    color: #007bff;
+    color: var(--color-primary);
     cursor: pointer;
   }
   
@@ -69,6 +72,8 @@
     overflow-y: auto;
     margin-bottom: 10px;
     padding-right: 5px;
+    background: var(--color-card);
+    color: var(--color-text);
   }
 
   /* Make chat-box a positioned container for the overlay */
@@ -78,6 +83,7 @@
   
   .message {
     margin: 5px 0;
+    color: var(--color-text);
   }
   
   .input-container {
@@ -88,18 +94,21 @@
   input {
     flex: 1;
     padding: 10px;
+    background: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
   }
   
   button {
     padding: 10px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--color-primary);
+    color: #fff;
     border: none;
     cursor: pointer;
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: var(--color-secondary);
   }
   
   
@@ -114,7 +123,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255,255,255,0.92);
+    background: rgba(24,24,24,0.92);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,7 +152,7 @@
   .car-body {
     width: 100%;
     height: 60%;
-    background: linear-gradient(135deg,#007bff,#0056b3);
+    background: linear-gradient(135deg,var(--color-primary),var(--color-secondary));
     border-radius: 8px 12px 6px 6px;
     position: relative;
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
@@ -163,7 +172,7 @@
   .wheel {
     width: 22px;
     height: 22px;
-    background: #222;
+    background: var(--color-text);
     border-radius: 50%;
     position: absolute;
     bottom: -6px;
@@ -178,7 +187,7 @@
     top: 4px;
     width: 10px;
     height: 10px;
-    background: #888;
+    background: var(--color-border);
     border-radius: 50%;
   }
 

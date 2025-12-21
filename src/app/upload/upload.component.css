@@ -1,3 +1,4 @@
+@import '../../theme.css';
 .error-message {
     background-color: #f8d7da;
     color: #721c24;
@@ -11,8 +12,8 @@
   /* General Body and Container Setup */
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f4f7fc;
-    color: #333;
+    background-color: var(--color-card);
+    color: var(--color-text);
     margin: 0;
     padding: 0;
     display: flex;
@@ -23,7 +24,7 @@ body {
   
   /* Main form container */
   .container {
-    background-color: #ffffff;
+    background-color: var(--color-bg);
     padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);

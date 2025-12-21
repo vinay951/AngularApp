@@ -24,26 +24,27 @@ import { LoginFaceidComponent } from './login-faceid/login-faceid.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent,canActivate:[loginGuard] },   // Route for login page
-    { path: 'login-faceid', component: LoginFaceidComponent }, // Face ID login route
-    { path: 'register', component: UserRegistrationComponent },
-    { path: 'forgot', component: ForgotComponent }, // Route for register page
-    { path: 'profile', component: ProfileComponent,canActivate:[authGuard]},
-    { path: 'questions', component: CodingComponent,canActivate:[authGuard]},
-    { path: 'home', component: HomeComponent,canActivate:[authGuard]},
-    { path: 'compiler', component: CompilerComponent,canActivate:[authGuard]},
-    { path: 'chatgpt', component: ChatComponent,canActivate:[authGuard]},
-    {path:'test',component:TestcasesComponent,canActivate:[authGuard]},
-    {path:'reports',component:TestReportsComponent,canActivate:[authGuard]},
-    {path:'testRegister',component:TestRegisterComponent,canActivate:[authGuard]},
-    { path: 'accessDenied', component: AccessDeniedComponent },
-    { path: 'otp', component: OtpComponent},
-    { path: 'strange', component: StrangeComponent,canActivate:[authGuard]},
-    { path: 'dynamic', component: DynamicComponent,canActivate:[authGuard]},
-    { path: "predict", component: BikebuyerpredictionComponent,canActivate:[authGuard]},
-    { path: 'unblur', component: UploadComponent,canActivate:[authGuard]},
-    { path: 'maps', component: MapsComponent,canActivate:[authGuard]},
-    { path: 'hotels', component: HotelListComponent,canActivate:[authGuard]},
-    { path: 'page-not-found', component: PageNotFoundComponent },  // Default route
+    { path: 'login', component: LoginComponent,canActivate:[loginGuard],title: 'Login' },   // Route for login page
+    { path: 'login-faceid', component: LoginFaceidComponent ,title: 'Login Face ID'}, // Face ID login route
+    { path: 'register', component: UserRegistrationComponent,title: 'Register' }, // Route for register page
+    { path: 'forgot', component: ForgotComponent, title: 'Forgot Password' }, // Route for register page
+    { path: 'profile', component: ProfileComponent,canActivate:[authGuard],title: 'Profile' }, // Route for profile page
+    { path: 'questions', component: CodingComponent,canActivate:[authGuard],title: 'Coding Questions' },
+    { path: 'home', component: HomeComponent,canActivate:[authGuard],title: 'Home' }, // Route for home page
+    { path: 'compiler', component: CompilerComponent,canActivate:[authGuard],title: 'Compiler' },
+    { path: 'chatgpt', component: ChatComponent,canActivate:[authGuard],title: 'ChatGPT' },
+    {path:'test',component:TestcasesComponent,canActivate:[authGuard],title: 'Test Cases' },
+    {path:'reports',component:TestReportsComponent,canActivate:[authGuard],title: 'Test Reports' },
+    {path:'testRegister',component:TestRegisterComponent,canActivate:[authGuard],title: 'Test Registration' },
+    { path: 'accessDenied', component: AccessDeniedComponent    ,title: 'Access Denied' },
+    { path: 'otp', component: OtpComponent ,title: 'OTP Verification'},
+    { path: 'strange', component: StrangeComponent,canActivate:[authGuard],title: 'Strange' },
+    { path: 'dynamic', component: DynamicComponent,canActivate:[authGuard],title: 'Dynamic' },
+    { path: "predict", component: BikebuyerpredictionComponent,canActivate:[authGuard], title: 'Bike Buyer Prediction' },
+    { path: 'unblur', component: UploadComponent,canActivate:[authGuard],  title: 'Image Unblur' },
+    { path: 'maps', component: MapsComponent,canActivate:[authGuard], title: 'Maps' },
+    { path: 'hotels', component: HotelListComponent,canActivate:[authGuard], title: 'Hotel List' },
+    { path: 'page-not-found', component: PageNotFoundComponent,title: 'Page Not Found' },  // Default route
+    { path: '', redirectTo: '/home', pathMatch: 'full' },  // Default route
     { path: '**', redirectTo: '/page-not-found'}  // Default route, redirects to login
 ];
