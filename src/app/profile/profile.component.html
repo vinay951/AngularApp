@@ -1,11 +1,11 @@
 <div class="profile-container">
-  <h2>User Profile</h2>
+  <h2>{{isPasswordChangeVisible?'Change Password':'Update Profile'}}</h2>
    <!-- Profile Image at Top -->
   <div *ngIf="profilePicturePreview" class="profile-img-top">
     <img [src]="profilePicturePreview" alt="Profile Picture Preview" class="profile-img-preview" />
   </div>
 
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="!isPasswordChangeVisible">
     <div class="form-group">
       <label for="firstName">First Name</label>
       <input
@@ -59,12 +59,6 @@
   </form>
 
   <hr />
-
-  <div class="button-row">
-    <button class="btn btn-secondary" (click)="togglePasswordChange()">
-      Change Password
-    </button>
-  </div>
 
   <div *ngIf="isPasswordChangeVisible">
     <form [formGroup]="profileForm" (ngSubmit)="changePassword()">

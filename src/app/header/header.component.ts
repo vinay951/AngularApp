@@ -44,6 +44,8 @@ export class HeaderComponent implements OnInit{
     { label: 'ChatGPT', route: '/chatgpt' },
     { label: 'Profile', route: '/profile' },
     { label: 'Online Compiler', route: '/compiler' },
+    {label: 'Change Password', route: '/changePassword' },
+    { label: 'Game', route: '/game' },
     { label: 'Bike Buyer Prediction', route: '/predict' },
     { label: 'Test Case', route: '/test' },
     { label: 'Unblur Image', route: '/unblur' },
@@ -65,9 +67,10 @@ export class HeaderComponent implements OnInit{
 
   // Define which labels belong to each submenu so we can render them dynamically
   submenuLabels: {[key:string]: string[]} = {
+    account: ['Profile','Change Password','Logout','Delete My Account','Register','Login','Delete Face‑ID'],
     tests: ['Register Test Case','Test Case','Test Reports'],
     compiler: ['Online Compiler','Random Questions'],
-    others: ['ChatGPT','Unblur Image','Current Location']
+    others: ['ChatGPT','Unblur Image','Current Location','Bike Buyer Prediction','Game','Dynamic elements']
   };
 
   constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog,

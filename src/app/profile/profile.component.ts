@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; // Assuming you have a UserService to handle API calls
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../service/user.service';
 import { Login, ProfilePic, User } from '../model';
@@ -24,13 +24,17 @@ export class ProfileComponent implements OnInit {
   isPasswordChangeVisible: boolean = false;
   isDataLoading = false;
   profilePicturePreview: string | null = null;
+  changePasswordVisible: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
-    private toastr:ToastrService
-  ) {}
+    private toastr:ToastrService,
+    private route: ActivatedRoute
+  ) {
+    this.isPasswordChangeVisible = this.route.snapshot.data['isChangePassword'] || false;
+  }
 
   ngOnInit(): void {
     this.initializeForm();

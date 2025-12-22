@@ -54,14 +54,9 @@
         <ul *ngIf="submenuOpen['account']" class="submenu-list">
           <li *ngFor="let item of orderedSubmenuItems('account')">
             <a href="javascript:void(0);" (click)="onItemClick(item); closeMenu()">{{item.label}}</a>
-            <button *ngIf="item.label !== 'Logout' && item.label !== 'Login' && item.label !== 'Register' && item.label !== 'Delete My Account'" type="button" class="pin-btn modern" [attr.aria-pressed]="isPinned(item)" (click)="togglePin({label:item.label, route:item.route}, $event)"></button>
+            <button *ngIf="item.label !== 'Logout' && item.label !== 'Login' && item.label !== 'Register'" type="button" class="pin-btn modern" [attr.aria-pressed]="isPinned(item)" (click)="togglePin({label:item.label, route:item.route}, $event)"></button>
           </li>
           <!-- handle special items that may not be in menuItems list -->
-          <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="logout(); closeMenu()">Logout</a></li>
-          <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="register(); closeMenu()">Register</a></li>
-          <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="login(); closeMenu()">Login</a></li>
-          <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="delete(); closeMenu()">Delete My Account</a></li>
-          <li *ngIf="!faceIdLoading"><a href="javascript:void(0);" *ngIf="checkFaceID()" (click)="deleteFaceID(); closeMenu()">Delete Face‑ID</a></li>
         </ul>
     </li>
 

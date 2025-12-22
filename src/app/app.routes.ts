@@ -29,7 +29,7 @@ export const routes: Routes = [
     { path: 'login-faceid', component: LoginFaceidComponent ,title: 'Login Face ID'}, // Face ID login route
     { path: 'register', component: UserRegistrationComponent,title: 'Register' }, // Route for register page
     { path: 'forgot', component: ForgotComponent, title: 'Forgot Password' }, // Route for register page
-    { path: 'profile', component: ProfileComponent,canActivate:[authGuard],title: 'Profile' }, // Route for profile page
+    { path: 'profile', component: ProfileComponent,canActivate:[authGuard],title: 'Profile',data: { isChangePassword: false } }, // Route for profile page
     { path: 'questions', component: CodingComponent,canActivate:[authGuard],title: 'Coding Questions' },
     { path: 'home', component: HomeComponent,canActivate:[authGuard],title: 'Home' }, // Route for home page
     { path: 'compiler', component: CompilerComponent,canActivate:[authGuard],title: 'Compiler' },
@@ -39,6 +39,7 @@ export const routes: Routes = [
     {path:'testRegister',component:TestRegisterComponent,canActivate:[authGuard],title: 'Test Registration' },
     { path: 'accessDenied', component: AccessDeniedComponent    ,title: 'Access Denied' },
     { path: 'otp', component: OtpComponent ,title: 'OTP Verification'},
+    { path:'changePassword', component:ProfileComponent,canActivate:[authGuard], title: 'Change Password',data: { isChangePassword: true } },
     { path: 'strange', component: StrangeComponent,canActivate:[authGuard],title: 'Strange' },
     { path: 'dynamic', component: DynamicComponent,canActivate:[authGuard],title: 'Dynamic' },
     { path: "predict", component: BikebuyerpredictionComponent,canActivate:[authGuard], title: 'Bike Buyer Prediction' },
