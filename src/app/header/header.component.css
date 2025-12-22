@@ -257,6 +257,61 @@ body.dark-mode .nav-links a:hover {
   color: #ffd700;
 }
 
+/* Modern pin button */
+.pin-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.35rem;
+}
+.pin-btn.modern {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.06));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.pin-btn.modern[aria-pressed="true"]{
+  background: linear-gradient(90deg,#ffd54a,#ff7043);
+  color: #fff;
+  transform: scale(1.05);
+}
+.pin-btn.modern:after{
+  content: '📌';
+  font-size: 14px;
+}
+
+/* Submenu styles */
+.submenu { position: relative; }
+.submenu-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 0.9rem 1.5rem;
+  font-size: 1.05rem;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.submenu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0.5rem 0.75rem 0.5rem;
+  background: transparent;
+  animation: slideDown 180ms ease-out;
+}
+.submenu-list li { display: flex; align-items: center; justify-content: space-between; padding: 0.25rem 0; }
+.submenu-list a { padding: 0.5rem 0; }
+.caret { opacity: 0.85; margin-left: 0.35rem; }
+
 @media (max-width: 700px) {
   .header-inner {
     flex-direction: column;

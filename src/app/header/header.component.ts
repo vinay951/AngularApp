@@ -60,6 +60,15 @@ export class HeaderComponent implements OnInit{
 
   filteredMenuItems: any[] = [];
   showSuggestions: boolean = false;
+  pinnedItems: any[] = [];
+  submenuOpen: {[key:string]: boolean} = { tests: false, account: false, compiler: false };
+
+  // Define which labels belong to each submenu so we can render them dynamically
+  submenuLabels: {[key:string]: string[]} = {
+    tests: ['Register Test Case','Test Case','Test Reports'],
+    compiler: ['Online Compiler','Random Questions'],
+    others: ['ChatGPT','Unblur Image','Current Location']
+  };
 
   constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog,
     private session:SessionService
@@ -148,6 +157,96 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     this.checkFaceID();
     this.getMode();
+    this.loadUserPreferences();
+  }
+
+  toggleSubmenu(name: string, ev?: MouseEvent){
+    if(ev){ ev.stopPropagation(); ev.preventDefault(); }
+    // Close others
+    Object.keys(this.submenuOpen).forEach(k => { if(k!==name) this.submenuOpen[k]=false; });
+    this.submenuOpen[name] = !this.submenuOpen[name];
+  }
+
+  // Return submenu items ordered with pinned items first
+  orderedSubmenuItems(key: string){
+    const labels = this.submenuLabels[key] || [];
+    // Filter base menu items by these labels and visibility rules
+    let items = this.menuItems.filter(item => labels.includes(item.label)).filter(item => {
+      if (item.userOnly === true && !this.startingWithUser()) return false;
+      if (item.userOnly === false && this.startingWithUser()) return false;
+      if (item.faceId && this.faceIdLoading) return false;
+      if (item.faceId && !this.checkFaceID()) return false;
+      return true;
+    });
+
+    // Compute pinned index for stable ordering of pinned items
+    const pinnedOrder = this.pinnedItems.map((p: any) => p.label);
+    items.sort((a: any, b: any) => {
+      const ai = pinnedOrder.indexOf(a.label);
+      const bi = pinnedOrder.indexOf(b.label);
+      const aIndex = ai === -1 ? Number.MAX_SAFE_INTEGER : ai;
+      const bIndex = bi === -1 ? Number.MAX_SAFE_INTEGER : bi;
+      if (aIndex !== bIndex) return aIndex - bIndex; // pinned ones first in user-specified order
+      return labels.indexOf(a.label) - labels.indexOf(b.label); // otherwise original submenu order
+    });
+    return items;
+  }
+
+  // Handle clicks for items that are actions instead of routes
+  onItemClick(item: any){
+    if (item.action){
+      const action = item.action as keyof HeaderComponent;
+      if (typeof this[action] === 'function'){
+        (this[action] as Function).call(this);
+      }
+    } else if (item.route){
+      this.router.navigate([item.route]);
+    }
+  }
+  
+  loadUserPreferences(){
+    const email = localStorage.getItem("user")??"";
+    if(!email) return;
+    this.userService.getUserPreferences(email).subscribe({
+      next: (resp: any) => {
+        console.log("User preferences", resp);
+        if(resp && resp.preferences){
+          // getting inthis format "Home,Test Case" need to convert to array of objects
+          const items = resp.preferences.split(',');
+          this.pinnedItems = this.menuItems.filter(mi => items.includes(mi.label));
+          console.log("Loaded user preferences", this.pinnedItems);
+        }
+      },
+      error: (err: any) => {
+        console.log('Could not load user preferences', err);
+      }
+    });
+  }
+
+  isPinned(item:any){
+    return this.pinnedItems.some(pi => pi.label === item.label);
+  }
+
+  // Toggle pin for an item and save user preferences
+  togglePin(item:any, ev?:MouseEvent){
+    if(ev){ ev.stopPropagation(); ev.preventDefault(); }
+    const idx = this.pinnedItems.findIndex(pi => pi.label === item.label);
+    if(idx >= 0){
+      this.pinnedItems.splice(idx,1);
+    } else {
+      this.pinnedItems.push(item);
+    }
+    const email = localStorage.getItem("user")??"";
+    // Call backend to save preferences (simple payload)
+    this.userService.saveUserPreferences(email, { pinned: this.pinnedItems.map(i=>i.label) }).subscribe({
+      next: (resp:any) => {
+        this.toastr.success('Preferences saved');
+      },
+      error: (err:any) => {
+        console.log('Error saving preferences', err);
+        this.toastr.error('Could not save preferences');
+      }
+    });
   }
   getMode(){
     const email = localStorage.getItem("user")??"";

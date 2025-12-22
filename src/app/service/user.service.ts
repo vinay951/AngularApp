@@ -60,4 +60,17 @@ export class UserService {
   getMode(email:string): Observable<any> {
     return this.http.get(`${this.apiUrl}/getTheme/`+email);
   }
+  // Get user preferences (pinned items, etc.)
+  getUserPreferences(email: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getPreferences/` + email);
+  }
+
+  // Save user preferences (example prefs: { pinned: ['Home','Test Case'] })
+  saveUserPreferences(email: string, prefs: any): Observable<any> {
+    const userPrefs = prefs["pinned"].join(',');
+    const body = { preferences: userPrefs,
+      email: email
+     };
+    return this.http.post(`${this.apiUrl}/savePreferences` , body);
+  }
 }

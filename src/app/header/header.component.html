@@ -28,22 +28,52 @@
 
   <ul id="main-nav" class="nav-links" [class.open]="isMenuOpen" *ngIf="isMenuOpen" (mouseleave)="closeMenu()">
     <li><a [routerLink]="['/home']" href="/home" (click)="closeMenu()">Home</a></li>
-    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="openRegisterForm(); closeMenu()">Register Test Case</a></li>
-    <li><a [routerLink]="['/chatgpt']" href="/chatgpt" (click)="closeMenu()">ChatGPT</a></li>
-    <li><a [routerLink]="['/profile']" href="/profile" (click)="closeMenu()">Profile</a></li>
-    <li><a [routerLink]="['/compiler']" href="/compiler" (click)="closeMenu()">Online Compiler</a></li>
-    <li><a [routerLink]="['/predict']" href="/predict" (click)="closeMenu()">Bike Buyer Prediction</a></li>
-    <li><a [routerLink]="['/test']" href="/test" (click)="closeMenu()">Test Case</a></li>
-    <li><a [routerLink]="['/unblur']" href="/unblur" (click)="closeMenu()">Unblur Image</a></li>
-    <li><a [routerLink]="['/maps']" href="/maps" (click)="closeMenu()">Current Location</a></li>
-    <li><a [routerLink]="['/reports']" href="/reports" (click)="closeMenu()">Test Reports</a></li>
-    <li><a [routerLink]="['/questions']" href="/questions" (click)="closeMenu()">Random Questions</a></li>
-    <li *ngIf="startingWithUser()"><a [routerLink]="['/dynamic']" href="/dynamic" (click)="closeMenu()">Dynamic elements</a></li>
-    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="logout(); closeMenu()">Logout</a></li>
-    <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="register(); closeMenu()">Register</a></li>
-    <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="login(); closeMenu()">Login</a></li>
-    <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="delete(); closeMenu()">Delete My Account</a></li>
-    <li *ngIf="!faceIdLoading"><a href="javascript:void(0);" *ngIf="checkFaceID()" (click)="deleteFaceID(); closeMenu()">Delete Face‑ID</a></li>
+      <li class="submenu">
+        <button type="button" class="submenu-toggle" (click)="toggleSubmenu('tests', $event)" [attr.aria-expanded]="submenuOpen['tests']">Tests <span class="caret">▾</span></button>
+        <ul *ngIf="submenuOpen['tests']" class="submenu-list">
+          <li *ngFor="let item of orderedSubmenuItems('tests')">
+            <a href="javascript:void(0);" (click)="onItemClick(item); closeMenu()">
+              {{item.label}}
+            </a>
+            <button *ngIf="item.label !== 'Home'" type="button" class="pin-btn modern" [attr.aria-pressed]="isPinned(item)" (click)="togglePin({label:item.label, route:item.route}, $event)"></button>
+          </li>
+        </ul>
+      </li>
+    <!-- Compiler submenu contains Online Compiler and Random Questions -->
+    <li class="submenu">
+      <button type="button" class="submenu-toggle" (click)="toggleSubmenu('compiler', $event)" [attr.aria-expanded]="submenuOpen['compiler']">Compiler <span class="caret">▾</span></button>
+      <ul *ngIf="submenuOpen['compiler']" class="submenu-list">
+        <li *ngFor="let item of orderedSubmenuItems('compiler')">
+          <a href="javascript:void(0);" (click)="onItemClick(item); closeMenu()">{{item.label}}</a>
+          <button type="button" class="pin-btn modern" [attr.aria-pressed]="isPinned(item)" (click)="togglePin({label:item.label, route:item.route}, $event)"></button>
+        </li>
+      </ul>
+    </li>
+    <li class="submenu">
+      <button type="button" class="submenu-toggle" (click)="toggleSubmenu('account', $event)" [attr.aria-expanded]="submenuOpen['account']">Account <span class="caret">▾</span></button>
+        <ul *ngIf="submenuOpen['account']" class="submenu-list">
+          <li *ngFor="let item of orderedSubmenuItems('account')">
+            <a href="javascript:void(0);" (click)="onItemClick(item); closeMenu()">{{item.label}}</a>
+            <button *ngIf="item.label !== 'Logout' && item.label !== 'Login' && item.label !== 'Register' && item.label !== 'Delete My Account'" type="button" class="pin-btn modern" [attr.aria-pressed]="isPinned(item)" (click)="togglePin({label:item.label, route:item.route}, $event)"></button>
+          </li>
+          <!-- handle special items that may not be in menuItems list -->
+          <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="logout(); closeMenu()">Logout</a></li>
+          <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="register(); closeMenu()">Register</a></li>
+          <li *ngIf="!startingWithUser()"><a href="javascript:void(0);" (click)="login(); closeMenu()">Login</a></li>
+          <li *ngIf="startingWithUser()"><a href="javascript:void(0);" (click)="delete(); closeMenu()">Delete My Account</a></li>
+          <li *ngIf="!faceIdLoading"><a href="javascript:void(0);" *ngIf="checkFaceID()" (click)="deleteFaceID(); closeMenu()">Delete Face‑ID</a></li>
+        </ul>
+    </li>
+
+    <li class="submenu">
+        <button type="button" class="submenu-toggle" (click)="toggleSubmenu('others', $event)" [attr.aria-expanded]="submenuOpen['others']">Others <span class="caret">▾</span></button>
+        <ul *ngIf="submenuOpen['others']" class="submenu-list">
+          <li *ngFor="let item of orderedSubmenuItems('others')">
+            <a href="javascript:void(0);" (click)="onItemClick(item); closeMenu()">{{item.label}}</a>
+            <button type="button" class="pin-btn modern" [attr.aria-pressed]="isPinned(item)" (click)="togglePin({label:item.label, route:item.route}, $event)"></button>
+          </li>
+        </ul>
+      </li>
   </ul>
 </nav>
 
