@@ -4,7 +4,20 @@
       <img src="compiler.png" alt="Online Compiler logo" class="logo" />
       <span class="brand-title">Online Compiler</span>
     </a>
+    <div class="top-nav">
+    <ul class="pin" *ngIf="pinnedItems.length > 0">
+      <li *ngFor="let item of pinnedItems">
+    <a href="javascript:void(0);"
+      [class.active]="item.id === selectedId"
+      (click)="onItemClick(item)">
+      {{ item.label }}
+    </a>
+  </li>
 
+    </ul>
+  </div>
+
+  
     <form class="header-search" (submit)="onSearch($event)" role="search">
       <label for="header-search-input" class="visually-hidden">Search</label>
       <input id="header-search-input" name="q" type="search" [(ngModel)]="searchQuery" (input)="onSearchInput()" placeholder="Search menu..." autocomplete="off" />

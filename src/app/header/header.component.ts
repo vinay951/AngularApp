@@ -63,6 +63,8 @@ export class HeaderComponent implements OnInit{
   filteredMenuItems: any[] = [];
   showSuggestions: boolean = false;
   pinnedItems: any[] = [];
+  selectedId: string | null = null;   // <-- add this
+
   submenuOpen: {[key:string]: boolean} = { tests: false, account: false, compiler: false };
 
   // Define which labels belong to each submenu so we can render them dynamically
@@ -197,6 +199,7 @@ export class HeaderComponent implements OnInit{
 
   // Handle clicks for items that are actions instead of routes
   onItemClick(item: any){
+    this.selectedId = item.id;      
     if (item.action){
       const action = item.action as keyof HeaderComponent;
       if (typeof this[action] === 'function'){

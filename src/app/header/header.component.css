@@ -413,5 +413,44 @@ body.dark-mode .nav-links a:hover {
     font-size: 1em;
   }
 }
+.top-nav {
+  padding: 0 16px;
+}
+
+.pin {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.pin li {
+  margin: 0;
+  padding: 0;
+}
+
+.pin a {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--color-text);
+  text-decoration: none;
+  border: 1px solid transparent;
+  background-color: transparent;
+}
+
+.pin a:hover {
+  background-color: var(--color-border);
+  border-color: #30363d;
+}
+
+.pin a.active {
+  border-color: #f78166;
+  color: #f78166;
+}
 
 
