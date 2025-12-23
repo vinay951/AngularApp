@@ -50,8 +50,8 @@
   font-size: 16px;
   padding: 12px 0;
   width: 100%;
-  background-color: #1976d2;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-text);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -65,8 +65,8 @@
 }
 
 .popup-close-btn:hover {
-  background-color: #1251a2;
-  color: #fff;
+  background-color: var(--color-secondary);
+  color: var(--color-text);
 }
 
 @keyframes popup-fade-in {
@@ -79,7 +79,7 @@ h2 {
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 18px;
-  color: #222b45;
+  color: var(--color-text);
   letter-spacing: 0.5px;
   font-weight: 600;
 }
@@ -103,7 +103,7 @@ form div {
 label {
   font-size: 15px;
   margin-bottom: 4px;
-  color: #475569;
+  color: var(--color-text);
   display: block;
   text-align: left;
   font-weight: 500;
@@ -116,25 +116,25 @@ input {
   padding: 11px 13px;
   margin-top: 2px;
   margin-bottom: 0;
-  border: 1.2px solid #cbd5e1;
+  border: 1.2px solid var(--color-border);
   border-radius: 6px;
   font-size: 15px;
   box-sizing: border-box;
-  background: #f8fafc;
+  background: var(--color-bg);
   transition: border 0.18s, box-shadow 0.18s;
 }
 
 input:focus {
-  border-color: #1976d2;
+  border-color: var(--color-primary);
   outline: none;
-  background: #fff;
+  background: var(--color-bg);
   box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.08);
 }
 
 /* Styling the submit button */
 button {
-  background-color: #1976d2;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-text);
   width: 100%;
   padding: 12px 0;
   border-radius: 6px;
@@ -150,7 +150,7 @@ button {
 }
 
 button:hover {
-  background-color: #1251a2;
+  background-color: var(--color-secondary);
 }
 
 button:focus {

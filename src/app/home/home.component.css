@@ -17,13 +17,13 @@ body {
   outline: none;
   font-size: 1.08rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  color: #222;
-  background: #f7f7f7;
+  color: var(--color-text);
+  background: var(--color-bg);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 body.dark-mode .typing-area input {
-  background: #222 !important;
-  color: #eee !important;
+  background: var(--color-bg-alt) !important;
+  color: var(--color-text) !important;
   border: 1.5px solid #444 !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
@@ -31,7 +31,7 @@ body.dark-mode .typing-area input {
   margin-left: 12px;
   padding: 12px 28px;
   background: linear-gradient(90deg, #6db33f 0%, #4a9c2c 100%);
-  color: #fff;
+  color: var(--color-text);
   border: none;
   border-radius: 30px;
   font-size: 1.08rem;
@@ -42,7 +42,7 @@ body.dark-mode .typing-area input {
 }
 body.dark-mode .typing-area button {
   background: linear-gradient(90deg, #298d2f 0%, #1e5c1a 100%) !important;
-  color: #fff !important;
+  color: var(--color-text) !important;
   box-shadow: 0 4px 16px rgba(41,141,47,0.25);
 }
 .typing-area button:hover {
@@ -55,7 +55,7 @@ body.dark-mode .typing-area button:hover {
 }
 body.dark-mode .username-page-container {
   background: #222 !important;
-  color: #eee !important;
+  color: var(--color-text) !important;
 }
 }
 
@@ -84,7 +84,7 @@ body.dark-mode .username-page-container {
 }
 body.dark-mode .chat-container {
   background: #222 !important;
-  color: #eee !important;
+  color: var(--color-text) !important;
 }
 
 .form-group {
@@ -98,7 +98,7 @@ input {
 
 .chat-header {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  color: #fff;
+  color: var(--color-text);
   padding: 20px;
   text-align: center;
   font-size: 1.5rem;
@@ -106,8 +106,8 @@ input {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 body.dark-mode .chat-header {
-  background: #333 !important;
-  color: #eee !important;
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
 }
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
@@ -133,7 +133,7 @@ a {
 
 .chat-message.self .content {
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-text);
 }
 /* Button styles */
 button {
@@ -151,7 +151,7 @@ button {
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 body.dark-mode .typing-area {
-  background: #222 !important;
+  background: var(--color-bg) !important;
 }
   vertical-align: middle;
   padding: 0.6rem 1rem;
@@ -163,7 +163,7 @@ body.dark-mode .typing-area {
 
 /* Default button style */
 button.default {
-  background-color: #e8e8e8;
+  background-color: var(--color-bg);
 .typing-area input {
   flex: 1;
   padding: 10px 15px;
@@ -183,7 +183,7 @@ button.default {
 button.primary {
   background-color: #6db33f;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
-  color: #fff;
+  color: var(--color-text);
 }
 
 /* Accent button style */
@@ -192,7 +192,7 @@ button.accent {
   margin-left: 10px;
   padding: 10px 20px;
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  color: #fff;
+  color: var(--color-text);
   border: none;
   border-radius: 25px;
   font-size: 1rem;
@@ -205,7 +205,7 @@ button.accent {
 }
   background-color: #6db33f;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
-  color: #fff;
+  color: var(--color-text);
 }
 
 /* Username page styling */
@@ -214,10 +214,10 @@ button.accent {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #ffffff, #e9ebee);
+  background: linear-gradient(135deg, var(--color-bg), var(--color-bg-alt));
 .username-page-container .accent {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  color: #fff;
+  color: var(--color-text);
   border: none;
   border-radius: 25px;
   padding: 10px 20px;
@@ -233,7 +233,7 @@ button.accent {
 
 /* Username page container styling */
 .username-page-container {
-  background: #ffffff;
+  background: var(--color-secondary);
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   padding: 30px;
@@ -243,7 +243,7 @@ button.accent {
 .username-page-container h1 {
   font-size: 1.8rem;
   margin-bottom: 20px;
-  color: #000;
+  color: var(--color-text);
 }
 
 .username-page-container .form-control {
@@ -256,7 +256,7 @@ button.accent {
 
 .username-page-container .accent {
   background: linear-gradient(135deg, #6db33f, #4a9c2c);
-  color: #fff;
+  color: var(--color-text);
   border: none;
   border-radius: 25px;
   padding: 10px 20px;
@@ -286,7 +286,7 @@ button.accent {
 .chat-container {
   max-width: 800px;
   margin: auto;
-  background: #ffffff;
+  background: var(--color-bg);
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -298,7 +298,7 @@ button.accent {
 /* Chat header styling */
 .chat-header {
   background: linear-gradient(135deg, #6db33f, #4a9c2c);
-  color: #fff;
+  color: var(--color-text);
   padding: 20px;
   text-align: center;
   font-size: 1.5rem;
@@ -309,7 +309,7 @@ button.accent {
 .chat-header .online-count {
   cursor: pointer;
   font-weight: bold;
-  color: #fff;
+  color: var(--color-text);
 }
 
 /* Chatroom messages */
@@ -317,10 +317,10 @@ button.accent {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background: #f9f9f9;
+  background: var(--color-bg);
 }
 body.dark-mode .chat-messages {
-  background: #222 !important;
+  background: var(--color-bg-alt) !important;
 }
 
 .chat-message {
@@ -334,7 +334,7 @@ body.dark-mode .chat-messages {
   height: 50px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6db33f, #4a9c2c);
-  color: #fff;
+  color: var(--color-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -344,12 +344,12 @@ body.dark-mode .chat-messages {
 }
 
 .chat-message .content {
-  background: #ffffff;
+  background: var(--color-bg);
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 70%;
-  color: #000;
+  color: var(--color-text);
 }
 
 .chat-message.self {
@@ -358,7 +358,7 @@ body.dark-mode .chat-messages {
 
 .chat-message.self .content {
   background: #6db33f;
-  color: #fff;
+  color: var(--color-text);
 }
 
 /* ...existing code... */
@@ -407,7 +407,7 @@ body.dark-mode .chat-messages {
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  color: #fff;
+  color: var(--color-text);
   text-align: center;
   border-radius: 50%;
   font-style: normal;
@@ -482,8 +482,8 @@ body.dark-mode .chat-messages {
   /* Sticky typing area for mobile */
   #typingArea {
       padding: 20px;
-      background-color: #f9f9f9;
-      border-top: 1px solid #ececec;
+      background-color: var(--color-text);
+      border-top: 1px solid var(--color-bg);
       box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
       display: flex;
       align-items: center;
@@ -505,7 +505,7 @@ body.dark-mode .chat-messages {
       display: flex;
       width: 100%;
       align-items: center;
-      background-color: #fff;
+      background-color: var(--color-text);
       border-radius: 20px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       padding: 10px;
@@ -519,7 +519,7 @@ body.dark-mode .chat-messages {
       padding: 10px;
       font-size: 16px;
       border-radius: 20px;
-      background-color: #f4f4f4;
+      background-color: transparent;
       margin-right: 10px;
       transition: background-color 0.3s;
   }
@@ -527,7 +527,7 @@ body.dark-mode .chat-messages {
   /* Styling for the blue "Send" button */
   #typingArea .primary {
       background-color: #007bff !important;  /* Blue background color */
-      color: white !important;  /* White text color */
+      color: transparent !important;  /* White text color */
       font-family: 'Arial', sans-serif !important;  /* Font family */
       font-weight: bold !important;  /* Bold text */
       border: none;
@@ -540,12 +540,12 @@ body.dark-mode .chat-messages {
 
   #typingArea .primary:hover {
       background-color: #0056b3 !important;  /* Darker blue on hover */
-      color: #f1f1f1 !important;
+      color: var(--color-text) !important;
   }
 
   #typingArea .primary:active {
       background-color: #003f7f !important;  /* Even darker blue when clicked */
-      color: #e0e0e0 !important;
+      color: var(--color-text) !important;
   }
 
   #typingArea .primary:focus {
@@ -571,7 +571,7 @@ body.dark-mode .chat-messages {
 .chat-container {
   padding: 20px;
   border: 1px solid #ddd;
-  background-color: #f9f9f9;
+  background-color: var(--color-text);
 }
 
 /* Chat header styling */
@@ -598,7 +598,7 @@ body.dark-mode .chat-messages {
   left: 0; /* Align it to the left */
   margin-top: 5px; /* Small gap between the count and the dropdown */
   padding: 10px;
-  background-color: #f1f1f1;
+  background-color: var(--color-text);
   border: 1px solid #ccc;
   max-width: 300px;
   border-radius: 5px;
@@ -624,7 +624,7 @@ body.dark-mode .chat-messages {
 
 /* Add hover effect to each user in the list */
 .online-users-list li:hover {
-  background-color: #e0f7fa;
+  background-color: var(--color-text);
 }
 #map {
   height: 500px; /* Set the height of the map */
@@ -642,15 +642,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: linear-gradient(135deg, #f3f4f7, #e9ebee);
-  color: #000; /* Changed font color to black */
+  background: linear-gradient(135deg, var(--color-bg), var(--color-bg-alt));
+  color: var(--color-text); /* Changed font color to black */
 }
 
 /* Chat container */
 .chat-container {
   max-width: 800px;
   margin: 50px auto;
-  background: #ffffff;
+  background: var(--color-bg);
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -661,7 +661,7 @@ body {
 /* Chat header */
 .chat-header {
   background: linear-gradient(135deg, #6db33f, #4a9c2c);
-  color: #fff;
+  color: var(--color-text);
   padding: 20px;
   text-align: center;
   font-size: 1.5rem;
@@ -674,7 +674,7 @@ body {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background: #f9f9f9;
+  background: var(--color-bg);
 }
 
 .chat-message {
@@ -688,7 +688,7 @@ body {
   height: 50px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6db33f, #4a9c2c);
-  color: #fff;
+  color: var(--color-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -698,7 +698,7 @@ body {
 }
 
 .chat-message .content {
-  background: #ffffff;
+  background: var(--color-bg);
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -707,7 +707,7 @@ body {
 
 .chat-message .content p {
   margin: 0;
-  color: #000; /* Changed font color to black */
+  color: var(--color-text); /* Changed font color to black */
 }
 
 .chat-message.self {
@@ -716,7 +716,7 @@ body {
 
 .chat-message.self .content {
   background: #6db33f;
-  color: #fff;
+  color: var(--color-text);
 }
 
 /* Typing area */
@@ -724,7 +724,7 @@ body {
   display: flex;
   align-items: center;
   padding: 15px;
-  background: #ffffff;
+  background: var(--color-bg);
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -737,7 +737,7 @@ body {
   font-size: 1rem;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s;
-  color: #000; /* Changed font color to black */
+  color: var(--color-text); /* Changed font color to black */
 }
 
 .typing-area input:focus {
@@ -748,7 +748,7 @@ body {
   margin-left: 10px;
   padding: 10px 20px;
   background: linear-gradient(135deg, #6db33f, #4a9c2c);
-  color: #fff; /* Ensured button text remains white */
+  color: var(--color-text); /* Ensured button text remains white */
   border: none;
   border-radius: 25px;
   font-size: 1rem;

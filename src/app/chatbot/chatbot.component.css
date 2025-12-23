@@ -6,7 +6,7 @@
     bottom: 20px;
     right: 20px;
     background-color: var(--color-primary);
-    color: #fff;
+    color: var(--color-text);
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -102,7 +102,7 @@
   button {
     padding: 10px;
     background-color: var(--color-primary);
-    color: #fff;
+    color: var(--color-text);
     border: none;
     cursor: pointer;
   }
@@ -123,7 +123,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(24,24,24,0.92);
+    background: var(--color-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,7 +164,7 @@
     top: -6px;
     width: 46%;
     height: 40%;
-    background: rgba(255,255,255,0.85);
+    background: var(--color-bg);
     border-radius: 3px;
     transform: skewX(-8deg);
   }

@@ -48,7 +48,7 @@
 .test-case-name {
   font-size: 16px;
   font-weight: bold;
-  color: #333;
+  color: var(--color-text);
   text-align: left;
   margin-bottom: 10px;
 }
@@ -62,8 +62,8 @@
 /* Run button styling */
 .run-button {
   position: relative;
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-text);
   font-size: 16px;
   padding: 10px 20px;
   border: none;
@@ -83,7 +83,7 @@
 
 /* Disabled state for the button (while loading) */
 .run-button:disabled {
-  background-color: #ccc;
+  background-color: var(--color-border);
   cursor: not-allowed;
 }
 

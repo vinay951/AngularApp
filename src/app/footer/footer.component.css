@@ -1,7 +1,7 @@
 /* footer.component.css */
 .footer {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--color-text);
     padding: 20px 0;
     text-align: center;
   }
@@ -16,13 +16,13 @@
   }
   
   .footer .social-media a {
-    color: #fff;
+    color: var(--color-text);
     margin: 0 15px;
     text-decoration: none;
     font-weight: bold;
   }
   
   .footer .social-media a:hover {
-    color: #1e90ff;
+    color: var(--color-secondary);
   }
   
