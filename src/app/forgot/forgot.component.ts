@@ -59,6 +59,9 @@ export class ForgotComponent implements OnInit{
           console.log('OTP sent successfully:', response);
         },
         (error:any) => {
+          if(error.status === 500){
+            this.toastr.error("Limit Over Please Change Your Password tomorrow");
+          }
           console.error('Error sending OTP:', error);
           this.isDataLoading = false;
         }
