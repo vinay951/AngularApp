@@ -59,11 +59,12 @@ export class ForgotComponent implements OnInit{
           console.log('OTP sent successfully:', response);
         },
         (error:any) => {
-          if(error.status === 500){
+          console.error('Error sending OTP:', error.error.message);
+          this.isDataLoading = false;
+          if(error.error.message.includes("otp limit")){
             this.toastr.error("Limit Over Please Change Your Password tomorrow");
           }
-          console.error('Error sending OTP:', error);
-          this.isDataLoading = false;
+          
         }
       );
     }
