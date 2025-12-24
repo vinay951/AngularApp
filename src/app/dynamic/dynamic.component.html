@@ -1,9 +1,9 @@
 <div class="container">
     <h2>Dynamic Element Creator</h2>
-  
+    <button (click)="dynamicOrAI()">{{!dynamicOrAi ? 'AI Mode' : 'Dynamic Mode'}}</button>
     <!-- Select Element Type -->
-    <div>
-      <label for="elementType">Choose an element:</label>
+    <div *ngIf="!dynamicOrAi" class="element-selection">
+      <label for="elementType" >Choose an element:</label>
       <select [(ngModel)]="selectedElement" id="elementType">
         <option value="">--Select--</option>
         <option value="button">Button</option>
@@ -15,6 +15,10 @@
         <option value="paragraph">Paragraph</option>
         <option value="image">Image</option>
       </select>
+    </div>
+    <textarea *ngIf="dynamicOrAi" [(ngModel)]="aiInput" placeholder="Describe the element you want to create..." rows="4" cols="50"></textarea>
+    <div *ngIf="dynamicOrAi">
+      <button (click)="generateElementWithAI()">Generate Element with AI</button>
     </div>
   
     <!-- Dynamic Style Inputs -->
@@ -39,12 +43,12 @@
     </div>
   
     <div>
-      <button (click)="addElement()">Add Element</button>
+      <button (click)="addElement()" *ngIf="!dynamicOrAi">Add Element</button>
       <button (click)="downloadCreatedHtml()">Download Generated Html</button>
     </div>
   
     <!-- Render Created Elements -->
-    <div class="elements-container">
+    <div class="elements-container" *ngIf="!dynamicOrAi">
       <div *ngFor="let element of elements" [ngStyle]="element.styles">
         <div *ngIf="element.type === 'button'" class="dynamic-element" (click)="handleClick()">Click Me</div>
         <input *ngIf="element.type === 'textbox'" type="text" placeholder="Enter text" class="dynamic-element" />
@@ -59,6 +63,10 @@
         <img *ngIf="element.type === 'image'" class="dynamic-element" src="https://via.placeholder.com/150" alt="Image" />
       </div>
     </div>
+    <div class="elements-container" [innerHTML]="htmlContent" *ngIf="dynamicOrAi"></div>
+  </div>
+    <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
   </div>
   
   

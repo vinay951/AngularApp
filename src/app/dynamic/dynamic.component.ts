@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChatService } from '../service/chat.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
   selector: 'app-dynamic',
-  imports: [FormsModule,CommonModule,ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, CommonModule, LoadingComponent],
   templateUrl: './dynamic.component.html',
   styleUrl: './dynamic.component.css'
 })
@@ -16,8 +19,13 @@ export class DynamicComponent {
     selectedPadding: string = '';
     selectedMargin: string = '';
     selectedBorderRadius: string = '';
+    dynamicOrAi:boolean=false;
+    aiInput:string='';
+    htmlContent:SafeHtml='';
+    isDataLoading=false;
     elements: Array<{ type: string, id: number, styles: { [key: string]: string } }> = [];
     nextId: number = 1;
+    constructor(private chatService:ChatService,private sanitizer: DomSanitizer) {}
   
     // Add element with dynamic styles
     addElement() {
@@ -110,6 +118,22 @@ export class DynamicComponent {
 
       // Trigger the download
       link.click();
+    }
+    dynamicOrAI(){
+      this.dynamicOrAi=!this.dynamicOrAi;
+    }
+    generateElementWithAI(){
+      this.isDataLoading=true;
+      this.htmlContent='';
+      // Placeholder for AI integration logic
+      this.chatService.getHtmlContentFromAI(this.aiInput).then((response:string)=>{
+        console.log("AI Response:",response);
+        this.htmlContent=this.sanitizer.bypassSecurityTrustHtml(response);
+        this.isDataLoading=false;
+      }).catch((error)=>{
+        console.error("Error fetching AI content:",error);
+        this.isDataLoading=false;
+      });
     }
   }
   
