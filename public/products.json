@@ -1,0 +1,98 @@
+[
+  {
+    "id": "p1",
+    "name": "Wireless Headphones",
+    "brand": "AudioPro",
+    "imageUrl": "https://picsum.photos/seed/headphones/400/260",
+    "rating": 4.5,
+    "price": 2999
+  },
+  {
+    "id": "p2",
+    "name": "Gaming Mouse",
+    "brand": "ProGamer",
+    "imageUrl": "https://picsum.photos/seed/mouse/400/260",
+    "rating": 4.2,
+    "price": 1499
+  },
+  {
+    "id": "p3",
+    "name": "Mechanical Keyboard",
+    "brand": "KeyMaster",
+    "imageUrl": "https://picsum.photos/seed/keyboard/400/260",
+    "rating": 4.8,
+    "price": 3999
+  },
+  {
+    "id": "p4",
+    "name": "4K Monitor",
+    "brand": "VisionX",
+    "imageUrl": "https://picsum.photos/seed/monitor/400/260",
+    "rating": 4.6,
+    "price": 18999
+  },
+  {
+    "id": "p5",
+    "name": "USB-C Hub",
+    "brand": "Hubify",
+    "imageUrl": "https://picsum.photos/seed/hub/400/260",
+    "rating": 4.1,
+    "price": 2499
+  },
+  {
+    "id": "p6",
+    "name": "Webcam Pro",
+    "brand": "ClearCam",
+    "imageUrl": "https://picsum.photos/seed/webcam/400/260",
+    "rating": 4.3,
+    "price": 3299
+  },
+  {
+    "id": "p7",
+    "name": "Bluetooth Speaker",
+    "brand": "SoundBox",
+    "imageUrl": "https://picsum.photos/seed/speaker/400/260",
+    "rating": 4.4,
+    "price": 2199
+  },
+  {
+    "id": "p8",
+    "name": "Smart Watch",
+    "brand": "TimeTech",
+    "imageUrl": "https://picsum.photos/seed/watch/400/260",
+    "rating": 4.6,
+    "price": 5599
+  },
+  {
+    "id": "p9",
+    "name": "Portable SSD 1TB",
+    "brand": "FastStore",
+    "imageUrl": "https://picsum.photos/seed/ssd/400/260",
+    "rating": 4.7,
+    "price": 7499
+  },
+  {
+    "id": "p10",
+    "name": "Laptop Stand",
+    "brand": "ErgoLift",
+    "imageUrl": "https://picsum.photos/seed/stand/400/260",
+    "rating": 4.0,
+    "price": 1299
+  },
+  {
+    "id": "p11",
+    "name": "Noise Cancelling Earbuds",
+    "brand": "SilentBeat",
+    "imageUrl": "https://picsum.photos/seed/earbuds/400/260",
+    "rating": 4.5,
+    "price": 3499
+  },
+  {
+    "id": "p12",
+    "name": "Wireless Charger Pad",
+    "brand": "ChargeIt",
+    "imageUrl": "https://picsum.photos/seed/charger/400/260",
+    "rating": 4.1,
+    "price": 1799
+  }
+]

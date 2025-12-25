@@ -27,33 +27,17 @@ export class ShopComponent {
   loadProducts(): void {
   this.isLoading = true;
 
-  // static mock data for now
-  this.products = [
-    {
-      id: 'p1',
-      name: 'Wireless Headphones',
-      brand: 'AudioPro',
-      imageUrl: 'https://via.placeholder.com/300x200?text=Headphones',
-      rating: 4.5,
-      price: 2999
-    },
-    {
-      id: 'p2',
-      name: 'Gaming Mouse',
-      brand: 'ProGamer',
-      imageUrl: 'https://via.placeholder.com/300x200?text=Mouse',
-      rating: 4.2,
-      price: 1499
-    },
-    {
-      id: 'p3',
-      name: 'Mechanical Keyboard',
-      brand: 'KeyMaster',
-      imageUrl: 'https://via.placeholder.com/300x200?text=Keyboard',
-      rating: 4.8,
-      price: 3999
-    }
-  ];
+  this.http.get<Product[]>('/products.json').subscribe({
+      next: data => {
+        this.products = data;
+        this.isLoading = false;
+      },
+      error: err => {
+        console.error('Failed to load products.json', err);
+        this.isLoading = false;
+      }
+    });
+
 
   this.isLoading = false;
 }
