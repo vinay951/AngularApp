@@ -1,0 +1,42 @@
+<!-- cart-dialog.component.html -->
+<div class="cart-big">
+  <header class="cart-header">
+    <h2>Your Cart</h2>
+    <span class="item-count">{{ items.length }} items</span>
+  </header>
+
+  <section *ngIf="items.length === 0; else cartContent" class="empty">
+    <p>No items in cart.</p>
+  </section>
+
+  <ng-template #cartContent>
+    <div class="cart-body">
+      <div class="cart-items">
+        <article class="cart-card" *ngFor="let p of items">
+          <div class="image-box">
+            <img [src]="p.imageUrl" [alt]="p.name" />
+          </div>
+
+          <div class="info">
+            <h3 class="name">{{ p.name }}</h3>
+            <p class="brand">{{ p.brand }}</p>
+            <p class="rating">★ {{ p.rating | number:'1.1-1' }}/5</p>
+            <p class="price">₹{{ p.price }}</p>
+          </div>
+        </article>
+      </div>
+
+      <aside class="summary">
+        <h3>Order summary</h3>
+        <p class="summary-line">
+          Items: <span>{{ items.length }}</span>
+        </p>
+        <p class="summary-line total">
+          Total: <span>₹{{ total }}</span>
+        </p>
+
+        <button class="btn primary" (click)="checkout()">Checkout</button>
+      </aside>
+    </div>
+  </ng-template>
+</div>

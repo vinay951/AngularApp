@@ -1,0 +1,23 @@
+<div class="big-dialog">
+  <div class="big-dialog-image">
+    <img [src]="product.imageUrl" [alt]="product.name" />
+  </div>
+
+  <div class="big-dialog-content">
+    <h1 class="title">{{ product.name }}</h1>
+    <p class="brand">{{ product.brand }}</p>
+
+    <p class="rating">★ {{ product.rating | number:'1.1-1' }}/5</p>
+    <p class="price">₹{{ product.price }}</p>
+
+    <p class="description">
+      <!-- optional static/coming-from-API text -->
+      High quality product description goes here…
+    </p>
+
+    <div class="actions">
+      <button class="btn outline" (click)="addToCart()">Add to cart</button>
+      <button class="btn primary" (click)="buyNow()">Buy now</button>
+    </div>
+  </div>
+</div>

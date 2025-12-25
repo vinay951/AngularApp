@@ -31,7 +31,11 @@
 
     <div class="header-actions">
       <button class="theme-toggle" type="button" aria-pressed="false" title="Toggle theme" (click)="toggleDarkMode()">🌓</button>
-      <button class="like-btn" type="button" [class.liked]="liked" (click)="toggleLike()" title="Like">❤️</button>
+      <button class="cart-btn" type="button" title="Cart" (click)="openCart()">
+        🛒
+        <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </button>
+
       <button class="keep-btn" type="button" [class.kept]="kept" (click)="toggleKeep()" title="Keep">🔖</button>
       <button class="hamburger" [attr.aria-expanded]="isMenuOpen" (click)="toggleMenu()" aria-controls="main-nav" aria-label="Toggle navigation">
         <span class="hamburger-box"><span class="hamburger-inner"></span></span>

@@ -9,6 +9,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { TestRegisterComponent } from '../test-register/test-register.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { SessionService } from '../session/session.service';
+import { Subscription } from 'rxjs';
+import { CartService } from '../service/cart.service';
+import { CartDialogComponent } from '../cart-dialog/cart-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +40,8 @@ export class HeaderComponent implements OnInit{
   darkMode: boolean = false;
   liked: boolean = false;
   kept: boolean = false;
+  cartCount = 0;
+  private sub: Subscription;
   // Menu items for search suggestions
   menuItems = [
     { label: 'Home', route: '/home' },
@@ -57,6 +62,7 @@ export class HeaderComponent implements OnInit{
     { label: 'Register', route: null, userOnly: false, action: 'register' },
     { label: 'Login', route: null, userOnly: false, action: 'login' },
     { label: 'Delete My Account', route: null, userOnly: true, action: 'delete' },
+    { label: 'shop-Beta', route: '/shop' },
     { label: 'Delete Face‑ID', route: null, userOnly: true, action: 'deleteFaceID', faceId: true }
   ];
 
@@ -72,12 +78,28 @@ export class HeaderComponent implements OnInit{
     account: ['Profile','Change Password','Logout','Delete My Account','Register','Login','Delete Face‑ID'],
     tests: ['Register Test Case','Test Case','Test Reports'],
     compiler: ['Online Compiler','Random Questions'],
-    others: ['ChatGPT','Unblur Image','Current Location','Bike Buyer Prediction','Game','Dynamic elements']
+    others: ['ChatGPT','Unblur Image','Current Location','Bike Buyer Prediction','Game','Dynamic elements','shop-Beta']
   };
 
   constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog,
-    private session:SessionService
-  ){}
+    private session:SessionService,private cart: CartService
+  ){
+    this.sub = this.cart.cartCount$.subscribe(count => {
+      this.cartCount = count;
+    });
+  }
+  openCart(): void {
+      this.dialog.open(CartDialogComponent, {
+      width: '900px',
+      maxWidth: '95vw',
+      height: '520px',
+      maxHeight: '90vh',
+      panelClass: 'big-cart-dialog'
+    });
+  }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
   // Search functionality
   onSearch(event: Event) {
     event.preventDefault();

@@ -1,0 +1,26 @@
+<!-- shop.component.html -->
+<div class="shop-container" *ngIf="!isLoading; else loading">
+  <div class="product-grid">
+    <article class="product-card" *ngFor="let p of products" (click)="openProduct(p)">
+      <div class="image-wrapper">
+        <img [src]="p.imageUrl" [alt]="p.name" loading="lazy" />
+      </div>
+
+      <div class="product-body">
+        <h3 class="product-name">{{ p.name }}</h3>
+        <p class="product-brand">{{ p.brand }}</p>
+
+        <div class="product-meta">
+          <span class="rating">
+            ★ {{ p.rating | number:'1.1-1' }}/5
+          </span>
+          <span class="price">₹{{ p.price }}</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="loading-text">Loading products...</p>
+</ng-template>

@@ -52,3 +52,12 @@ export class ProfilePic{
     this.picture = picture;
   }
 }
+// product.model.ts
+export interface Product {
+  id: string;
+  name: string;
+  brand: string;
+  imageUrl: string;
+  rating: number;      // 0–5
+  price: number;
+}

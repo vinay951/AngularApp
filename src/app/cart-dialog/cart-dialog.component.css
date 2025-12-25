@@ -1,0 +1,163 @@
+/* make material dialog surface large & clean */
+.big-cart-dialog .mat-mdc-dialog-surface {
+  padding: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #020617;
+  color: #f9fafb;
+}
+
+.cart-big {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* header */
+.cart-header {
+  padding: 0.9rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1f2937;
+}
+
+.cart-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.cart-header .item-count {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+/* empty state */
+.empty {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* body: left list + right summary */
+.cart-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  padding: 1rem 1.4rem 1.4rem;
+}
+
+/* left: big cards */
+.cart-items {
+  overflow-y: auto;
+  padding-right: 0.3rem;
+}
+
+.cart-card {
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.7rem 0.6rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #111827, #020617);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  margin-bottom: 0.75rem;
+}
+
+/* big image box */
+.image-box {
+  width: 140px;
+  height: 140px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  flex-shrink: 0;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.brand {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #fbbf24;
+  margin: 0 0 0.25rem;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* right: summary box */
+.summary {
+  border-radius: 12px;
+  background: #020617;
+  border: 1px solid #1f2937;
+  padding: 1rem;
+  align-self: flex-start;
+}
+
+.summary h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.summary-line.total {
+  margin-top: 0.6rem;
+  font-weight: 700;
+}
+
+/* button */
+.btn.primary {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: #16a34a;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .cart-body {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    margin-top: 0.5rem;
+  }
+
+  .image-box {
+    width: 110px;
+    height: 110px;
+  }
+}
