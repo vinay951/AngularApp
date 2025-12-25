@@ -235,15 +235,15 @@ export class HeaderComponent implements OnInit{
 
   // Toggle pin for an item and save user preferences
   togglePin(item:any, ev?:MouseEvent){
-    if(this.pinnedItems.length >2){
-      this.toastr.error('You can pin up to 3 items only');
-      return;
-    }
     if(ev){ ev.stopPropagation(); ev.preventDefault(); }
     const idx = this.pinnedItems.findIndex(pi => pi.label === item.label);
     if(idx >= 0){
       this.pinnedItems.splice(idx,1);
     } else {
+      if(this.pinnedItems.length >2){
+        this.toastr.error('You can pin up to 3 items only');
+        return;
+      }
       this.pinnedItems.push(item);
     }
     const email = localStorage.getItem("user")??"";

@@ -22,7 +22,7 @@
     </div>
   
     <!-- Dynamic Style Inputs -->
-    <div *ngIf="selectedElement" class="style-inputs">
+    <div *ngIf="selectedElement && !dynamicOrAi" class="style-inputs">
       <label for="color">Color:</label>
       <input [(ngModel)]="selectedColor" type="text" placeholder="e.g., red, #ff0000">
   
