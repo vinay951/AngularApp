@@ -6,7 +6,16 @@
       <option value="java">Java</option>
       <option value="python">Python</option>
       <option value="cpp">C++</option>
+    </select>
+    <select [(ngModel)]="mode" (change)="modeChange(mode)">
+      <option value="ai">AI MODE</option>
+      <option value="dynamic">Dynamic Mode</option>
     </select><br/><br/>
+    <br/><br/>
+
+    <!-- Textarea to input AI description -->
+    <textarea *ngIf="mode === 'ai'" [(ngModel)]="aiInput" rows="4" cols="50" placeholder="Describe the code you want to generate..."></textarea><br/><br/>
+    <button *ngIf="mode === 'ai'" (click)="generateCodeWithAI()">Generate Code with AI</button><br/><br/>
     
     <!-- Textarea to input code -->
     <textarea [(ngModel)]="code" rows="10" cols="50" placeholder="Enter your code here..."></textarea><br/><br/>

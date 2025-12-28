@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingComponent } from "../loading/loading.component";
 import { CompileService } from '../service/compile.service';
 import { NotificationSendMessageService } from '../service/notification-send-message.service';
+import { ChatService } from '../service/chat.service';
 
 @Component({
   selector: 'app-compiler',
@@ -24,8 +25,10 @@ export class CompilerComponent {
     cpp: `#include <iostream>\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}`
   };
   isDataLoading = false;
+  aiInput:string='';
+  mode:string='dynamic';
 
-  constructor(private codeExecutionService: CompileService,private notificationService:NotificationSendMessageService) {
+  constructor(private codeExecutionService: CompileService,private notificationService:NotificationSendMessageService,private chatService:ChatService) {
     this.code = this.defaultCode[this.selectedLanguage];
   }
 
@@ -46,6 +49,29 @@ export class CompilerComponent {
   changeLanguage(language: string) {
     this.selectedLanguage = language;
     this.code = this.defaultCode[language];  // Reset to default code for the selected language
+  }
+
+  modeChange(mode:string){
+    this.mode=mode;
+  }
+  generateCodeWithAI(){
+    if(this.aiInput.trim()===''){
+      this.notificationService.showNotification("Please provide a description for AI code generation",localStorage.getItem("user")!);
+      return;
+    }
+    this.isDataLoading = true;
+    this.chatService.getCodeFromAI(this.aiInput,this.selectedLanguage).then(
+      (generatedCode:string) => {
+        this.code = generatedCode;
+        this.notificationService.showNotification("Code generated successfully",localStorage.getItem("user")!);
+        this.isDataLoading = false;
+      }
+    ).catch(
+      (error:any) => {
+        this.isDataLoading = false;
+        this.output = error.message;
+      }
+    );
   }
 
 }

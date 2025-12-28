@@ -120,4 +120,58 @@ export class ChatService {
       reject(new Error('Max retries exceeded due to rate limits'));
     });
   }
+
+  getCodeFromAI(userMessage:string,programmingLanguage:string):Promise<string>{
+    const message:{ role: string; content: string }[] = [{role:'system',content:`You are an AI assistant. Always respond with only code snippets in ${programmingLanguage} language without any explanations or additional text. The code should be ready to use and properly formatted. If it is java then use TempCode as a class name because it will be used to run the code. need to give o/p as code snippets for all user queries, for java code only give code inside the class named TempCode there need to be a main method inside the class. don't give scanner or input or cin need direct code without input tags`}];
+    message.push({role:'user',content:userMessage+"dont provide any explanations or additional text, only provide code snippets. also make sure the code is in "+programmingLanguage+" language. also no need extra chars like ``` or ```java just provide the code."});
+    let retries = 0;
+    const maxRetries = 5;
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    return new Promise<string>(async (resolve, reject) => {
+      while (retries < maxRetries) {
+        try {
+          const response = await axios.post(
+            'https://api.perplexity.ai/chat/completions',
+            {
+              model: 'sonar-pro',  // or 'gpt-4' depending on your access
+              messages: message,  // Use the entire conversation context
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${this.apiKey}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          // Get the assistant's reply
+          const reply = response.data.choices[0].message.content.trim();
+          resolve(reply);
+          return;
+        } catch (error: any) {
+          if (error.response && error.response.status === 429) {
+            // Retry logic on hitting rate limit
+            retries++;
+            const rateLimitRemaining = error.response.headers['x-ratelimit-remaining'];
+            const rateLimitReset = error.response.headers['x-ratelimit-reset'] * 1000;
+            const currentTime = Date.now();
+            const waitTime = Math.max(rateLimitReset - currentTime, 1000); // Wait until rate limit reset
+
+            console.error(`Rate limit exceeded. Retrying in ${waitTime} ms...`);
+
+            // Wait before retrying (backoff)
+            await delay(waitTime);
+          } else {
+            console.error('Error communicating with OpenAI API:', error);
+            reject(new Error('Failed to get a response from ChatGPT'));
+            return;
+          }
+        }
+      }
+
+      reject(new Error('Max retries exceeded due to rate limits'));
+    });
+  
+  }
 }
