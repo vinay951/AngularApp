@@ -4,9 +4,7 @@ import { HeaderComponent } from "./header/header.component";
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from "./footer/footer.component";
 import { SessionService } from './session/session.service';
-import { interval } from 'rxjs';
 import { ChatbotComponent } from "./chatbot/chatbot.component";
-import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
