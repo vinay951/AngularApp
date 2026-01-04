@@ -57,7 +57,7 @@ export interface Product {
   id: string;
   name: string;
   brand: string;
-  imageUrl: string;
+  imageUrl: string;   //base64 string
   rating: number;      // 0–5
   price: number;
 }
