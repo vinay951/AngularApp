@@ -62,7 +62,6 @@ export class AdminAddProductComponent {
       this.isDataLoading = true;
       this.http.delete(`${this.apiUrl}/shop/delete/${product.id}`).subscribe({
         next: () => {
-          this.products = this.products.filter(p => p.id !== product.id);
           this.isDataLoading = false;
         },
         error: (err) => {
