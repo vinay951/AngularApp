@@ -1,0 +1,29 @@
+<div class="payment-container">
+  <h2>Payment</h2>
+  <div class="products-list" *ngIf="products.length > 0">
+    <h3>Products</h3>
+    <div class="product-card" *ngFor="let p of products">
+      <img *ngIf="p.imageUrl" [src]="p.imageUrl" [alt]="p.name" class="product-img" />
+      <div class="product-info">
+        <h4>{{ p.name }}</h4>
+        <p>{{ p.description }}</p>
+        <p class="brand">Brand: {{ p.brand }}</p>
+        <p class="price">Price: ₹{{ p.price }}</p>
+        <p class="rating">Rating: ★ {{ p.rating }}/5</p>
+      </div>
+    </div>
+    <div class="summary">
+      <h3>Total Cost</h3>
+      <p class="total">₹{{ total }}</p>
+    </div>
+  </div>
+  <button class="btn primary" (click)="onBuy()">Buy</button>
+  <button class="btn" (click)="onCancel()">Cancel</button>
+
+  <div *ngIf="showRating" class="rating-section">
+    <h3>Please rate your experience:</h3>
+    <div class="stars">
+      <span *ngFor="let star of [1,2,3,4,5]" (click)="setRating(star)" [class.selected]="selectedRating >= star">&#9733;</span>
+    </div>
+  </div>
+</div>

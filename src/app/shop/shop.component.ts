@@ -1,5 +1,6 @@
 // shop.component.ts
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -17,6 +18,7 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 export class ShopComponent {
   private http = inject(HttpClient);
   private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   products: Product[] = [];
   isLoading = true;
@@ -58,9 +60,8 @@ export class ShopComponent {
   }
 
   buyNow(product: Product) {
-    // Implement buy now logic (e.g., redirect to checkout or open dialog)
-    alert('Buy Now clicked for: ' + product.name);
-    // You can replace this with navigation or dialog logic as needed
+    // Navigate to checkout page, passing product info if needed
+    this.router.navigate(['/checkout'], { state: { product } });
   }
 
   nextPage() {

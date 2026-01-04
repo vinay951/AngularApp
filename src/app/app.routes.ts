@@ -24,8 +24,10 @@ import { LoginFaceidComponent } from './login-faceid/login-faceid.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { GameComponent } from './game/game.component';
 import { ShopComponent } from './shop/shop.component';
-
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentComponent } from './payment/payment.component';
 import { AdminAddProductComponent } from './admin-add-product/admin-add-product.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard],title: 'Login' },   // Route for login page
@@ -52,6 +54,9 @@ export const routes: Routes = [
     { path: 'game', component: GameComponent,canActivate:[authGuard], title: 'Game' },
     { path: 'shop', component: ShopComponent, canActivate:[authGuard], title: 'Shop' },
     { path: 'admin/add-product', component: AdminAddProductComponent, canActivate:[authGuard], title: 'Add Product' },
+    { path: 'checkout', component: CheckoutComponent, canActivate:[authGuard], title: 'Checkout' },
+    { path: 'payment', component: PaymentComponent, canActivate:[authGuard], title: 'Payment' },
+    { path: 'my-orders', component: MyOrdersComponent, canActivate:[authGuard], title: 'My Orders' },
     { path: 'page-not-found', component: PageNotFoundComponent,title: 'Page Not Found' },  // Default route
     { path: '', redirectTo: '/home', pathMatch: 'full' },  // Default route
     { path: '**', redirectTo: '/page-not-found'}  // Default route, redirects to login

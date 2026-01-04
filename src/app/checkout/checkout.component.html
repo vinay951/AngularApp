@@ -1,0 +1,17 @@
+<div class="checkout-container">
+  <h2>Checkout</h2>
+  <div *ngIf="products.length > 0; else noProduct">
+    <h3>Product Details</h3>
+    <div *ngFor="let product of products" class="product-details">
+      <p><strong>Name:</strong> {{ product.name }}</p>
+      <p><strong>Price:</strong> {{ product.price | currency }}</p>
+      <p><strong>Description:</strong> {{ product.description }}</p>
+      <img *ngIf="product?.imageUrl && product.imageUrl !== ''" [src]="product.imageUrl" alt="Product Image" style="max-width:200px;max-height:200px;" />
+      <hr />
+    </div>
+  </div>
+  <ng-template #noProduct>
+    <p>No product selected for checkout.</p>
+  </ng-template>
+  <button class="btn primary" (click)="goToPayment()">Checkout</button>
+</div>

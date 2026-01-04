@@ -1,0 +1,22 @@
+<div class="orders-container">
+  <h2>My Orders</h2>
+  <div *ngIf="orders.length > 0; else noOrders">
+    <div class="order-card" *ngFor="let order of orders">
+      <img *ngIf="order.imageUrl" [src]="order.imageUrl" [alt]="order.name" class="order-img" />
+      <div class="order-info">
+        <h4>{{ order.name }}</h4>
+        <p>{{ order.description }}</p>
+        <p class="brand">Brand: {{ order.brand }}</p>
+        <p class="price">Price: ₹{{ order.price }}</p>
+        <p class="rating">Your Rating:
+          <span class="stars">
+            <span *ngFor="let star of [1,2,3,4,5]" (click)="setRating(order.id, star)" [class.selected]="order.userRating >= star">&#9733;</span>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <ng-template #noOrders>
+    <p>No orders found.</p>
+  </ng-template>
+</div>

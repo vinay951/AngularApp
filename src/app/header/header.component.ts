@@ -63,6 +63,8 @@ export class HeaderComponent implements OnInit{
     { label: 'Login', route: null, userOnly: false, action: 'login' },
     { label: 'Delete My Account', route: null, userOnly: true, action: 'delete' },
     { label: 'shop-Beta', route: '/shop' },
+    { label: 'My Orders', route: '/my-orders', userOnly: true },
+    { label: 'Add Product', route: '/admin/add-product', userOnly: true },
     { label: 'Delete Face‑ID', route: null, userOnly: true, action: 'deleteFaceID', faceId: true }
   ];
 
@@ -78,7 +80,8 @@ export class HeaderComponent implements OnInit{
     account: ['Profile','Change Password','Logout','Delete My Account','Register','Login','Delete Face‑ID'],
     tests: ['Register Test Case','Test Case','Test Reports'],
     compiler: ['Online Compiler','Random Questions'],
-    others: ['ChatGPT','Unblur Image','Current Location','Bike Buyer Prediction','Game','Dynamic elements','shop-Beta']
+    shop: ['shop-Beta','My Orders','Add Product'],
+    others: ['ChatGPT','Unblur Image','Current Location','Bike Buyer Prediction','Game','Dynamic elements']
   };
 
   constructor(private router: Router,private userService:UserService,private toastr:ToastrService,private dialog:MatDialog,

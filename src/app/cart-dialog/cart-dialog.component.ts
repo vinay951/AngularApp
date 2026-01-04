@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CartService } from '../service/cart.service';
 import { Product } from '../model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-dialog',
@@ -14,6 +15,7 @@ import { Product } from '../model';
 })
 export class CartDialogComponent {
   private cart = inject(CartService);
+  private router = inject(Router);
   items: Product[] = this.cart.getItems();
 
   constructor(private dialogRef: MatDialogRef<CartDialogComponent>) {}
@@ -23,7 +25,8 @@ export class CartDialogComponent {
   }
 
   checkout(): void {
-    // implement checkout
-    this.dialogRef.close({ action: 'checkout' });
+    this.dialogRef.close();
+    // Navigate to checkout with cart items
+    this.router.navigate(['/checkout'], { state: { products: this.items } });
   }
 }

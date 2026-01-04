@@ -56,6 +56,17 @@
           </li>
         </ul>
       </li>
+      <li class="submenu">
+        <button type="button" class="submenu-toggle" (click)="toggleSubmenu('shop', $event)" [attr.aria-expanded]="submenuOpen['shop']">Shop <span class="caret">▾</span></button>
+        <ul *ngIf="submenuOpen['shop']" class="submenu-list">
+          <li *ngFor="let item of orderedSubmenuItems('shop')">
+            <a href="javascript:void(0);" (click)="onItemClick(item); closeMenu()">
+              {{item.label}}
+            </a>
+            <button *ngIf="item.label !== 'Home'" type="button" class="pin-btn modern" [attr.aria-pressed]="isPinned(item)" (click)="togglePin({label:item.label, route:item.route}, $event)"></button>
+          </li>
+        </ul>
+      </li>
     <!-- Compiler submenu contains Online Compiler and Random Questions -->
     <li class="submenu">
       <button type="button" class="submenu-toggle" (click)="toggleSubmenu('compiler', $event)" [attr.aria-expanded]="submenuOpen['compiler']">Compiler <span class="caret">▾</span></button>
