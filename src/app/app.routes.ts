@@ -25,6 +25,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { GameComponent } from './game/game.component';
 import { ShopComponent } from './shop/shop.component';
 
+import { AdminAddProductComponent } from './admin-add-product/admin-add-product.component';
+
 export const routes: Routes = [
     { path: 'login', component: LoginComponent,canActivate:[loginGuard],title: 'Login' },   // Route for login page
     { path: 'login-faceid', component: LoginFaceidComponent ,title: 'Login Face ID'}, // Face ID login route
@@ -49,6 +51,7 @@ export const routes: Routes = [
     { path: 'hotels', component: HotelListComponent,canActivate:[authGuard], title: 'Hotel List' },
     { path: 'game', component: GameComponent,canActivate:[authGuard], title: 'Game' },
     { path: 'shop', component: ShopComponent, canActivate:[authGuard], title: 'Shop' },
+    { path: 'admin/add-product', component: AdminAddProductComponent, canActivate:[authGuard], title: 'Add Product' },
     { path: 'page-not-found', component: PageNotFoundComponent,title: 'Page Not Found' },  // Default route
     { path: '', redirectTo: '/home', pathMatch: 'full' },  // Default route
     { path: '**', redirectTo: '/page-not-found'}  // Default route, redirects to login

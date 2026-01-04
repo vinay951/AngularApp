@@ -1,0 +1,29 @@
+<h2>Add New Product</h2>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input id="name" formControlName="name" />
+  </div>
+  <div>
+    <label for="brand">Brand:</label>
+    <input id="brand" formControlName="brand" />
+  </div>
+  <div>
+    <label for="image">Product Image:</label>
+    <input id="image" type="file" accept="image/*" (change)="onImageSelected($event)" />
+    <div *ngIf="imageBase64">
+      <img [src]="imageBase64" alt="Preview" style="max-width: 120px; margin-top: 8px;" />
+    </div>
+  </div>
+  <div>
+    <label for="rating">Rating (0-5):</label>
+    <input id="rating" type="number" formControlName="rating" min="0" max="5" />
+  </div>
+  <div>
+    <label for="price">Price:</label>
+    <input id="price" type="number" formControlName="price" min="0" />
+  </div>
+  <button type="submit" [disabled]="isSubmitting || productForm.invalid || !imageBase64">Add Product</button>
+</form>
+<div *ngIf="submitSuccess" style="color: green;">Product added successfully!</div>
+<div *ngIf="submitError" style="color: red;">{{ submitError }}</div>
