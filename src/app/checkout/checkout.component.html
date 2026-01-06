@@ -1,17 +1,30 @@
-<div class="checkout-container">
-  <h2>Checkout</h2>
-  <div *ngIf="products.length > 0; else noProduct">
-    <h3>Product Details</h3>
-    <div *ngFor="let product of products" class="product-details">
-      <p><strong>Name:</strong> {{ product.name }}</p>
-      <p><strong>Price:</strong> {{ product.price | currency }}</p>
-      <p><strong>Description:</strong> {{ product.description }}</p>
-      <img *ngIf="product?.imageUrl && product.imageUrl !== ''" [src]="product.imageUrl" alt="Product Image" style="max-width:200px;max-height:200px;" />
-      <hr />
+<div class="checkout-container pro">
+  <div class="checkout-card">
+    <h2 class="checkout-title">Checkout</h2>
+    <div *ngIf="products.length > 0; else noProduct">
+      <h3 class="section-title">Review Your Products</h3>
+      <div class="product-list-flex">
+        <div class="product-card-pro" *ngFor="let product of products">
+          <img *ngIf="product?.imageUrl && product.imageUrl !== ''" [src]="product.imageUrl" alt="Product Image" class="product-img-pro" />
+          <div class="product-info-pro">
+            <div class="product-header">
+              <h4>{{ product.name }}</h4>
+              <span class="price">₹{{ product.price }}</span>
+            </div>
+            <p class="desc">{{ product.description }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="summary-pro">
+        <span>Total</span>
+        <span class="total">₹{{ total || 0 }}</span>
+      </div>
+    </div>
+    <ng-template #noProduct>
+      <p>No product selected for checkout.</p>
+    </ng-template>
+    <div class="actions-pro">
+      <button class="btn-pro primary" (click)="goToPayment()">Proceed to Payment</button>
     </div>
   </div>
-  <ng-template #noProduct>
-    <p>No product selected for checkout.</p>
-  </ng-template>
-  <button class="btn primary" (click)="goToPayment()">Checkout</button>
 </div>

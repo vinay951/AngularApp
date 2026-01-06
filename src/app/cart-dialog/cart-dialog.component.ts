@@ -17,8 +17,18 @@ export class CartDialogComponent {
   private cart = inject(CartService);
   private router = inject(Router);
   items: Product[] = this.cart.getItems();
+  darkMode = false;
 
-  constructor(private dialogRef: MatDialogRef<CartDialogComponent>) {}
+  constructor(private dialogRef: MatDialogRef<CartDialogComponent>) {
+    // Detect dark mode from body or html
+    this.darkMode = document.body.classList.contains('dark-mode') || document.documentElement.classList.contains('dark-mode');
+    setTimeout(() => {
+      const dialog = document.querySelector('.cart-big');
+      if (dialog && this.darkMode) {
+        dialog.classList.add('dark-mode');
+      }
+    }, 0);
+  }
 
   get total(): number {
     return this.items.reduce((sum, p) => sum + p.price, 0);

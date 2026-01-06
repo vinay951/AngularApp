@@ -1,42 +1,35 @@
-<!-- cart-dialog.component.html -->
-<div class="cart-big">
-  <header class="cart-header">
-    <h2>Your Cart</h2>
+<div class="cart-big pro">
+  <header class="cart-header-pro">
+    <h2 class="cart-title">Your Cart</h2>
     <span class="item-count">{{ items.length }} items</span>
   </header>
 
-  <section *ngIf="items.length === 0; else cartContent" class="empty">
+  <section *ngIf="items.length === 0; else cartContent" class="empty-pro">
     <p>No items in cart.</p>
   </section>
 
   <ng-template #cartContent>
-    <div class="cart-body">
-      <div class="cart-items">
-        <article class="cart-card" *ngFor="let p of items">
-          <div class="image-box">
-            <img [src]="p.imageUrl" [alt]="p.name" />
-          </div>
-
-          <div class="info">
-            <h3 class="name">{{ p.name }}</h3>
-            <p class="brand">{{ p.brand }}</p>
+    <div class="cart-body-pro">
+      <div class="cart-items-pro">
+        <div class="cart-card-pro" *ngFor="let p of items">
+          <img [src]="p.imageUrl" [alt]="p.name" class="cart-img-pro" />
+          <div class="cart-info-pro">
+            <div class="cart-header-row">
+              <h3 class="name">{{ p.name }}</h3>
+              <span class="price">₹{{ p.price }}</span>
+            </div>
+            <p class="brand">Brand: {{ p.brand }}</p>
             <p class="rating">★ {{ p.rating | number:'1.1-1' }}/5</p>
-            <p class="price">₹{{ p.price }}</p>
           </div>
-        </article>
+        </div>
       </div>
-
-      <aside class="summary">
-        <h3>Order summary</h3>
-        <p class="summary-line">
-          Items: <span>{{ items.length }}</span>
-        </p>
-        <p class="summary-line total">
-          Total: <span>₹{{ total }}</span>
-        </p>
-
-        <button class="btn primary" (click)="checkout()">Checkout</button>
-      </aside>
+      <div class="summary-pro">
+        <span>Total</span>
+        <span class="total">₹{{ total }}</span>
+      </div>
+      <div class="actions-pro">
+        <button class="btn-pro primary" (click)="checkout()">Checkout</button>
+      </div>
     </div>
   </ng-template>
 </div>
