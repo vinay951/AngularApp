@@ -49,7 +49,11 @@ export class ShopComponent {
           }
           return { ...p, imageUrl: img };
         });
-        this.totalPages = data.totalPages || 1;
+        if(data.length == 12){
+          this.totalPages += 1;
+        } else{
+          this.totalPages = 1;
+        }
         this.isLoading = false;
       },
       error: (err) => {
