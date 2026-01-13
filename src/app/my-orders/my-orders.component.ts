@@ -19,9 +19,21 @@ export class MyOrdersComponent {
   ratings: { [orderId: string]: number } = {};
   submitting: { [orderId: string]: boolean } = {};
 isDataLoading: any;
+  darkMode = false;
+  searchTerm: string = '';
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
     this.userEmail = localStorage.getItem('user');
+    this.darkMode = document.body.classList.contains('dark-mode');
+    const pref = localStorage.getItem('theme');
+    if (pref === 'dark') {
+      document.body.classList.add('dark-mode');
+      this.darkMode = true;
+    } else if (pref === 'light') {
+      document.body.classList.remove('dark-mode');
+      document.body.classList.add('light-mode');
+      this.darkMode = false;
+    }
     this.fetchOrders();
   }
 isStarSelected(orderId: any, star: number): boolean {
@@ -87,6 +99,34 @@ isStarSelected(orderId: any, star: number): boolean {
         this.isDataLoading = false;
         // Handle error
       }
+    });
+  }
+
+  toggleTheme() {
+    this.darkMode = !this.darkMode;
+    if (this.darkMode) {
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      document.body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  clearSearch() {
+    this.searchTerm = '';
+  }
+
+  get displayedOrders() {
+    const term = (this.searchTerm || '').toLowerCase().trim();
+    if (!term) return this.orders;
+    return this.orders.filter((o: any) => {
+      const name = (o.shop?.name || '').toLowerCase();
+      const brand = (o.shop?.brand || '').toLowerCase();
+      const id = (o.productBuy?.uniqueId || '').toLowerCase();
+      return name.includes(term) || brand.includes(term) || id.includes(term);
     });
   }
 }

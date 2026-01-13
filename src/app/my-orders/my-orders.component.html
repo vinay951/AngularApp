@@ -5,10 +5,17 @@
       <h2>My Orders</h2>
       <p class="muted">Recent purchases and feedback — quick rate & review.</p>
     </div>
+
+    <div class="search-area">
+      <div class="search-box">
+        <input type="search" placeholder="Search orders, shop or order id..." [(ngModel)]="searchTerm" (input)="searchTerm" />
+        <button class="clear" *ngIf="searchTerm" (click)="clearSearch()" aria-label="Clear search">✕</button>
+      </div>
+    </div>
   </header>
 
-  <section *ngIf="orders.length > 0; else noOrders" class="orders-grid">
-    <article class="order-card" *ngFor="let order of orders">
+  <section *ngIf="displayedOrders.length > 0; else noOrders" class="orders-grid">
+    <article class="order-card" *ngFor="let order of displayedOrders">
       <figure class="card-media">
         <img *ngIf="order.shop?.imageUrl" [src]="order.shop.imageUrl" [alt]="order.shop.name" />
       </figure>
@@ -53,11 +60,12 @@
         </div>
       </div>
     </article>
-  </section>
+  </section> 
 
   <ng-template #noOrders>
     <div class="empty-state">
-      <h4>No orders yet</h4>
+      <h4 *ngIf="orders.length === 0">No orders yet</h4>
+      <h4 *ngIf="orders.length > 0">No matching orders</h4>
       <p class="muted">Your purchased items will appear here — start shopping to see them.</p>
     </div>
   </ng-template>
