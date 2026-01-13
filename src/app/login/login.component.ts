@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../service/user.service';
+import { CartService } from '../service/cart.service';
 import { Login } from '../model';
 import { ToastrService } from 'ngx-toastr';
 import { LoadingComponent } from "../loading/loading.component";
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   uniqueName: string = '';
 
   constructor(private fb: FormBuilder,private userService:UserService, private router: Router,private toastr: ToastrService
-    ,private session:SessionService
+    ,private session:SessionService, private cart: CartService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +44,11 @@ export class LoginComponent implements OnInit {
             if(response.responseMessage==="Success"){
               this.session.setSessionData("Token",response.token);
               this.decodeJwtAndStore(response.token);
+              // load cart for skipped user
+              const email = localStorage.getItem('user') || '';
+              if (email) {
+                this.cart.loadCart(email);
+              }
               this.isDataLoading = false;
               this.router.navigateByUrl("/home");
             } else{
@@ -100,6 +106,11 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("user",this.loginForm.value.username);
             this.session.setSessionData("Token",response.token);
             this.decodeJwtAndStore(response.token);
+            // load user cart now that session/token and localStorage user are set
+            const email = localStorage.getItem('user') || this.loginForm.value.username;
+            if (email) {
+              this.cart.loadCart(email);
+            }
             this.isDataLoading = false;
             this.router.navigateByUrl("/home")
           } else{
