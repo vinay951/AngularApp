@@ -1,20 +1,48 @@
 // cart.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Product } from '../model';
+import { BehaviorSubject, of } from 'rxjs';
+import { Product, CartEntity, ProductAndCartEntity } from '../model';
+import { HttpClient } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private items: Product[] = [];
+  private cartIdMap: Record<string, number> = {};
   private countSubject = new BehaviorSubject<number>(0);
   cartCount$ = this.countSubject.asObservable();
 
+  private apiUrl = 'https://onlinecompiler-710942123958.europe-west1.run.app';
+
+  constructor(private http: HttpClient) {
+    const email = localStorage.getItem('user');
+    if (email) {
+      this.loadCart(email);
+    }
+  }
+
+  // Add to cart locally and call backend if user is logged in
   addToCart(product: Product): void {
     this.items.push(product);
     this.countSubject.next(this.items.length);
+
+    const email = localStorage.getItem('user');
+    if (email) {
+      const payload: Partial<CartEntity> = { email, productId: product.id };
+      this.http.post<CartEntity>(`${this.apiUrl}/cart/add`, payload).pipe(
+        catchError(err => {
+          console.error('Failed to add to cart on server', err);
+          return of(null);
+        })
+      ).subscribe(res => {
+        if (res && res.id) {
+          this.cartIdMap[product.id] = res.id;
+        }
+      });
+    }
   }
 
-  // cart.service.ts
+  // Return local items for UI
   getItems(): Product[] {
     return this.items;
   }
@@ -22,6 +50,77 @@ export class CartService {
   clearCart(): void {
     this.items = [];
     this.countSubject.next(0);
+  }
+
+  // Load cart entries (cart id + product) from backend and store locally
+  loadCart(email: string): void {
+    this.http.get<ProductAndCartEntity[]>(`${this.apiUrl}/cart/${email}`).pipe(
+      catchError(err => {
+        console.error('Failed to load cart', err);
+        return of([] as ProductAndCartEntity[]);
+      })
+    ).subscribe(res => {
+      this.cartIdMap = {};
+      this.items = res.map(entry => {
+        let prod: Product;
+        if (entry.product) {
+          prod = entry.product;
+        } else {
+          const pid = entry.productId ?? (entry as any).id ?? '';
+          prod = {
+            id: pid,
+            name: entry.name ?? 'Product',
+            brand: entry.brand ?? '',
+            imageUrl: entry.imageUrl ?? '',
+            rating: entry.rating ?? 0,
+            price: entry.price ?? 0
+          } as Product;
+        }
+        if (prod.id) {
+          this.cartIdMap[prod.id] = entry.id;
+        }
+        return prod;
+      });
+      this.countSubject.next(this.items.length);
+    });
+  }
+
+  // Expose direct fetch for callers who want raw cart entries (cart id + product)
+  fetchCartEntities(email: string) {
+    return this.http.get<ProductAndCartEntity[]>(`${this.apiUrl}/cart/${email}`);
+  }
+
+  // Delete a cart entry by cart id; optionally remove product from local cache
+  // delete by cart id
+  deleteFromCartById(cartId: number) {
+    return this.http.delete<CartEntity>(`${this.apiUrl}/cart/delete/${cartId}`).pipe(
+      tap(() => {
+        // remove any mapping that had this cartId
+        for (const pid of Object.keys(this.cartIdMap)) {
+          if (this.cartIdMap[pid] === cartId) {
+            delete this.cartIdMap[pid];
+            this.items = this.items.filter(p => p.id !== pid);
+          }
+        }
+        this.countSubject.next(this.items.length);
+      }),
+      catchError(err => {
+        console.error('Failed to delete from cart', err);
+        return of(null);
+      })
+    );
+  }
+
+  // delete by product id (convenience)
+  deleteFromCart(productId: string) {
+    const cartId = this.cartIdMap[productId];
+    if (!cartId) {
+      // no server-side entry known; remove locally
+      this.items = this.items.filter(p => p.id !== productId);
+      this.countSubject.next(this.items.length);
+      return of(null);
+    }
+    return this.deleteFromCartById(cartId);
   }
 
 }
