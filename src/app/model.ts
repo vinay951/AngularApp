@@ -71,6 +71,7 @@ export interface CartEntity {
 
 // Combined object returned by backend: cart entry plus product details.
 export interface ProductAndCartEntity {
+  [x: string]: any;
   id: number;                // cart entry id
   email?: string;
   productId?: string;        // product id when product object absent

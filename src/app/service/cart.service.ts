@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { Product, CartEntity, ProductAndCartEntity } from '../model';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, switchMap, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
@@ -61,6 +61,7 @@ export class CartService {
       })
     ).subscribe(res => {
       this.cartIdMap = {};
+      console.log('Loaded cart entries', res);
       this.items = res.map(entry => {
         let prod: Product;
         if (entry.product) {
@@ -77,7 +78,8 @@ export class CartService {
           } as Product;
         }
         if (prod.id) {
-          this.cartIdMap[prod.id] = entry.id;
+          // Use entry.id if present, otherwise try entry['cartEntity']?.id
+          this.cartIdMap[prod.id] = entry.id ?? entry['cartEntity']?.id;
         }
         return prod;
       });
@@ -93,6 +95,7 @@ export class CartService {
   // Delete a cart entry by cart id; optionally remove product from local cache
   // delete by cart id
   deleteFromCartById(cartId: number) {
+    console.log('Deleting cart id', cartId);
     return this.http.delete<CartEntity>(`${this.apiUrl}/cart/delete/${cartId}`).pipe(
       tap(() => {
         // remove any mapping that had this cartId
@@ -113,14 +116,47 @@ export class CartService {
 
   // delete by product id (convenience)
   deleteFromCart(productId: string) {
-    const cartId = this.cartIdMap[productId];
-    if (!cartId) {
-      // no server-side entry known; remove locally
-      this.items = this.items.filter(p => p.id !== productId);
-      this.countSubject.next(this.items.length);
-      return of(null);
+    // try a loose key match first (handles numeric/string id mismatches)
+    console.log(this.cartIdMap);
+    let cartId = this.cartIdMap[productId];
+    if (cartId === undefined) {
+      const foundKey = Object.keys(this.cartIdMap).find(k => k == productId);
+      if (foundKey) {
+        cartId = this.cartIdMap[foundKey];
+      }
     }
-    return this.deleteFromCartById(cartId);
+    console.log('Deleting product id', productId, 'with cart id', cartId);
+    if (cartId) {
+      return this.deleteFromCartById(cartId);
+    }
+
+    // No known cart id locally; if user logged in, try fetching server entries
+    const email = localStorage.getItem('user');
+    if (email) {
+      return this.fetchCartEntities(email).pipe(
+        map(entries => entries.find(e => String(e.productId) === String(productId) || (e.product && String(e.product.id) === String(productId)))),
+        switchMap(found => {
+          if (found && found.id) {
+            // update local map for future ops then delete
+            this.cartIdMap[String(productId)] = found.id;
+            return this.deleteFromCartById(found.id);
+          }
+          // no server entry found; remove locally
+          this.items = this.items.filter(p => p.id !== productId);
+          this.countSubject.next(this.items.length);
+          return of(null);
+        }),
+        catchError(err => {
+          console.error('Failed to resolve cart entry before delete', err);
+          return of(null);
+        })
+      );
+    }
+
+    // not logged in or no cart id known -> remove locally
+    this.items = this.items.filter(p => p.id !== productId);
+    this.countSubject.next(this.items.length);
+    return of(null);
   }
 
 }
