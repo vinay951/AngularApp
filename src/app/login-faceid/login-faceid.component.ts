@@ -4,6 +4,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SessionService } from '../session/session.service';
+import { CartService } from '../service/cart.service';
 import { LoadingComponent } from "../loading/loading.component";
 
 @Component({
@@ -27,8 +28,8 @@ export class LoginFaceidComponent {
   isMobile: boolean = false;
   facingMode: 'user' | 'environment' = 'user';
 
-  constructor(private http: HttpClient,private fb: FormBuilder, private router: Router,
-      private session:SessionService) {
+    constructor(private http: HttpClient,private fb: FormBuilder, private router: Router,
+      private session:SessionService, private cart: CartService) {
     // Detect mobile device
     this.isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
   }
@@ -112,6 +113,10 @@ export class LoginFaceidComponent {
           localStorage.setItem("user",this.userId);
           this.session.setSessionData("Token",res.token);
           this.decodeJwtAndStore(res.token);
+          // load cart after successful faceid login
+          if (this.userId) {
+            this.cart.loadCart(this.userId);
+          }
           this.router.navigateByUrl("/home");
         }
         this.isDataLoading=false
