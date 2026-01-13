@@ -1,7 +1,12 @@
-<div class="cart-big pro">
+<div class="cart-backdrop" [class.dark-mode]="darkMode"></div>
+<div class="cart-container">
+  <div class="cart-big pro">
   <header class="cart-header-pro">
     <h2 class="cart-title">Your Cart</h2>
-    <span class="item-count">{{ items.length }} items</span>
+    <div class="header-controls">
+      <span class="item-count">{{ items.length }} items</span>
+      <button class="close-btn" (click)="closeCart()" aria-label="Close cart">✕</button>
+    </div>
   </header>
 
   <section *ngIf="items.length === 0; else cartContent" class="empty-pro">
@@ -20,6 +25,10 @@
             </div>
             <p class="brand">Brand: {{ p.brand }}</p>
             <p class="rating">★ {{ p.rating | number:'1.1-1' }}/5</p>
+            <button class="remove-btn" (click)="removeFromCart(p)">
+              <span class="remove-icon">🗑️</span>
+              <span class="remove-text">Remove</span>
+            </button>
           </div>
         </div>
       </div>
@@ -32,4 +41,5 @@
       </div>
     </div>
   </ng-template>
+  </div>
 </div>
