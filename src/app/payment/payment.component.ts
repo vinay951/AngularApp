@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from "../loading/loading.component";
+import { CartService } from '../service/cart.service';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -19,7 +20,7 @@ export class PaymentComponent {
   productIds: any[] = [];
 isDataLoading: any;
 
-  constructor(http: HttpClient, router: Router) {
+  constructor(http: HttpClient, router: Router,private cartService: CartService) {
     this.http = http;
     this.router = router;
     // Get products from navigation state
@@ -39,6 +40,7 @@ isDataLoading: any;
       next: (res) => {
         this.router.navigate(['/my-orders']);
         this.isDataLoading = false;
+        this.cartService.loadCart(email || '');
       },
       error: (err) => {
         // Handle error
