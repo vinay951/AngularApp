@@ -1,161 +1,82 @@
 @import '../../theme.css';
-.error-message {
-    background-color: var(--color-bg);
-    color: #721c24;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
-    border: 1px solid #f5c6cb;
-    text-align: center;
-  }
-  /* General Body and Container Setup */
+
+:host {
+  display: block;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--color-card);
-    color: var(--color-text);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* Main form container */
-  .container {
-    background-color: var(--color-bg);
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    max-width: 550px;
-    width: 100%;
-    text-align: center;
-    transition: box-shadow 0.3s ease-in-out;
-  }
-  
-  .container:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Title styling */
-  h2 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: #333;
-    text-transform: uppercase;
-  }
-  
-  /* Custom File Upload Button */
-  label {
-    display: inline-block;
-    padding: 1.2rem 2.5rem;
-    background-color: var(--color-primary);
-    color: var(--color-text);
-    font-size: 1.1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 1.5rem;
-  }
-  
-  label:hover {
-    background-color: #0056b3;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Hide the original file input */
-  input[type="file"] {
-    display: none;
-  }
-  
-  /* Upload Button */
-  button {
-    padding: 1rem 2.5rem;
-    background-color: var(--color-primary);
-    color: var(--color-text);
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 1.5rem;
-  }
-  
-  button:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
-  }
-  
-  button:active {
-    transform: translateY(2px);
-  }
-  
-  /* Error Message Styling */
-  .error-message {
-    background-color: var(--color-bg);
-    color: #721c24;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-    border: 1px solid #f5c6cb;
-    text-align: center;
-  }
-  
-  /* Deblurred Image Display */
-  .deblurred-image {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  
-  .deblurred-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .deblurred-image img:hover {
-    transform: scale(1.05);
-  }
-  
-  .deblurred-image h3 {
-    font-size: 1.8rem;
-    color: #333;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .container {
-      padding: 2rem;
-    }
-  
-    h2 {
-      font-size: 1.8rem;
-    }
-  
-    button {
-      font-size: 1rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .container {
-      padding: 1.5rem;
-    }
-  
-    h2 {
-      font-size: 1.6rem;
-    }
-  
-    button {
-      font-size: 1rem;
-    }
-  }
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  width: min(620px, calc(100% - 24px));
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+}
+
+h2 {
+  margin: 0 0 1.2rem;
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
+  color: var(--color-text);
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.08);
+  color: #b91c1c;
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.9rem 1.3rem;
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #fff;
+  font-weight: 700;
+  padding: 0.85rem 1.4rem;
+  cursor: pointer;
+  margin-top: 0.75rem;
+}
+
+.deblurred-image {
+  margin-top: 1.5rem;
+}
+
+.deblurred-image img {
+  max-width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.deblurred-image h3 {
+  margin: 0.8rem 0;
+  color: var(--color-text);
+}
+
   

@@ -1,149 +1,98 @@
-
 @import '../../theme.css';
-body {
-    font-family: Arial, sans-serif;
-    background-color: var(--color-card);
-    color: var(--color-text);
-    margin: 0;
-    padding: 0;
-  }
-  
+
+:host {
+  display: block;
+}
+
+.profile-container {
+  width: min(520px, calc(100% - 24px));
+  margin: 48px auto;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 26px;
+  box-shadow: var(--shadow-soft);
+  padding: 2rem 1.6rem 1.5rem;
+}
+
+.profile-container h2 {
+  text-align: center;
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.7rem, 2vw, 2.2rem);
+  color: var(--color-text);
+}
+
+.profile-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.profile-container label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.profile-container input.form-control,
+.profile-container input[type='email'],
+.profile-container input[type='password'] {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--color-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dark-mode .profile-container input.form-control,
+body.dark-mode .profile-container input[type='email'],
+body.dark-mode .profile-container input[type='password'] {
+  background: rgba(17, 24, 39, 0.8);
+}
+
+.profile-container input:focus {
+  outline: none;
+  border-color: rgba(37, 99, 235, 0.8);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.profile-container button[type='submit'],
+.profile-container .btn,
+.profile-container .btn-primary,
+.profile-container .btn-success {
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  font-weight: 700;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.profile-container button[type='submit']:hover,
+.profile-container .btn:hover,
+.profile-container .btn-primary:hover,
+.profile-container .btn-success:hover {
+  transform: translateY(-1px);
+}
+
+.profile-container hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 600px) {
   .profile-container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: var(--color-bg);
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    padding: 1.4rem 1rem;
   }
-  
-  h2 {
-    text-align: center;
-    color: var(--color-text);
-    font-size: 24px;
-    margin-bottom: 30px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    font-size: 14px;
-    font-weight: bold;
-    color: var(--color-text);
-    margin-bottom: 5px;
-  }
-  
-  input.form-control {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  input.form-control:focus {
-    border-color: #4CAF50;
-    outline: none;
-  }
-  
-  
-  button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #45a049;
-  }
-  
-  button[type="submit"]:disabled {
-    background-color: #c8e6c9;
-    cursor: not-allowed;
-  }
-  
-  button.btn-secondary {
-    background-color: #6c757d;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button.btn-secondary:hover {
-    background-color: #5a6268;
-  }
-  
-  hr {
-    margin: 30px 0;
-    border: 0;
-    border-top: 1px solid #ccc;
-  }
-  
-  div[form] {
-    margin-top: 20px;
-  }
-  
-  input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  input[type="password"]:focus {
-    border-color: #4CAF50;
-    outline: none;
-  }
-  
-  button.btn-success {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button.btn-success:hover {
-    background-color: #218838;
-  }
-  
-  @media (max-width: 600px) {
-    .profile-container {
-      padding: 20px;
-    }
-  
-    h2 {
-      font-size: 20px;
-    }
-  
-    input.form-control,
-    button[type="submit"],
-    button.btn-secondary,
-    button.btn-success {
-      font-size: 14px;
-      padding: 8px;
-    }
-  }
-  
+}

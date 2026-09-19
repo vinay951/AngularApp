@@ -33,7 +33,7 @@ export class ShopComponent {
 
   loadProducts(page: number, size: number, search: string = ''): void {
     this.isLoading = true;
-    let url = `https://onlinecompiler-710942123958.europe-west1.run.app/shop/products/${page}/${size}`;
+    let url = `http://localhost:8080/shop/products/${page}/${size}`;
     if (search && search.trim() !== '') {
       url += `?search=${encodeURIComponent(search.trim())}`;
     }

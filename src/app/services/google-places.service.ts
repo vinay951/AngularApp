@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class GooglePlacesService {
   // Define the base URL for the Google Places API
-  private baseUrl = 'https://onlinecompiler-710942123958.europe-west1.run.app';
+  private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 

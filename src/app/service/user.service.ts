@@ -8,7 +8,7 @@ import { Login, ProfilePic, User } from '../model';
 })
 export class UserService {
 
-  private apiUrl = 'https://onlinecompiler-710942123958.europe-west1.run.app';  // Replace with your actual API
+  private apiUrl = 'http://localhost:8080';  // Replace with your actual API
   private ipApiUrl = 'https://api.ipify.org?format=json'; // You can use other IP APIs
 
   constructor(private http: HttpClient) { }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class QuestionService {
-  apiUrl = "https://onlinecompiler-710942123958.europe-west1.run.app";
+  apiUrl = "http://localhost:8080";
 
   constructor(private http:HttpClient) { }
 

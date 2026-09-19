@@ -1,42 +1,41 @@
-<!-- shop.component.html -->
-<div class="shop-search-bar" style="text-align:center; margin-bottom: 1rem;">
+<div class="shop-search-bar">
   <input
     type="text"
     [(ngModel)]="searchValue"
     (keyup.enter)="onSearch()"
     placeholder="Search products..."
-    style="padding: 0.5rem; width: 220px;"
   />
-  <button (click)="onSearch()" style="padding: 0.5rem 1rem; margin-left: 0.5rem;">Search</button>
+  <button type="button" (click)="onSearch()">Search</button>
 </div>
+
 <div class="shop-container" *ngIf="!isLoading; else loading">
   <div class="product-grid">
-
     <article class="product-card" *ngFor="let p of products">
       <div class="image-wrapper">
         <img [src]="p.imageUrl" [alt]="p.name" loading="lazy" *ngIf="p.imageUrl; else noImage" />
-        <ng-template #noImage><span>No Image</span></ng-template>
+        <ng-template #noImage><span class="no-image">No Image</span></ng-template>
       </div>
+
       <div class="product-body">
         <h3 class="product-name">{{ p.name }}</h3>
         <p class="product-brand">{{ p.brand }}</p>
+
         <div class="product-meta">
-          <span class="rating">
-            ★ {{ p.rating | number:'1.1-1' }}/5
-          </span>
+          <span class="rating">★ {{ p.rating | number:'1.1-1' }}/5</span>
           <span class="price">₹{{ p.price }}</span>
         </div>
-        <div style="margin-top: 0.7em; display: flex; gap: 0.5em;">
-          <button class="btn outline" (click)="openProduct(p)">View</button>
-          <button class="btn primary" (click)="buyNow(p)">Buy Now</button>
+
+        <div class="product-actions">
+          <button class="btn outline" type="button" (click)="openProduct(p)">View</button>
+          <button class="btn primary" type="button" (click)="buyNow(p)">Buy Now</button>
         </div>
       </div>
     </article>
 
-    <div class="pagination-controls" style="text-align:center; margin-top: 1rem;">
-      <button (click)="prevPage()" [disabled]="page === 0">Previous</button>
+    <div class="pagination-controls">
+      <button type="button" (click)="prevPage()" [disabled]="page === 0">Previous</button>
       <span>Page {{ page + 1 }} of {{ totalPages }}</span>
-      <button (click)="nextPage()" [disabled]="page >= totalPages - 1">Next</button>
+      <button type="button" (click)="nextPage()" [disabled]="page >= totalPages - 1">Next</button>
     </div>
   </div>
 </div>

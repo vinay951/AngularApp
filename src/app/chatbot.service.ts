@@ -57,7 +57,7 @@ export class ChatbotService {
 		});
 
 		const body = {
-			model: 'sonar-pro', // adjust model as needed
+			model: 'sonar', // adjust model as needed
 			messages: messages
 		};
 

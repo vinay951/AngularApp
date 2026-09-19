@@ -1,36 +1,31 @@
-<div style="text-align:center; margin-top: 50px;">
+<div class="compiler-shell">
+  <div class="compiler-panel">
     <h1>Online Compiler</h1>
-    
-    <!-- Dropdown to select language -->
-    <select [(ngModel)]="selectedLanguage" (change)="changeLanguage(selectedLanguage)">
-      <option value="java">Java</option>
-      <option value="python">Python</option>
-      <option value="cpp">C++</option>
-    </select>
-    <select [(ngModel)]="mode" (change)="modeChange(mode)">
-      <option value="ai">AI MODE</option>
-      <option value="dynamic">Dynamic Mode</option>
-    </select><br/><br/>
-    <br/><br/>
 
-    <!-- Textarea to input AI description -->
-    <textarea *ngIf="mode === 'ai'" [(ngModel)]="aiInput" rows="4" cols="50" placeholder="Describe the code you want to generate..."></textarea><br/><br/>
-    <button *ngIf="mode === 'ai'" (click)="generateCodeWithAI()">Generate Code with AI</button><br/><br/>
-    
-    <!-- Textarea to input code -->
-    <textarea [(ngModel)]="code" rows="10" cols="50" placeholder="Enter your code here..."></textarea><br/><br/>
-    
-    <!-- Button to execute code -->
-    <button (click)="executeCode()">Execute</button><br/><br/>
-    
-    <!-- Output area -->
-    <h3>Output:</h3>
-    <pre style="white-space: pre-wrap; word-wrap: break-word; text-align: left; margin-top: 10px; padding: 15px; background-color: #333; color: white; border-radius: 8px; width: 80%; margin: 0 auto;">
-      {{ output }}
-    </pre>
+    <div class="toolbar">
+      <select [(ngModel)]="selectedLanguage" (change)="changeLanguage(selectedLanguage)">
+        <option value="java">Java</option>
+        <option value="python">Python</option>
+        <option value="cpp">C++</option>
+      </select>
+
+      <select [(ngModel)]="mode" (change)="modeChange(mode)">
+        <option value="ai">AI Mode</option>
+        <option value="dynamic">Dynamic Mode</option>
+      </select>
+    </div>
+
+    <textarea *ngIf="mode === 'ai'" [(ngModel)]="aiInput" rows="4" placeholder="Describe the code you want to generate..."></textarea>
+    <button *ngIf="mode === 'ai'" class="primary-btn" (click)="generateCodeWithAI()">Generate Code with AI</button>
+
+    <textarea [(ngModel)]="code" rows="10" placeholder="Enter your code here..."></textarea>
+    <button class="primary-btn" (click)="executeCode()">Execute</button>
+
+    <h3>Output</h3>
+    <pre>{{ output }}</pre>
   </div>
-  
-  
+
   <div *ngIf="isDataLoading">
     <app-loading [isLoading]="isDataLoading"></app-loading>
   </div>
+</div>

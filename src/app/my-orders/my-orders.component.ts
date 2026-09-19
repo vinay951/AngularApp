@@ -42,7 +42,7 @@ isStarSelected(orderId: any, star: number): boolean {
   fetchOrders() {
     if (!this.userEmail) return;
     this.isDataLoading = true;
-    this.http.get<any[]>(`https://onlinecompiler-710942123958.europe-west1.run.app/getUserOrders/${this.userEmail}`).subscribe({
+    this.http.get<any[]>(`http://localhost:8080/getUserOrders/${this.userEmail}`).subscribe({
       next: (data) => {
         // Format base64 imageUrl for each order and initialize ratings/comments
         this.orders = (data || []).map((order: any) => {
@@ -88,7 +88,7 @@ isStarSelected(orderId: any, star: number): boolean {
       comments: this.comments[orderId] || ''
     };
     this.isDataLoading = true;
-    this.http.post('https://onlinecompiler-710942123958.europe-west1.run.app/recordRating', payload).subscribe({
+    this.http.post('http://localhost:8080/recordRating', payload).subscribe({
       next: (res) => {
         this.submitting[orderId] = false;
         this.isDataLoading = false;

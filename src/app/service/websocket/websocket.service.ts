@@ -31,7 +31,7 @@ export class WebsocketService {
   }
   connect(username:string):Promise<void>{
     return new Promise((resolve, reject) => {
-      const socket = new SockJS('https://onlinecompiler-710942123958.europe-west1.run.app/ws');  // Initialize the SockJS WebSocket connection to the server
+      const socket = new SockJS('http://localhost:8080/ws');  // Initialize the SockJS WebSocket connection to the server
 
     // Configure the STOMP client with connection details
     this.stompClient = new Client({

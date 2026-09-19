@@ -36,7 +36,7 @@ isDataLoading: any;
     const email = localStorage.getItem('user');
     const payload = { ids: this.productIds, email };
     this.isDataLoading = true;
-    this.http.post('https://onlinecompiler-710942123958.europe-west1.run.app/recordPurchase', payload).subscribe({
+    this.http.post('http://localhost:8080/recordPurchase', payload).subscribe({
       next: (res) => {
         this.router.navigate(['/my-orders']);
         this.isDataLoading = false;

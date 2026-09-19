@@ -1,19 +1,28 @@
 /* Global dark mode variables */
 :root {
-  --color-bg: #fff;
-  --color-text: #232526;
-  --color-primary: #007bff;
-  --color-secondary: #0056b3;
-  --color-accent: #ffd700;
-  --color-card: #f4f7fb;
-  --color-border: #ccc;
+  --color-bg: #f4f7fb;
+  --color-bg-strong: #eaf1ff;
+  --color-text: #1f2937;
+  --color-primary: #2563eb;
+  --color-secondary: #1d4ed8;
+  --color-accent: #f59e0b;
+  --color-card: #ffffff;
+  --color-border: #dbe5f1;
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 12px 30px rgba(15, 23, 42, 0.06);
 }
 body.dark-mode {
-  --color-bg: #111218;
-  --color-text: #e0e0e0;
-  --color-primary: #2196f3;
-  --color-secondary: #1565c0;
-  --color-accent: #ffd700;
-  --color-card: #181a20;
-  --color-border: #22242a;
+  --color-bg: #0f172a;
+  --color-bg-strong: #111827;
+  --color-text: #e5e7eb;
+  --color-primary: #60a5fa;
+  --color-secondary: #2563eb;
+  --color-accent: #fbbf24;
+  --color-card: #111827;
+  --color-border: #334155;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
 }

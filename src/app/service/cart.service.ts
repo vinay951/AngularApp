@@ -12,7 +12,7 @@ export class CartService {
   private countSubject = new BehaviorSubject<number>(0);
   cartCount$ = this.countSubject.asObservable();
 
-  private apiUrl = 'https://onlinecompiler-710942123958.europe-west1.run.app';
+  private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
     const email = localStorage.getItem('user');

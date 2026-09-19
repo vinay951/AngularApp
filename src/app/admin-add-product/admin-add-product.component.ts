@@ -16,7 +16,7 @@ export class AdminAddProductComponent {
   productForm: FormGroup;
   isSubmitting = false;
   submitSuccess = false;
-  apiUrl = 'https://onlinecompiler-710942123958.europe-west1.run.app';
+  apiUrl = 'http://localhost:8080';
   submitError = '';
   imageBase64: string | null = null;
     isDataLoading: any;

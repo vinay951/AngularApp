@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CompileService {
 
-  private apiUrl = 'https://onlinecompiler-710942123958.europe-west1.run.app';  // Spring Boot backend URL
+  private apiUrl = 'http://localhost:8080';  // Spring Boot backend URL
 
   constructor(private http: HttpClient) { }
 

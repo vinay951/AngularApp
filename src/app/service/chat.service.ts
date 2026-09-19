@@ -25,7 +25,7 @@ export class ChatService {
         const response = await axios.post(
           'https://api.perplexity.ai/chat/completions',
           {
-            model: 'sonar-pro',  // or 'gpt-4' depending on your access
+            model: 'sonar',  // or 'gpt-4' depending on your access
             messages: this.messagesHistory,  // Use the entire conversation context
           },
           {
@@ -81,7 +81,7 @@ export class ChatService {
           const response = await axios.post(
             'https://api.perplexity.ai/chat/completions',
             {
-              model: 'sonar-pro',  // or 'gpt-4' depending on your access
+              model: 'sonar',  // or 'gpt-4' depending on your access
               messages: message,  // Use the entire conversation context
             },
             {
@@ -134,7 +134,7 @@ export class ChatService {
           const response = await axios.post(
             'https://api.perplexity.ai/chat/completions',
             {
-              model: 'sonar-pro',  // or 'gpt-4' depending on your access
+              model: 'sonar',  // or 'gpt-4' depending on your access
               messages: message,  // Use the entire conversation context
             },
             {

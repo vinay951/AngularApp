@@ -1,31 +1,52 @@
-<div class="game-container">
-  <h2>Number Guessing Game</h2>
-  <p>Guess a number between 1 and 100</p>
-  <input type="number" [(ngModel)]="guess" placeholder="Enter your guess" min="1" max="100">
-  <button (click)="checkGuess()">Guess</button>
-  <button (click)="resetGame()">Reset</button>
-  <p>{{ message }}</p>
-  <p *ngIf="attempts > 0">Attempts: {{ attempts }}</p>
-</div>
+<div class="modern-racer">
+  <div class="top-bar">
+    <div>
+      <span class="eyebrow">Arcade Project</span>
+      <h1>Night Drift</h1>
+    </div>
 
-<div class="car-container">
-  <h2>Car Game</h2>
-  <div class="car-board" [style.width.px]="carLaneCount * tileSize" [style.height.px]="carBoardHeight * tileSize">
-    <div *ngFor="let y of [].constructor(carBoardHeight); let row = index">
-      <div *ngFor="let x of [].constructor(carLaneCount); let col = index"
-           class="tile"
-           [ngClass]="getCarTileClass(col, row)"
-           [style.width.px]="tileSize"
-           [style.height.px]="tileSize">
+    <div class="score-group">
+      <div class="score-box">
+        <span>Score</span>
+        <strong>{{ carScore }}</strong>
+      </div>
+      <div class="score-box best">
+        <span>Best</span>
+        <strong>{{ carBestScore }}</strong>
       </div>
     </div>
   </div>
-  <div class="car-info">
-    <p>Score: {{ carScore }}</p>
-    <button *ngIf="!carIsActive && !carGameOver" (click)="startCarGame()">Start</button>
-    <button *ngIf="carIsActive" (click)="stopCarGame()">Pause</button>
-    <button (click)="resetCarGame()">Reset</button>
-    <p *ngIf="carGameOver" class="game-over">Game Over!</p>
-    <p class="hint">Use your keyboard left/right arrow keys to move the car.</p>
+
+  <div class="status-row">
+    <span class="status-pill" [class.running]="carIsActive && !carGameOver" [class.crashed]="carGameOver">
+      {{ carGameOver ? 'Crash' : carIsActive ? 'Live' : 'Ready' }}
+    </span>
+    <span class="status-text">{{ gameStatus }}</span>
+  </div>
+
+  <div class="road-shell">
+    <div class="road-board" [style.width.px]="carLaneCount * tileSize" [style.height.px]="carBoardHeight * tileSize">
+      <div *ngFor="let y of [].constructor(carBoardHeight); let row = index" class="row">
+        <div
+          *ngFor="let x of [].constructor(carLaneCount); let col = index"
+          class="tile"
+          [ngClass]="getCarTileClass(col, row)"
+          [style.width.px]="tileSize"
+          [style.height.px]="tileSize">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="control-bar">
+    <button class="control-btn" type="button" (click)="moveCarLeft()" [disabled]="!carIsActive || carGameOver || isPaused">◀ Left</button>
+    <button class="primary-btn" type="button" *ngIf="!carIsActive && !carGameOver" (click)="startCarGame()">Start</button>
+    <button class="primary-btn" type="button" *ngIf="carIsActive && !carGameOver" (click)="togglePause()">{{ isPaused ? 'Resume' : 'Pause' }}</button>
+    <button class="control-btn" type="button" (click)="moveCarRight()" [disabled]="!carIsActive || carGameOver || isPaused">Right ▶</button>
+  </div>
+
+  <div class="utility-row">
+    <button class="ghost-btn" type="button" (click)="resetCarGame()">Reset</button>
+    <button class="ghost-btn" type="button" (click)="stopCarGame()">Stop</button>
   </div>
 </div>

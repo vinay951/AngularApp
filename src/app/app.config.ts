@@ -8,11 +8,18 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { authInterceptorInterceptor } from './auth-interceptor.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient(),importProvidersFrom(ToastrModule.forRoot({
-    positionClass: 'toast-top-right',
-    timeOut: 3000,
-    progressBar: true,
-    closeButton: true
-  })
-), provideAnimationsAsync(),provideHttpClient(withInterceptors([authInterceptorInterceptor]))]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([authInterceptorInterceptor])),
+    importProvidersFrom(
+      ToastrModule.forRoot({
+        positionClass: 'toast-top-right',
+        timeOut: 3000,
+        progressBar: true,
+        closeButton: true,
+      })
+    ),
+    provideAnimationsAsync(),
+  ],
 };

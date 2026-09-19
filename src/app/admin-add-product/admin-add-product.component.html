@@ -1,63 +1,80 @@
 
-<h2>{{ editingProduct ? 'Edit Product' : 'Add New Product' }}</h2>
-<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Name:</label>
-    <input id="name" formControlName="name" />
-  </div>
-  <div>
-    <label for="brand">Brand:</label>
-    <input id="brand" formControlName="brand" />
-  </div>
-  <div>
-    <label for="image">Product Image:</label>
-    <input id="image" type="file" accept="image/*" (change)="onImageSelected($event)" />
-    <div *ngIf="imageBase64">
-      <img [src]="imageBase64" alt="Preview" style="max-width: 120px; margin-top: 8px;" />
+<div class="admin-product-shell">
+  <h2>{{ editingProduct ? 'Edit Product' : 'Add New Product' }}</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+    <div class="field-group">
+      <label for="name">Name</label>
+      <input id="name" formControlName="name" />
     </div>
-  </div>
-  <div>
-    <label for="rating">Rating (0-5):</label>
-    <input id="rating" type="number" formControlName="rating" min="0" max="5" />
-  </div>
-  <div>
-    <label for="price">Price:</label>
-    <input id="price" type="number" formControlName="price" min="0" />
-  </div>
-  <button type="submit" [disabled]="isSubmitting || productForm.invalid || !imageBase64">{{ editingProduct ? 'Update Product' : 'Add Product' }}</button>
-  <button type="button" *ngIf="editingProduct" (click)="cancelEdit()">Cancel</button>
-</form>
-<div *ngIf="submitSuccess" style="color: green;">{{ editingProduct ? 'Product updated successfully!' : 'Product added successfully!' }}</div>
-<div *ngIf="submitError" style="color: red;">{{ submitError }}</div>
 
-<div *ngIf="isDataLoading">
-  <app-loading [isLoading]="isDataLoading"></app-loading>
+    <div class="field-group">
+      <label for="brand">Brand</label>
+      <input id="brand" formControlName="brand" />
+    </div>
+
+    <div class="field-group">
+      <label for="image">Product Image</label>
+      <input id="image" type="file" accept="image/*" (change)="onImageSelected($event)" />
+      <div *ngIf="imageBase64" class="image-preview-wrap">
+        <img [src]="imageBase64" alt="Preview" class="image-preview" />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label for="rating">Rating (0-5)</label>
+      <input id="rating" type="number" formControlName="rating" min="0" max="5" />
+    </div>
+
+    <div class="field-group">
+      <label for="price">Price</label>
+      <input id="price" type="number" formControlName="price" min="0" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="isSubmitting || productForm.invalid || !imageBase64">
+        {{ editingProduct ? 'Update Product' : 'Add Product' }}
+      </button>
+      <button type="button" class="secondary" *ngIf="editingProduct" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </form>
+
+  <div *ngIf="submitSuccess" class="status success">{{ editingProduct ? 'Product updated successfully!' : 'Product added successfully!' }}</div>
+  <div *ngIf="submitError" class="status error">{{ submitError }}</div>
+
+  <div *ngIf="isDataLoading">
+    <app-loading [isLoading]="isDataLoading"></app-loading>
+  </div>
+
+  <div class="product-list-panel">
+    <h3>Your Products</h3>
+
+    <table *ngIf="products.length > 0" class="products-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Brand</th>
+          <th>Image</th>
+          <th>Rating</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products">
+          <td>{{ p.name }}</td>
+          <td>{{ p.brand }}</td>
+          <td><img [src]="p.imageUrl" alt="img" class="table-image" /></td>
+          <td>{{ p.rating }}</td>
+          <td>₹{{ p.price }}</td>
+          <td class="action-cell">
+            <button type="button" class="table-btn" (click)="startEdit(p)">Edit</button>
+            <button type="button" class="table-btn danger" (click)="confirmDelete(p)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="products.length === 0 && !isDataLoading" class="empty-state">No products found.</div>
+  </div>
 </div>
-
-<h3 style="margin-top:2em;">Your Products</h3>
-<table *ngIf="products.length > 0" style="width:100%;margin-top:1em;">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Brand</th>
-      <th>Image</th>
-      <th>Rating</th>
-      <th>Price</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let p of products">
-      <td>{{ p.name }}</td>
-      <td>{{ p.brand }}</td>
-      <td><img [src]="p.imageUrl" alt="img" style="max-width:60px;max-height:40px;" /></td>
-      <td>{{ p.rating }}</td>
-      <td>₹{{ p.price }}</td>
-      <td>
-        <button (click)="startEdit(p)">Edit</button>
-        <button (click)="confirmDelete(p)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<div *ngIf="products.length === 0 && !isDataLoading" style="margin-top:1em;">No products found.</div>

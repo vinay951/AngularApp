@@ -2,14 +2,14 @@
   <div class="popup-overlay">
     <div class="popup-content">
       <h2>Register Test Case</h2>
-      <form (ngSubmit)="submitRegisterForm()">
-        <div>
-          <label for="username">Test Case Name:</label>
+      <form (ngSubmit)="submitRegisterForm()" class="test-register-form">
+        <div class="field-group">
+          <label for="username">Test Case Name</label>
           <input type="text" id="username" [(ngModel)]="registerData.name" name="username" required />
         </div>
-        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" (click)="closePopup()" aria-label="Close">Close</button>
           <button mat-button type="submit">Submit</button>
-          <button class="popup-close-btn" type="button" (click)="closePopup()" aria-label="Close">Close</button>
         </div>
       </form>
       <div *ngIf="isDataLoading">
