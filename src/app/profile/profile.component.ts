@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
   loadUserData() {
     // this.isDataLoading = true;
     this.getProfilePic();
-    this.userService.getUserProfile(localStorage.getItem("user")).subscribe(
+    this.userService.getUserProfile(sessionStorage.getItem("user")).subscribe(
       (data:any) => {
         this.user = data;
         this.profileForm.patchValue({
@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit {
 
     // Handle profile update logic
     this.isDataLoading = true;
-    const email = localStorage.getItem("user");
+    const email = sessionStorage.getItem("user");
     const updatedUser:User = new User(this.profileForm.value.firstName,this.profileForm.value.lastName,"1",email==undefined?"":email,"");
     this.userService.updateUserProfile(updatedUser).subscribe(
       (response:any) => {
@@ -94,7 +94,7 @@ export class ProfileComponent implements OnInit {
           this.toastr.success(response.responseMessage);
           if (this.profilePicturePreview) {
             this.isDataLoading = true;
-            let profile:ProfilePic = new ProfilePic(localStorage.getItem("user")??"",this.profilePicturePreview);
+            let profile:ProfilePic = new ProfilePic(sessionStorage.getItem("user") ?? "",this.profilePicturePreview);
             this.userService.uploadProfilePic(profile).subscribe(
               (response:any) => {
                 if(response.responseMessage === "Success"){
@@ -123,7 +123,7 @@ export class ProfileComponent implements OnInit {
   }
   getProfilePic(){
     this.isDataLoading = true;
-    const email = localStorage.getItem("user")??"";
+    const email = sessionStorage.getItem("user") ?? "";
     this.userService.getProfile(email).subscribe(
       (response:any) => {
         this.profilePicturePreview = response.picture;
@@ -143,13 +143,13 @@ export class ProfileComponent implements OnInit {
       return;
     }
     this.isDataLoading = true;
-    const email = localStorage.getItem("user");
+    const email = sessionStorage.getItem("user");
     const login:Login = new Login(email==undefined?"":email,this.profileForm.value.newPassword)
     this.userService.changePassword(login).subscribe(
       (response:any) => {
         if(response.responseMessage === "Success"){
           this.toastr.success('Password changed successfully');
-          localStorage.clear();
+          sessionStorage.clear();
           this.router.navigateByUrl('/login');
         }
         this.isDataLoading = false;

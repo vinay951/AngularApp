@@ -54,8 +54,7 @@ export class AppComponent implements OnInit {
 
   // Method to clear session and redirect to login
   logout(): void {
-    this.session.clearSessionData(); // or localStorage.removeItem('token')
-    localStorage.clear();
+    this.session.clearSessionData();
     this.router.navigate(['/login']);
   }
   isTokenExpired(): boolean {

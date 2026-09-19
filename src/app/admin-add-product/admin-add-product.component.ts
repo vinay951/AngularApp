@@ -32,7 +32,7 @@ export class AdminAddProductComponent {
       price: [0, [Validators.required, Validators.min(0)]]
     });
       // For demo, set userEmail here or get from auth service
-      this.userEmail = localStorage.getItem('user') || '';
+      this.userEmail = sessionStorage.getItem('user') || '';
       if (this.userEmail) {
         this.loadProducts();
       }

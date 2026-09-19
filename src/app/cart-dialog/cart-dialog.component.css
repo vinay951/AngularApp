@@ -175,9 +175,6 @@
   border-radius: 28px;
   overflow: hidden;
 }
-  background: var(--cart-bg);
-  color: #f9fafb;
-}
 
 .cart-big {
   display: flex;

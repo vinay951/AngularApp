@@ -7,7 +7,7 @@ import { CurrencyPipe, CommonModule } from '@angular/common';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
   standalone: true,
-  imports: [CommonModule, CurrencyPipe]
+  imports: [CommonModule]
 })
 export class CheckoutComponent {
   product: any = null;

@@ -235,8 +235,6 @@ body.dark-mode .input-group input {
     max-width: 100%;
   }
 }
-  margin-right: 10px;  /* Add some space between username and the message text */
-}
 
 /* Message content */
 #chatroom .chat-message p {

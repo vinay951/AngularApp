@@ -1,36 +1,63 @@
-<div class="shop-search-bar">
-  <input
-    type="text"
-    [(ngModel)]="searchValue"
-    (keyup.enter)="onSearch()"
-    placeholder="Search products..."
-  />
-  <button type="button" (click)="onSearch()">Search</button>
-</div>
+<div class="shop-shell">
+  <div class="shop-search-bar">
+    <div class="search-group">
+      <span class="search-icon">⌕</span>
+      <input
+        type="text"
+        [(ngModel)]="searchValue"
+        (keyup.enter)="onSearch()"
+        placeholder="Search for products, brands and more"
+      />
+    </div>
+    <button type="button" (click)="onSearch()">Search</button>
+  </div>
 
-<div class="shop-container" *ngIf="!isLoading; else loading">
-  <div class="product-grid">
-    <article class="product-card" *ngFor="let p of products">
-      <div class="image-wrapper">
-        <img [src]="p.imageUrl" [alt]="p.name" loading="lazy" *ngIf="p.imageUrl; else noImage" />
-        <ng-template #noImage><span class="no-image">No Image</span></ng-template>
-      </div>
+  <div class="shop-banner" aria-label="Shopping promotion banner">
+    <div>
+      <span class="banner-chip">Top picks</span>
+      <h2>Big deals on branded essentials</h2>
+    </div>
+    <button type="button">Explore now</button>
+  </div>
 
-      <div class="product-body">
-        <h3 class="product-name">{{ p.name }}</h3>
-        <p class="product-brand">{{ p.brand }}</p>
-
-        <div class="product-meta">
-          <span class="rating">★ {{ p.rating | number:'1.1-1' }}/5</span>
-          <span class="price">₹{{ p.price }}</span>
+  <div class="shop-container" *ngIf="!isLoading; else loading">
+    <div class="product-grid">
+      <article class="product-card" *ngFor="let p of products">
+        <div class="image-wrapper">
+          <span class="deal-badge">{{ p.rating ? 'Top Rated' : 'New' }}</span>
+          <img [src]="p.imageUrl" [alt]="p.name" loading="lazy" *ngIf="p.imageUrl; else noImage" />
+          <ng-template #noImage><span class="no-image">No Image</span></ng-template>
         </div>
 
-        <div class="product-actions">
-          <button class="btn outline" type="button" (click)="openProduct(p)">View</button>
-          <button class="btn primary" type="button" (click)="buyNow(p)">Buy Now</button>
+        <div class="product-body">
+          <div class="product-header">
+            <div>
+              <p class="product-brand">{{ p.brand }}</p>
+              <h3 class="product-name">{{ p.name }}</h3>
+            </div>
+            <button class="wish-btn" type="button" aria-label="Save product">❤</button>
+          </div>
+
+          <div class="product-meta">
+            <span class="rating-pill">★ {{ p.rating | number:'1.1-1' }}</span>
+            <span class="delivery-pill">Free delivery</span>
+          </div>
+
+          <div class="price-row">
+            <span class="price">₹{{ p.price }}</span>
+            <span class="old-price">₹{{ p.price + 2000 }}</span>
+            <span class="discount">{{ p.discount || 25 }}% off</span>
+          </div>
+
+          <p class="product-note">{{ p.description || 'Premium quality product with trusted performance and service.' }}</p>
+
+          <div class="product-actions">
+            <button class="btn outline" type="button" (click)="openProduct(p)">View</button>
+            <button class="btn primary" type="button" (click)="buyNow(p)">Add to cart</button>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </div>
 
     <div class="pagination-controls">
       <button type="button" (click)="prevPage()" [disabled]="page === 0">Previous</button>

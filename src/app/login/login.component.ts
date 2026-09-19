@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
     this.isDataLoading = true;
     this.userService.getIpAddress().subscribe({
       next: (response: any) => {
-        localStorage.setItem("user",this.generateUniqueName(response.ip));
+        const guestUser = this.generateUniqueName(response.ip);
+        this.session.setCurrentUser(guestUser);
         const login:Login = new Login("skipped_user","123456");
         this.userService.login(login).subscribe({
           next: (response: any) => {
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
               this.session.setSessionData("Token",response.token);
               this.decodeJwtAndStore(response.token);
               // load cart for skipped user
-              const email = localStorage.getItem('user') || '';
+              const email = this.session.getCurrentUser() || '';
               if (email) {
                 this.cart.loadCart(email);
               }
@@ -103,11 +104,11 @@ export class LoginComponent implements OnInit {
       this.userService.login(login).subscribe({
         next: (response: any) => {
           if(response.responseMessage==="Success"){
-            localStorage.setItem("user",this.loginForm.value.username);
+            this.session.setCurrentUser(this.loginForm.value.username);
             this.session.setSessionData("Token",response.token);
             this.decodeJwtAndStore(response.token);
-            // load user cart now that session/token and localStorage user are set
-            const email = localStorage.getItem('user') || this.loginForm.value.username;
+            // load user cart now that session/token and session user are set
+            const email = this.session.getCurrentUser() || this.loginForm.value.username;
             if (email) {
               this.cart.loadCart(email);
             }

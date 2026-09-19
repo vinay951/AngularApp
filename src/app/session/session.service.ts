@@ -6,6 +6,15 @@ import { Injectable } from '@angular/core';
 export class SessionService {
 
   constructor() { }
+
+  setCurrentUser(user: string): void {
+    sessionStorage.setItem('user', user);
+  }
+
+  getCurrentUser(): string | null {
+    return sessionStorage.getItem('user');
+  }
+
   setSessionData(key: string, value: string): void {
     sessionStorage.setItem(key, value);
   }

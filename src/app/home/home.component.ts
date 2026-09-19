@@ -45,7 +45,8 @@ export class HomeComponent implements OnInit {
       if (message) {
         // Log and add the received message to the array of messages
         console.log(`Message received from ${message.sender}: ${message.content}`);
-        if(!localStorage.getItem("user")?.includes(message.sender)){
+        const currentUser = sessionStorage.getItem('user') || '';
+        if(!currentUser.includes(message.sender)){
           this.toastr.info(`Message received from ${message.sender}: ${message.content}`);
           if(message.content === null){
             this.notificationService.showNotification(message.sender+":Joined",message.sender);  // Show a notification for each new message
@@ -76,7 +77,7 @@ export class HomeComponent implements OnInit {
     this.faceIdPresent();
   }
   logout(){
-    localStorage.clear();
+    this.session.clearSessionData();
     this.router.navigateByUrl('/login');
   }
   loadMessages(): void {
@@ -132,7 +133,7 @@ export class HomeComponent implements OnInit {
     return colors[Math.abs(hash % colors.length)];
   }
   getUserName(){
-    this.username = this.removeDomain(localStorage.getItem("user")??"");
+    this.username = this.removeDomain(sessionStorage.getItem("user") ?? "");
   }
   showOnlineUsers(show: boolean): void {
     console.log("ssss",this.activeOnlineUsers);

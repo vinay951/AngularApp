@@ -110,7 +110,7 @@ export class LoginFaceidComponent {
         this.loginStatus = 'Face ID login successful (face image matched)';
         // Optionally, store JWT token from res if provided
         if (res.message === 'Face ID login successful (face image matched)') {
-          localStorage.setItem("user",this.userId);
+          this.session.setCurrentUser(this.userId);
           this.session.setSessionData("Token",res.token);
           this.decodeJwtAndStore(res.token);
           // load cart after successful faceid login

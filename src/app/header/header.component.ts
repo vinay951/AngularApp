@@ -32,7 +32,7 @@ import { CartDialogComponent } from '../cart-dialog/cart-dialog.component';
 })
 export class HeaderComponent implements OnInit{
   showTooltip: boolean = false;  // Control visibility of tooltip
-  username:string = localStorage.getItem("user")??'';
+  username:string = sessionStorage.getItem("user") ?? '';
   isDataLoading = false;
   faceIdLoading = true;
   isMenuOpen = false;  // Menu state
@@ -236,7 +236,7 @@ export class HeaderComponent implements OnInit{
   }
   
   loadUserPreferences(){
-    const email = localStorage.getItem("user")??"";
+    const email = sessionStorage.getItem("user") ?? "";
     if(!email) return;
     this.userService.getUserPreferences(email).subscribe({
       next: (resp: any) => {
@@ -271,7 +271,7 @@ export class HeaderComponent implements OnInit{
       }
       this.pinnedItems.push(item);
     }
-    const email = localStorage.getItem("user")??"";
+    const email = sessionStorage.getItem("user") ?? "";
     // Call backend to save preferences (simple payload)
     this.userService.saveUserPreferences(email, { pinned: this.pinnedItems.map(i=>i.label) }).subscribe({
       next: (resp:any) => {
@@ -284,7 +284,7 @@ export class HeaderComponent implements OnInit{
     });
   }
   getMode(){
-    const email = localStorage.getItem("user")??"";
+    const email = sessionStorage.getItem("user") ?? "";
     this.isDataLoading = true;
     this.userService.getMode(email).subscribe({
       next: (response: any) => {
@@ -305,9 +305,8 @@ export class HeaderComponent implements OnInit{
     });
   }
   logout(){
-    localStorage.clear();
-    this.router.navigateByUrl('/login');
     this.session.clearSessionData();
+    this.router.navigateByUrl('/login');
   }
   // Function to toggle the menu
   toggleMenu() {
@@ -326,7 +325,7 @@ export class HeaderComponent implements OnInit{
           console.log(response);
           if(response.responseMessage==="Success"){
             this.isDataLoading = false;
-            localStorage.clear();
+            this.session.clearSessionData();
             this.router.navigateByUrl("/login")
           } else{
             this.toastr.error(response.responseMessage,"Try Again");
@@ -342,7 +341,7 @@ export class HeaderComponent implements OnInit{
     }
   }
   startingWithUser():boolean{
-    const user = localStorage.getItem("user")??"";
+    const user = sessionStorage.getItem("user") ?? "";
     if (user.startsWith('User-')) {
       return false;
     } else {
@@ -350,14 +349,12 @@ export class HeaderComponent implements OnInit{
     }
   }
   register(){
-    localStorage.clear();
+    this.session.clearSessionData();
     this.router.navigate(['/register']);
-    this.session.clearSessionData(); 
   }
   login(){
-    localStorage.clear();
+    this.session.clearSessionData();
     this.router.navigate(['/login']);
-    this.session.clearSessionData(); 
   }
   openRegisterForm() {
     const dialogRef = this.dialog.open(TestRegisterComponent, {
@@ -375,7 +372,7 @@ export class HeaderComponent implements OnInit{
   }
   deleteFaceID(){
     this.isDataLoading = true;
-    const email = localStorage.getItem("user")??"";
+    const email = sessionStorage.getItem("user") ?? "";
     this.userService.deleteFaceId(email).subscribe({
       next: (response: any) => {
         console.log(response);

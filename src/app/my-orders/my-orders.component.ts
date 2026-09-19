@@ -23,7 +23,7 @@ isDataLoading: any;
   searchTerm: string = '';
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
-    this.userEmail = localStorage.getItem('user');
+    this.userEmail = sessionStorage.getItem('user');
     this.darkMode = document.body.classList.contains('dark-mode');
     const pref = localStorage.getItem('theme');
     if (pref === 'dark') {

@@ -33,7 +33,7 @@ isDataLoading: any;
   }
 
   onBuy() {
-    const email = localStorage.getItem('user');
+    const email = sessionStorage.getItem('user');
     const payload = { ids: this.productIds, email };
     this.isDataLoading = true;
     this.http.post('http://localhost:8080/recordPurchase', payload).subscribe({

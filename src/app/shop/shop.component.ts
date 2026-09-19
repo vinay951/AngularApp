@@ -11,7 +11,7 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDialogModule, ProductDialogComponent],
+  imports: [CommonModule, FormsModule, MatDialogModule],
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.css']
 })

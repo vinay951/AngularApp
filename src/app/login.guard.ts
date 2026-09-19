@@ -15,8 +15,8 @@ export const loginGuard: CanActivateFn = (route, state) => {
     timeExpired = true;
   }
 
-  // Check if authToken exists in localStorage
-  if (localStorage.getItem('user') && timeExpired) {
+  // Check if authToken exists in sessionStorage
+  if (sessionStorage.getItem('user') && timeExpired) {
     // If token exists, allow navigation
     router.navigate(['/home']);
     return false;

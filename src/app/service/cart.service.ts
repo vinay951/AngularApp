@@ -15,7 +15,7 @@ export class CartService {
   private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
-    const email = localStorage.getItem('user');
+    const email = sessionStorage.getItem('user');
     if (email) {
       this.loadCart(email);
     }
@@ -26,7 +26,7 @@ export class CartService {
     this.items.push(product);
     this.countSubject.next(this.items.length);
 
-    const email = localStorage.getItem('user');
+    const email = sessionStorage.getItem('user');
     if (email) {
       const payload: Partial<CartEntity> = { email, productId: product.id };
       this.http.post<CartEntity>(`${this.apiUrl}/cart/add`, payload).pipe(
@@ -131,7 +131,7 @@ export class CartService {
     }
 
     // No known cart id locally; if user logged in, try fetching server entries
-    const email = localStorage.getItem('user');
+    const email = sessionStorage.getItem('user');
     if (email) {
       return this.fetchCartEntities(email).pipe(
         map(entries => entries.find(e => String(e.productId) === String(productId) || (e.product && String(e.product.id) === String(productId)))),

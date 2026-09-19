@@ -19,10 +19,10 @@ export const authGuard: CanActivateFn = (route, state) => {
     return false;
   }
   console.log(timeExpired)
-  // Check if authToken exists in localStorage
-  if (localStorage.getItem('user')) {
+  // Check if authToken exists in sessionStorage
+  if (sessionStorage.getItem('user')) {
     if(state.url === '/test' || state.url === '/profile' || state.url === '/changePassword'){
-      if(localStorage.getItem('user')?.startsWith("User-")){
+      if(sessionStorage.getItem('user')?.startsWith("User-")){
         router.navigate(['/accessDenied']);
         return false;
       }

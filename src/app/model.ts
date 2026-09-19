@@ -60,6 +60,8 @@ export interface Product {
   imageUrl: string;   //base64 string
   rating: number;      // 0–5
   price: number;
+  description?: string;
+  discount?: number;
 }
 
 // Cart entity stored in backend
